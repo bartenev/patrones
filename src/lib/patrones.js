@@ -41,7 +41,7 @@ export function parseDeck(obj, fallbackName) {
 
   blocks = blocks.filter((bl) => bl.cards.length)
   const count = blocks.reduce((s, b) => s + b.cards.length, 0)
-  return count ? { name, blocks, on: true } : null
+  return count ? { name, blocks, on: false, fileName: "" } : null
 }
 
 export function cleanName(fn) {

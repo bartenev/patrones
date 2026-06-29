@@ -199,15 +199,40 @@ li.deck {
   border-radius: 11px;
   padding: 11px 14px;
   transition: .12s;
+  cursor: pointer;
+  user-select: none;
 }
 
 li.deck:hover { border-color: var(--azulejo); }
 li.deck.on { border-color: var(--azulejo); background: var(--azulejo-soft); }
 li.deck input { width: 18px; height: 18px; accent-color: var(--azulejo); flex: none; }
-li.deck .nm { font-weight: 600; font-size: 14.5px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-li.deck .ct { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
-li.deck .x { color: var(--muted); border: none; background: none; font-size: 16px; padding: 0 2px; line-height: 1; }
-li.deck .x:hover { color: var(--amber); }
+.decks-scroll {
+  max-height: min(42vh, 320px);
+  overflow-y: auto;
+  margin-bottom: 4px;
+  padding-right: 4px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--card);
+}
+
+.decks-scroll .decks { padding: 8px; }
+
+li.deck .nm {
+  font-weight: 600;
+  font-size: 14.5px;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+li.deck .ct {
+  color: var(--muted);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  flex: none;
+}
 
 .block { margin: 24px 0 6px; }
 
@@ -455,6 +480,14 @@ footer {
   text-align: center;
   padding: 18px;
   border-top: 1px solid var(--line);
+}
+
+footer code {
+  background: var(--azulejo-soft);
+  color: var(--azulejo);
+  padding: 1px 6px;
+  border-radius: 5px;
+  font-size: .92em;
 }
 
 .err { color: var(--amber); font-size: 13px; margin-top: 10px; }

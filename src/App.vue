@@ -1,14 +1,14 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from "vue"
+import { loadDecksFromFolder } from "./lib/loadDecks.js"
 import {
   buildQueue,
-  cleanName,
   deckCount,
-  parseDeck,
   sideFor
 } from "./lib/patrones.js"
 
 const decks = ref([])
+const loadErr = ref("")
 const view = ref("setup")
 const queue = ref([])
 const cur = ref(null)
@@ -21,9 +21,7 @@ const requeue = ref(true)
 const curSection = ref(null)
 const order = ref("file")
 const autospeak = ref(false)
-const loadErr = ref("")
 const isDark = ref(false)
-const dropOver = ref(false)
 const esVoice = ref(null)
 
 const cardSide = ref("")
@@ -51,7 +49,7 @@ const startDisabled = computed(() => totalSelected.value === 0)
 const startLabel = computed(() =>
   totalSelected.value
     ? `Начать прогон → ${totalSelected.value} пар`
-    : "Выбери хотя бы одну колоду"
+    : "Выбери хотя бы один юнит"
 )
 
 const showSecbar = computed(() => Boolean(curSection.value))
@@ -68,72 +66,8 @@ const doneText = computed(() =>
     : `Пройдено ${total.value} пар · споткнулся ${missed.value} раз. Прогони ошибки ещё раз — закрепится.`
 )
 
-function addDeck(d) {
-  const ex = decks.value.findIndex((x) => x.name === d.name)
-  if (ex >= 0) decks.value[ex] = d
-  else decks.value.push(d)
-}
-
-function finishLoad(bad) {
-  loadErr.value = bad.length
-    ? `Не удалось разобрать: ${bad.join(", ")} — проверь, что это валидный JSON нужной структуры.`
-    : ""
-}
-
-function handleFiles(files) {
-  const arr = [...files]
-  let pending = arr.length
-  const bad = []
-  if (!pending) return
-
-  arr.forEach((f) => {
-    const r = new FileReader()
-    r.onload = (e) => {
-      try {
-        const obj = JSON.parse(e.target.result)
-        const d = parseDeck(obj, cleanName(f.name))
-        if (d) addDeck(d)
-        else bad.push(f.name)
-      } catch {
-        bad.push(f.name)
-      }
-      if (--pending === 0) finishLoad(bad)
-    }
-    r.onerror = () => {
-      bad.push(f.name)
-      if (--pending === 0) finishLoad(bad)
-    }
-    r.readAsText(f)
-  })
-}
-
-function onFileInput(e) {
-  handleFiles(e.target.files)
-  e.target.value = ""
-}
-
-function onDrop(e) {
-  e.preventDefault()
-  dropOver.value = false
-  handleFiles(e.dataTransfer.files)
-}
-
-function onDragOver(e) {
-  e.preventDefault()
-  dropOver.value = true
-}
-
-function onDragLeave(e) {
-  e.preventDefault()
-  dropOver.value = false
-}
-
 function toggleDeck(deck, on) {
   deck.on = on
-}
-
-function removeDeck(index) {
-  decks.value.splice(index, 1)
 }
 
 function selectAll(on) {
@@ -249,6 +183,15 @@ function onKeydown(e) {
 }
 
 onMounted(() => {
+  const { decks: loaded, bad } = loadDecksFromFolder()
+  decks.value = loaded
+
+  if (bad.length) {
+    loadErr.value = `Не удалось разобрать: ${bad.join(", ")}`
+  } else if (!loaded.length) {
+    loadErr.value = "В папке decks/ нет .json — положи туда файлы юнитов и обнови страницу."
+  }
+
   pickVoice()
   if ("speechSynthesis" in window) {
     speechSynthesis.onvoiceschanged = pickVoice
@@ -276,54 +219,42 @@ onUnmounted(() => {
   <main>
     <section v-show="view === 'setup'" class="wrap">
       <p class="lead">
-        Брось сюда файлы паттернов в формате <code>.json</code> — по одному на юнит.
-        Каждый файл хранит блоки (правило, типы исключений, лексика), а внутри блока — пары карточек.
-        Выбери юниты галочками, режим порядка — и запускай.
+        Юниты подхватываются из папки <code>decks/</code> — по одному <code>.json</code> на юнит.
+        Отметь галочками, что прогонять, выбери режим порядка — и запускай.
       </p>
 
-      <div
-        class="drop"
-        :class="{ over: dropOver }"
-        @dragenter.prevent="dropOver = true"
-        @dragover="onDragOver"
-        @dragleave="onDragLeave"
-        @drop="onDrop"
-      >
-        <h3>Перетащи .json или выбери вручную</h3>
-        <p>Несколько сразу — каждый станет отдельной колодой</p>
-        <label class="file-btn">
-          Выбрать файлы
-          <input type="file" accept=".json,application/json" multiple hidden @change="onFileInput">
-        </label>
-        <div v-if="loadErr" class="err">{{ loadErr }}</div>
+      <div class="deck-head">
+        <h2>Юниты</h2>
+        <div v-if="decks.length" class="tools">
+          <button class="mini" type="button" @click="selectAll(true)">все</button>
+          <button class="mini" type="button" @click="selectAll(false)">снять</button>
+        </div>
       </div>
 
-      <div v-if="decks.length">
-        <div class="deck-head">
-          <h2>Колоды</h2>
-          <div class="tools">
-            <button class="mini" type="button" @click="selectAll(true)">все</button>
-            <button class="mini" type="button" @click="selectAll(false)">снять</button>
-          </div>
-        </div>
+      <div v-if="decks.length" class="decks-scroll">
         <ul class="decks">
           <li
-            v-for="(deck, i) in decks"
-            :key="deck.name + i"
+            v-for="deck in decks"
+            :key="deck.fileName"
             class="deck"
             :class="{ on: deck.on }"
+            @click="toggleDeck(deck, !deck.on)"
           >
             <input
               type="checkbox"
               :checked="deck.on"
-              @change="toggleDeck(deck, $event.target.checked)"
+              tabindex="-1"
+              @click.prevent
             >
-            <span class="nm">{{ deck.name }}</span>
+            <span class="nm">{{ deck.fileName }}</span>
             <span class="ct">{{ deckCount(deck) }} · {{ deck.blocks.length }} бл.</span>
-            <button class="x" type="button" title="убрать" @click="removeDeck(i)">✕</button>
           </li>
         </ul>
+      </div>
 
+      <p v-if="loadErr" class="err">{{ loadErr }}</p>
+
+      <template v-if="decks.length">
         <div class="block">
           <h3>Порядок карточек</h3>
           <div class="radio">
@@ -364,7 +295,7 @@ onUnmounted(() => {
         <button class="start" type="button" :disabled="startDisabled" @click="startCards">
           {{ startLabel }}
         </button>
-      </div>
+      </template>
     </section>
 
     <section v-show="view === 'drill'" class="wrap">
@@ -423,5 +354,5 @@ onUnmounted(() => {
     </section>
   </main>
 
-  <footer>Работает офлайн · ничего не отправляется в сеть · паттерны хранятся только в выбранных файлах</footer>
+  <footer>Юниты из папки <code>decks/</code> · офлайн · ничего не уходит в сеть</footer>
 </template>
