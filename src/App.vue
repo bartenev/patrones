@@ -18,7 +18,7 @@ const requeue = ref(true)
 const curSection = ref<string | null>(null)
 const order = ref<OrderMode>("straight")
 const autospeak = ref(false)
-const isDark = ref(false)
+const isDark = ref(true)
 const esVoice = ref<SpeechSynthesisVoice | null>(null)
 
 const cardSide = ref("")
@@ -202,6 +202,8 @@ function onKeydown(e: KeyboardEvent) {
 }
 
 onMounted(() => {
+  document.documentElement.setAttribute("data-theme", isDark.value ? "dark" : "light")
+
   const { decks: loaded, bad } = loadDecksFromFolder()
   decks.value = loaded
 

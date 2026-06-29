@@ -6,13 +6,15 @@ const modules = import.meta.glob<DeckJsonInput>("../../decks/*.json", {
   import: "default"
 })
 
-export function loadDecksFromFolder(): LoadDecksResult {
+export function loadDecksFromModules(
+  entries: Record<string, DeckJsonInput>
+): LoadDecksResult {
   const decks: LoadDecksResult["decks"] = []
   const bad: string[] = []
 
-  const entries = Object.entries(modules).sort(([a], [b]) => a.localeCompare(b, "ru"))
+  const sorted = Object.entries(entries).sort(([a], [b]) => a.localeCompare(b, "ru"))
 
-  for (const [path, data] of entries) {
+  for (const [path, data] of sorted) {
     const fileName = path.split("/").pop() ?? path
     const deck = parseDeck(data, cleanName(fileName))
     if (deck) {
@@ -25,4 +27,8 @@ export function loadDecksFromFolder(): LoadDecksResult {
   }
 
   return { decks, bad }
+}
+
+export function loadDecksFromFolder(): LoadDecksResult {
+  return loadDecksFromModules(modules)
 }
