@@ -24,8 +24,14 @@ const isDark = ref(true)
 const esVoice = ref<SpeechSynthesisVoice | null>(null)
 const timerFill = ref("0%")
 const timerTransition = ref("none")
+const timerPaused = ref(false)
 
 let timerId: ReturnType<typeof setTimeout> | null = null
+let timerRunId = 0
+let timerPhase: "question" | "answer" | null = null
+let timerDurationMs = 0
+let timerStartedAt = 0
+let timerRemainingMs = 0
 
 const timerOptions: { value: TimerSec; label: string }[] = [
   { value: 0, label: "вручную" },
@@ -97,40 +103,102 @@ const doneText = computed(() =>
     : `Пройдено ${total.value} пар · споткнулся ${missed.value} раз. Прогони ошибки ещё раз — закрепится.`
 )
 
-function clearTimer() {
+function clearTimerTimeout() {
   if (timerId !== null) {
     clearTimeout(timerId)
     timerId = null
   }
-  timerFill.value = "0%"
-  timerTransition.value = "none"
 }
 
-function runTimerStep(onDone: () => void) {
-  clearTimer()
-  if (!timerSec.value || view.value !== "drill") return
-  const ms = timerSec.value * 1000
-  timerTransition.value = `width ${ms}ms linear`
+function resetTimerBar() {
+  timerTransition.value = "none"
   timerFill.value = "0%"
+}
+
+function animateTimerBar(ms: number, fromPercent = 0) {
+  const runId = ++timerRunId
+  timerTransition.value = "none"
+  timerFill.value = `${fromPercent}%`
+
   requestAnimationFrame(() => {
-    timerFill.value = "100%"
+    requestAnimationFrame(() => {
+      if (runId !== timerRunId || view.value !== "drill" || timerPaused.value) return
+      timerTransition.value = `width ${ms}ms linear`
+      timerFill.value = "100%"
+    })
   })
+}
+
+function clearTimer() {
+  clearTimerTimeout()
+  timerRunId++
+  timerPaused.value = false
+  timerPhase = null
+  timerRemainingMs = 0
+  resetTimerBar()
+}
+
+function runTimerStep(phase: "question" | "answer") {
+  clearTimerTimeout()
+  timerPaused.value = false
+  if (!timerSec.value || view.value !== "drill") return
+
+  const ms = timerSec.value * 1000
+  timerPhase = phase
+  timerDurationMs = ms
+  timerStartedAt = Date.now()
+  timerRemainingMs = ms
+  animateTimerBar(ms)
+
   timerId = setTimeout(() => {
     timerId = null
-    onDone()
+    timerPhase = null
+    if (phase === "question" && !revealed.value) reveal()
+    else if (phase === "answer" && revealed.value) next()
   }, ms)
 }
 
-function startQuestionTimer() {
-  runTimerStep(() => {
-    if (!revealed.value) reveal()
-  })
+function pauseTimer() {
+  if (!isTimerMode.value || view.value !== "drill" || timerPaused.value || timerId === null) return
+
+  clearTimerTimeout()
+  timerRunId++
+
+  const elapsed = Date.now() - timerStartedAt
+  timerRemainingMs = Math.max(0, timerDurationMs - elapsed)
+  const currentPercent = timerDurationMs
+    ? Math.min(100, (elapsed / timerDurationMs) * 100)
+    : 0
+
+  timerTransition.value = "none"
+  timerFill.value = `${currentPercent}%`
+  timerPaused.value = true
 }
 
-function startAnswerTimer() {
-  runTimerStep(() => {
-    if (revealed.value) next()
-  })
+function resumeTimer() {
+  if (!timerPaused.value || timerRemainingMs <= 0 || !timerPhase) return
+
+  const ms = timerRemainingMs
+  const startPercent = Number.parseFloat(timerFill.value) || 0
+  const phase = timerPhase
+
+  timerPaused.value = false
+  timerDurationMs = ms
+  timerStartedAt = Date.now()
+  animateTimerBar(ms, startPercent)
+
+  timerId = setTimeout(() => {
+    timerId = null
+    timerPhase = null
+    if (phase === "question" && !revealed.value) reveal()
+    else if (phase === "answer" && revealed.value) next()
+  }, ms)
+}
+
+function onCardClick() {
+  if (!isTimerMode.value || view.value !== "drill") return
+  if (timerPaused.value) resumeTimer()
+  else pauseTimer()
 }
 
 function toggleDeck(deck: Deck, on: boolean) {
@@ -191,6 +259,14 @@ function next() {
 
   applyCardView()
   startQuestionTimer()
+}
+
+function startQuestionTimer() {
+  runTimerStep("question")
+}
+
+function startAnswerTimer() {
+  runTimerStep("answer")
 }
 
 function startCards() {
@@ -403,7 +479,11 @@ onUnmounted(() => {
         <span class="ln" />
       </div>
 
-      <div class="card">
+      <div
+        class="card"
+        :class="{ paused: isTimerMode && timerPaused }"
+        @click="onCardClick"
+      >
         <span class="tag">{{ cardTag }}</span>
         <div class="side">{{ cardSide }}</div>
         <div class="prompt">{{ cardPrompt }}</div>
@@ -435,7 +515,7 @@ onUnmounted(() => {
 
       <div class="hint">
         <template v-if="isTimerMode">
-          авто · {{ timerSec }} с на вопрос и ответ · <kbd>Esc</kbd> выход
+          авто · {{ timerSec }} с · клик — пауза · <kbd>Esc</kbd> выход
         </template>
         <template v-else>
           <kbd>Пробел</kbd> показать ответ · <kbd>←</kbd> споткнулся · <kbd>→</kbd> знал · <kbd>S</kbd> озвучить · <kbd>Esc</kbd> выход

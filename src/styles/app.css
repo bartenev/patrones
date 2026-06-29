@@ -337,7 +337,6 @@ li.deck .ct {
   height: 100%;
   background: var(--azulejo);
   width: 0;
-  transition: width linear;
 }
 
 .start {
@@ -411,6 +410,14 @@ li.deck .ct {
   text-align: center;
   padding: 38px 28px;
   position: relative;
+}
+
+.card:has(.card-timer) {
+  cursor: pointer;
+}
+
+.card.paused .card-timer .fill {
+  opacity: 0.55;
 }
 
 .tag {
