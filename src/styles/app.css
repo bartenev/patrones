@@ -159,7 +159,7 @@ code {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 26px 0 10px;
+  margin: 0 0 10px;
 }
 
 .deck-head h2 {
