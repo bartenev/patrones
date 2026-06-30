@@ -1,10 +1,21 @@
 import { shuffle } from "./patrones"
-import type { QueueItem, StoredMistake } from "../types"
+import type { DirMode, QueueItem, StoredMistake } from "../types"
 
 export const MISTAKES_STORAGE_KEY = "patrones:mistakes"
 
-export function cardKey(item: Pick<QueueItem, "deck" | "front" | "back">): string {
-  return `${item.deck}\0${item.front}\0${item.back}`
+export type MistakeRef = Pick<QueueItem, "deck" | "front" | "back"> & {
+  dirMode: DirMode
+}
+
+export function cardKey(item: MistakeRef): string {
+  return `${item.deck}\0${item.front}\0${item.back}\0${item.dirMode}`
+}
+
+function normalizeMistake(item: StoredMistake): StoredMistake {
+  return {
+    ...item,
+    dirMode: item.dirMode ?? "auto"
+  }
 }
 
 function readStore(): Map<string, StoredMistake> {
@@ -17,7 +28,10 @@ function readStore(): Map<string, StoredMistake> {
     const list = JSON.parse(raw) as StoredMistake[]
     if (!Array.isArray(list)) return new Map()
 
-    return new Map(list.map((item) => [cardKey(item), item]))
+    return new Map(list.map((item) => {
+      const normalized = normalizeMistake(item)
+      return [cardKey(normalized), normalized]
+    }))
   } catch {
     return new Map()
   }
@@ -40,9 +54,15 @@ export function mistakeCount(): number {
   return readStore().size
 }
 
-export function recordMistake(item: QueueItem) {
+export function recordMistake(item: QueueItem, dirMode: DirMode) {
   const store = readStore()
-  const key = cardKey(item)
+  const ref: MistakeRef = {
+    deck: item.deck,
+    front: item.front,
+    back: item.back,
+    dirMode
+  }
+  const key = cardKey(ref)
   const prev = store.get(key)
 
   store.set(key, {
@@ -53,6 +73,7 @@ export function recordMistake(item: QueueItem) {
     note: item.note,
     section: item.section,
     mode: item.mode,
+    dirMode,
     missCount: (prev?.missCount ?? 0) + 1,
     lastMissedAt: Date.now()
   })
@@ -60,9 +81,9 @@ export function recordMistake(item: QueueItem) {
   writeStore(store)
 }
 
-export function removeMistake(item: Pick<QueueItem, "deck" | "front" | "back">) {
+export function removeMistake(item: QueueItem, dirMode: DirMode) {
   const store = readStore()
-  if (!store.delete(cardKey(item))) return
+  if (!store.delete(cardKey({ deck: item.deck, front: item.front, back: item.back, dirMode }))) return
   writeStore(store)
 }
 
@@ -79,6 +100,7 @@ export function buildMistakesQueue(): QueueItem[] {
     note: item.note,
     deck: item.deck,
     section: "",
-    mode: item.mode
+    mode: item.mode,
+    dirMode: item.dirMode
   })))
 }

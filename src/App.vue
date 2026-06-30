@@ -261,9 +261,13 @@ function speak(text: string) {
   speechSynthesis.speak(u)
 }
 
+function effectiveDirMode(): DirMode {
+  return cur.value?.dirMode ?? dirMode.value
+}
+
 function applyCardView() {
   if (!cur.value) return
-  const v = sideFor(cur.value, dirMode.value)
+  const v = sideFor(cur.value, effectiveDirMode())
   spanishText.value = v.spanish
   cardSide.value = v.side
   cardPrompt.value = v.prompt
@@ -325,7 +329,7 @@ function reveal() {
   clearTimer()
   revealed.value = true
   if (cur.value) {
-    spanishText.value = sideFor(cur.value, dirMode.value).spanish
+    spanishText.value = sideFor(cur.value, effectiveDirMode()).spanish
   }
   if (autospeak.value) speak(spanishText.value)
   startAnswerTimer()
@@ -337,13 +341,13 @@ function rate(knew: boolean) {
   if (!knew) {
     missed.value++
     missesRequeued.value++
-    recordMistake(cur.value)
+    recordMistake(cur.value, effectiveDirMode())
     refreshMistakeCount()
     if (requeue.value && !isMistakesMode.value) {
       queue.value.push({ ...cur.value, section: "" })
     }
   } else if (isMistakesMode.value) {
-    removeMistake(cur.value)
+    removeMistake(cur.value, effectiveDirMode())
     refreshMistakeCount()
   }
   next()
@@ -476,7 +480,7 @@ onUnmounted(() => {
         </div>
 
         <div class="opts">
-          <div class="seg">
+          <div v-if="!isMistakesMode" class="seg">
             <button
               v-for="opt in dirOptions"
               :key="opt.value"

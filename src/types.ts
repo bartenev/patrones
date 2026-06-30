@@ -47,6 +47,7 @@ export interface QueueItem extends Card {
   deck: string
   section: string
   mode: string
+  dirMode?: DirMode
 }
 
 export type OrderMode =
@@ -64,6 +65,7 @@ export interface StoredMistake {
   note: string
   section: string
   mode: string
+  dirMode: DirMode
   missCount: number
   lastMissedAt: number
 }

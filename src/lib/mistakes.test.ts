@@ -26,43 +26,50 @@ describe("mistakes store", () => {
     clearMistakes()
   })
 
-  it("builds stable card keys", () => {
-    expect(cardKey(sample)).toBe("Unit\0hola\0привет")
+  it("builds stable card keys with direction", () => {
+    expect(cardKey({ ...sample, dirMode: "ru" })).toBe("Unit\0hola\0привет\0ru")
+    expect(cardKey({ ...sample, dirMode: "es" })).toBe("Unit\0hola\0привет\0es")
   })
 
-  it("records and upserts mistakes", () => {
-    recordMistake(sample)
-    recordMistake(sample)
+  it("records and upserts mistakes per direction", () => {
+    recordMistake(sample, "ru")
+    recordMistake(sample, "ru")
+    recordMistake(sample, "es")
 
-    const [item] = loadMistakes()
+    expect(mistakeCount()).toBe(2)
+    const items = loadMistakes().sort((a, b) => a.dirMode.localeCompare(b.dirMode))
+    expect(items[0].dirMode).toBe("es")
+    expect(items[0].missCount).toBe(1)
+    expect(items[1].dirMode).toBe("ru")
+    expect(items[1].missCount).toBe(2)
+  })
+
+  it("removes mistake by card identity and direction", () => {
+    recordMistake(sample, "ru")
+    recordMistake(sample, "es")
+    removeMistake(sample, "ru")
     expect(mistakeCount()).toBe(1)
-    expect(item.missCount).toBe(2)
-    expect(item.translation).toBe("приветствие")
-  })
-
-  it("removes mistake by card identity", () => {
-    recordMistake(sample)
-    removeMistake(sample)
-    expect(mistakeCount()).toBe(0)
-    expect(localStorage.getItem(MISTAKES_STORAGE_KEY)).toBeNull()
+    expect(loadMistakes()[0].dirMode).toBe("es")
   })
 
   it("builds shuffled queue from stored mistakes", () => {
-    recordMistake(sample)
+    recordMistake(sample, "ru")
     recordMistake({
       ...sample,
       front: "casa",
       back: "дом"
-    })
+    }, "es")
 
     const queue = buildMistakesQueue()
     expect(queue).toHaveLength(2)
     expect(queue.every((q) => q.section === "")).toBe(true)
     expect(queue.map((q) => q.front).sort()).toEqual(["casa", "hola"])
+    expect(queue.find((q) => q.front === "hola")?.dirMode).toBe("ru")
+    expect(queue.find((q) => q.front === "casa")?.dirMode).toBe("es")
   })
 
   it("clears all mistakes", () => {
-    recordMistake(sample)
+    recordMistake(sample, "auto")
     clearMistakes()
     expect(loadMistakes()).toEqual([])
   })
@@ -78,15 +85,31 @@ describe("mistakes store", () => {
   })
 
   it("no-ops when removing unknown mistake", () => {
-    removeMistake(sample)
+    removeMistake(sample, "ru")
     expect(mistakeCount()).toBe(0)
+  })
+
+  it("defaults legacy mistakes without dirMode to auto", () => {
+    localStorage.setItem(MISTAKES_STORAGE_KEY, JSON.stringify([{
+      deck: "Unit",
+      front: "hola",
+      back: "привет",
+      translation: "",
+      note: "",
+      section: "",
+      mode: "vocab",
+      missCount: 1,
+      lastMissedAt: 1
+    }]))
+    expect(mistakeCount()).toBe(1)
+    expect(loadMistakes()[0].dirMode).toBe("auto")
   })
 
   it("guards when localStorage is unavailable", () => {
     vi.stubGlobal("localStorage", undefined)
     expect(mistakeCount()).toBe(0)
-    recordMistake(sample)
-    removeMistake(sample)
+    recordMistake(sample, "ru")
+    removeMistake(sample, "ru")
     clearMistakes()
     vi.unstubAllGlobals()
   })

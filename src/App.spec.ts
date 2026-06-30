@@ -566,7 +566,7 @@ describe("App", () => {
       deck: "Unit B",
       section: "",
       mode: "vocab"
-    })
+    }, "auto")
 
     const wrapper = await mountApp()
     await wrapper.find('input[value="mistakes"]').setValue(true)
@@ -580,5 +580,40 @@ describe("App", () => {
     await flushPromises()
     expect(wrapper.text()).toContain("¡Listo!")
     expect(localStorage.getItem("patrones:mistakes")).toBeNull()
+  })
+
+  it("stores separate mistakes per direction mode", async () => {
+    const wrapper = await mountApp()
+    await startDrill(wrapper)
+    await wrapper.get(".reveal").trigger("click")
+    await wrapper.get(".missed").trigger("click")
+    await flushPromises()
+    await wrapper.findAll(".seg button")[2].trigger("click")
+    await flushPromises()
+    await wrapper.get(".reveal").trigger("click")
+    await wrapper.get(".missed").trigger("click")
+    await flushPromises()
+    expect(wrapper.text()).toContain("5 — только ошибки (2)")
+    const stored = JSON.parse(localStorage.getItem("patrones:mistakes") || "[]")
+    expect(stored.map((item: { dirMode: string }) => item.dirMode).sort()).toEqual(["auto", "es"])
+  })
+
+  it("replays mistake in saved direction mode", async () => {
+    recordMistake({
+      front: "hola",
+      back: "привет",
+      translation: "",
+      note: "",
+      deck: "Unit B",
+      section: "",
+      mode: "vocab"
+    }, "es")
+
+    const wrapper = await mountApp()
+    await wrapper.find('input[value="mistakes"]').setValue(true)
+    await wrapper.get(".start").trigger("click")
+    await flushPromises()
+    expect(wrapper.text()).toContain("español")
+    expect(wrapper.text()).toContain("привет")
   })
 })
