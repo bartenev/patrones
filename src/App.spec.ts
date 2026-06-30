@@ -583,6 +583,32 @@ describe("App", () => {
     expect(localStorage.getItem("patrones:mistakes")).toBeNull()
   })
 
+  it("requeues missed card in mistakes mode until knew", async () => {
+    recordMistake({
+      front: "hola",
+      back: "привет",
+      translation: "",
+      note: "",
+      deck: "Unit B",
+      section: "",
+      mode: "vocab"
+    }, "auto")
+
+    const wrapper = await mountApp()
+    await wrapper.find('input[value="mistakes"]').setValue(true)
+    await wrapper.get(".start").trigger("click")
+    await flushPromises()
+    await wrapper.get(".reveal").trigger("click")
+    await wrapper.get(".missed").trigger("click")
+    await flushPromises()
+    expect(wrapper.text()).toContain("hola")
+    await wrapper.get(".reveal").trigger("click")
+    await wrapper.get(".knew").trigger("click")
+    await flushPromises()
+    expect(wrapper.text()).toContain("¡Listo!")
+    expect(localStorage.getItem("patrones:mistakes")).toBeNull()
+  })
+
   it("stores separate mistakes per direction mode", async () => {
     const wrapper = await mountApp()
     await startDrill(wrapper)

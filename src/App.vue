@@ -5,6 +5,7 @@ import { buildQueue, deckCount, reviewCount, sideFor } from "./lib/patrones"
 import {
   buildMistakesQueue,
   mistakeCount as getMistakeCount,
+  mistakesBatchCount,
   recordMistake,
   removeMistake
 } from "./lib/mistakes"
@@ -89,7 +90,7 @@ const orderOptions: { value: OrderMode; title: string; desc: string }[] = [
   {
     value: "mistakes",
     title: "5 — только ошибки",
-    desc: "карточки, в которых споткнулся раньше. Знал — убирается из банка."
+    desc: "до 10 карточек за раз из банка. Ошибся — снова в очередь; знал — убирается из банка."
   },
   {
     value: "review",
@@ -109,6 +110,7 @@ const totalSelected = computed(() => selectedDecks.value.reduce((s, d) => s + de
 const selectedReviewCount = computed(() => reviewCount(selectedDecks.value))
 const isMistakesMode = computed(() => order.value === "mistakes")
 const isReviewMode = computed(() => order.value === "review")
+const mistakesSessionCount = computed(() => mistakesBatchCount(storedMistakeCount.value))
 const startDisabled = computed(() => {
   if (isMistakesMode.value) return storedMistakeCount.value === 0
   if (isReviewMode.value) return selectedReviewCount.value === 0
@@ -116,9 +118,11 @@ const startDisabled = computed(() => {
 })
 const startLabel = computed(() => {
   if (isMistakesMode.value) {
-    return storedMistakeCount.value
-      ? `Повторить ошибки → ${storedMistakeCount.value} пар`
-      : "Нет сохранённых ошибок"
+    const total = storedMistakeCount.value
+    const batch = mistakesSessionCount.value
+    if (!total) return "Нет сохранённых ошибок"
+    if (total === batch) return `Повторить ошибки → ${total} пар`
+    return `Повторить ошибки → ${batch} из ${total} пар`
   }
   if (isReviewMode.value) {
     return selectedReviewCount.value
@@ -357,7 +361,7 @@ function rate(knew: boolean) {
     missesRequeued.value++
     recordMistake(cur.value, effectiveDirMode())
     refreshMistakeCount()
-    if (requeue.value && !isMistakesMode.value) {
+    if (isMistakesMode.value || requeue.value) {
       queue.value.push({ ...cur.value, section: "" })
     }
   } else if (isMistakesMode.value) {

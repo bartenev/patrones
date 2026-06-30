@@ -2,6 +2,7 @@ import { shuffle } from "./patrones"
 import type { DirMode, QueueItem, StoredMistake } from "../types"
 
 export const MISTAKES_STORAGE_KEY = "patrones:mistakes"
+export const MISTAKES_BATCH_SIZE = 10
 
 export type MistakeRef = Pick<QueueItem, "deck" | "front" | "back"> & {
   dirMode: DirMode
@@ -54,6 +55,16 @@ export function mistakeCount(): number {
   return readStore().size
 }
 
+export function mistakesBatchCount(total = mistakeCount()): number {
+  return Math.min(total, MISTAKES_BATCH_SIZE)
+}
+
+export function pickMistakesForSession(mistakes: StoredMistake[] = loadMistakes()): StoredMistake[] {
+  return [...mistakes]
+    .sort((a, b) => b.lastMissedAt - a.lastMissedAt)
+    .slice(0, MISTAKES_BATCH_SIZE)
+}
+
 export function recordMistake(item: QueueItem, dirMode: DirMode) {
   const store = readStore()
   const ref: MistakeRef = {
@@ -93,7 +104,7 @@ export function clearMistakes() {
 }
 
 export function buildMistakesQueue(): QueueItem[] {
-  return shuffle(loadMistakes().map((item) => ({
+  return shuffle(pickMistakesForSession().map((item) => ({
     front: item.front,
     back: item.back,
     translation: item.translation,

@@ -5,7 +5,10 @@ import {
   clearMistakes,
   loadMistakes,
   mistakeCount,
+  mistakesBatchCount,
+  MISTAKES_BATCH_SIZE,
   MISTAKES_STORAGE_KEY,
+  pickMistakesForSession,
   recordMistake,
   removeMistake
 } from "./mistakes"
@@ -66,6 +69,32 @@ describe("mistakes store", () => {
     expect(queue.map((q) => q.front).sort()).toEqual(["casa", "hola"])
     expect(queue.find((q) => q.front === "hola")?.dirMode).toBe("ru")
     expect(queue.find((q) => q.front === "casa")?.dirMode).toBe("es")
+  })
+
+  it("limits session queue to batch size", () => {
+    for (let i = 0; i < MISTAKES_BATCH_SIZE + 5; i++) {
+      recordMistake({ ...sample, front: `w${i}`, back: `b${i}` }, "ru")
+    }
+    expect(mistakeCount()).toBe(MISTAKES_BATCH_SIZE + 5)
+    expect(buildMistakesQueue()).toHaveLength(MISTAKES_BATCH_SIZE)
+    expect(mistakesBatchCount()).toBe(MISTAKES_BATCH_SIZE)
+  })
+
+  it("picks most recently missed cards for the batch", () => {
+    let now = 1000
+    vi.spyOn(Date, "now").mockImplementation(() => now)
+
+    for (let i = 0; i < 3; i++) {
+      recordMistake({ ...sample, front: `old${i}`, back: `b${i}` }, "ru")
+      now += 1
+    }
+    recordMistake({ ...sample, front: "fresh", back: "new" }, "ru")
+
+    const batch = pickMistakesForSession()
+    expect(batch).toHaveLength(4)
+    expect(batch[0].front).toBe("fresh")
+
+    vi.restoreAllMocks()
   })
 
   it("clears all mistakes", () => {
