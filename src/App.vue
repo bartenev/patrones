@@ -453,7 +453,7 @@ onUnmounted(() => {
               tabindex="-1"
               @click.prevent
             >
-            <span class="nm">{{ deck.fileName }}</span>
+            <span class="nm" :title="deck.name">{{ deck.name }}</span>
             <span class="ct">{{ deckCount(deck) }} · {{ deck.blocks.length }} бл.</span>
           </li>
         </ul>

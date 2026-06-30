@@ -12,7 +12,7 @@ export function loadDecksFromModules(
   const decks: LoadDecksResult["decks"] = []
   const bad: string[] = []
 
-  const sorted = Object.entries(entries).sort(([a], [b]) => a.localeCompare(b, "ru"))
+  const sorted = Object.entries(entries).sort(([a], [b]) => b.localeCompare(a, "ru"))
 
   for (const [path, data] of sorted) {
     const fileName = path.slice(path.lastIndexOf("/") + 1)
@@ -27,7 +27,7 @@ export function loadDecksFromModules(
   }
 
   if (decks.length) {
-    decks[decks.length - 1].on = true
+    decks[0].on = true
   }
 
   return { decks, bad }
