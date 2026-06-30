@@ -11,18 +11,18 @@ const { mockDecks, loadDecksFromFolderMock } = vi.hoisted(() => {
       on: false,
       blocks: [{
         title: "Блок",
-        mode: "vocab",
-        cards: [{ a: "hola", b: "привет", note: "" }]
+        mode: "transform",
+        cards: [{ a: "el niño", b: "la niña", note: "" }]
       }]
     },
     {
       name: "Unit B",
       fileName: "unit-b.json",
-      on: false,
+      on: true,
       blocks: [{
         title: "Блок",
-        mode: "transform",
-        cards: [{ a: "el niño", b: "la niña", note: "" }]
+        mode: "vocab",
+        cards: [{ a: "hola", b: "привет", note: "" }]
       }]
     }
   ]
@@ -51,7 +51,10 @@ async function mountApp() {
 }
 
 async function startDrill(wrapper: VueWrapper) {
-  await wrapper.find(".deck").trigger("click")
+  if (wrapper.get(".start").attributes("disabled") !== undefined) {
+    const rows = wrapper.findAll(".deck")
+    await rows[rows.length - 1].trigger("click")
+  }
   await wrapper.get(".start").trigger("click")
   await flushPromises()
 }
@@ -88,7 +91,8 @@ describe("App", () => {
     expect(wrapper.text()).toContain("Patrones")
     expect(wrapper.text()).toContain("unit-a.json")
     expect(wrapper.text()).toContain("unit-b.json")
-    expect(wrapper.get(".start").attributes("disabled")).toBeDefined()
+    expect(wrapper.get(".start").attributes("disabled")).toBeUndefined()
+    expect(wrapper.text()).toContain("Начать прогон → 1 пар")
   })
 
   it("toggles unit selection by row click", async () => {
@@ -98,7 +102,7 @@ describe("App", () => {
     await row.trigger("click")
     expect(row.classes()).toContain("on")
     expect(wrapper.get(".start").attributes("disabled")).toBeUndefined()
-    expect(wrapper.text()).toContain("Начать прогон → 1 пар")
+    expect(wrapper.text()).toContain("Начать прогон → 2 пар")
   })
 
   it("select all and clear selection", async () => {
@@ -269,11 +273,11 @@ describe("App", () => {
       await startDrill(wrapper)
       expect(wrapper.find(".card-timer").exists()).toBe(true)
       expect(wrapper.find(".reveal").exists()).toBe(false)
-      expect(wrapper.text()).toContain("авто · 2 с")
+      expect(wrapper.text()).toContain("авто · 2 с на вопрос")
       await vi.advanceTimersByTimeAsync(2000)
       await flushPromises()
       expect(wrapper.text()).toContain("привет")
-      await vi.advanceTimersByTimeAsync(2000)
+      await vi.advanceTimersByTimeAsync(1000)
       await flushPromises()
       expect(wrapper.text()).toContain("¡Listo!")
     } finally {

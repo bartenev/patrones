@@ -44,6 +44,12 @@ const timerOptions: { value: TimerSec; label: string }[] = [
 
 const isTimerMode = computed(() => timerSec.value > 0)
 
+const ANSWER_TIMER_MS = 1000
+
+function timerStepMs(phase: "question" | "answer"): number {
+  return phase === "answer" ? ANSWER_TIMER_MS : timerSec.value * 1000
+}
+
 const cardSide = ref("")
 const cardPrompt = ref("")
 const cardAnswer = ref("")
@@ -143,7 +149,7 @@ function runTimerStep(phase: "question" | "answer") {
   timerPaused.value = false
   if (!timerSec.value || view.value !== "drill") return
 
-  const ms = timerSec.value * 1000
+  const ms = timerStepMs(phase)
   timerPhase = phase
   timerDurationMs = ms
   timerStartedAt = Date.now()
@@ -515,7 +521,7 @@ onUnmounted(() => {
 
       <div class="hint">
         <template v-if="isTimerMode">
-          авто · {{ timerSec }} с · клик — пауза · <kbd>Esc</kbd> выход
+          авто · {{ timerSec }} с на вопрос · 1 с на ответ · клик — пауза · <kbd>Esc</kbd> выход
         </template>
         <template v-else>
           <kbd>Пробел</kbd> показать ответ · <kbd>←</kbd> споткнулся · <kbd>→</kbd> знал · <kbd>S</kbd> озвучить · <kbd>Esc</kbd> выход

@@ -13,6 +13,7 @@ describe("loadDecksFromModules", () => {
     expect(decks[0].fileName).toBe("a-first.json")
     expect(decks[1].fileName).toBe("z-last.json")
     expect(decks[0].on).toBe(false)
+    expect(decks[1].on).toBe(true)
     expect(decks[0].name).toBe("Unidad test")
   })
 
@@ -30,6 +31,7 @@ describe("loadDecksFromModules", () => {
     })
     expect(bad).toEqual([])
     expect(decks[0].fileName).toBe("solo.json")
+    expect(decks[0].on).toBe(true)
   })
 })
 
@@ -38,6 +40,8 @@ describe("loadDecksFromFolder", () => {
     const { decks, bad } = loadDecksFromFolder()
     expect(bad).toEqual([])
     expect(decks.some((d) => d.fileName === "unidad-01.json")).toBe(true)
-    expect(decks.every((d) => d.on === false)).toBe(true)
+    const last = [...decks].sort((a, b) => a.fileName.localeCompare(b.fileName, "ru")).at(-1)
+    expect(last?.on).toBe(true)
+    expect(decks.filter((d) => d.on)).toHaveLength(1)
   })
 })

@@ -26,6 +26,10 @@ export function loadDecksFromModules(
     }
   }
 
+  if (decks.length) {
+    decks[decks.length - 1].on = true
+  }
+
   return { decks, bad }
 }
 
