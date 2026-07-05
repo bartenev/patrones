@@ -266,7 +266,7 @@ describe("App", () => {
 
   it("changes direction mode", async () => {
     const wrapper = await mountApp()
-    await wrapper.findAll(".seg button")[2].trigger("click")
+    await wrapper.findAll(".seg button")[1].trigger("click")
     await wrapper.find(".deck").trigger("click")
     await wrapper.get(".start").trigger("click")
     await flushPromises()
@@ -567,7 +567,7 @@ describe("App", () => {
       deck: "Unit B",
       section: "",
       mode: "vocab"
-    }, "auto")
+    }, "fwd")
 
     const wrapper = await mountApp()
     await wrapper.find('input[value="mistakes"]').setValue(true)
@@ -592,7 +592,7 @@ describe("App", () => {
       deck: "Unit B",
       section: "",
       mode: "vocab"
-    }, "auto")
+    }, "fwd")
 
     const wrapper = await mountApp()
     await wrapper.find('input[value="mistakes"]').setValue(true)
@@ -615,14 +615,14 @@ describe("App", () => {
     await wrapper.get(".reveal").trigger("click")
     await wrapper.get(".missed").trigger("click")
     await flushPromises()
-    await wrapper.findAll(".seg button")[2].trigger("click")
+    await wrapper.findAll(".seg button")[1].trigger("click")
     await flushPromises()
     await wrapper.get(".reveal").trigger("click")
     await wrapper.get(".missed").trigger("click")
     await flushPromises()
     expect(wrapper.text()).toContain("5 — только ошибки (2)")
     const stored = JSON.parse(localStorage.getItem("patrones:mistakes") || "[]")
-    expect(stored.map((item: { dirMode: string }) => item.dirMode).sort()).toEqual(["auto", "es"])
+    expect(stored.map((item: { dirMode: string }) => item.dirMode).sort()).toEqual(["fwd", "rev"])
   })
 
   it("replays mistake in saved direction mode", async () => {
@@ -634,7 +634,7 @@ describe("App", () => {
       deck: "Unit B",
       section: "",
       mode: "vocab"
-    }, "es")
+    }, "rev")
 
     const wrapper = await mountApp()
     await wrapper.find('input[value="mistakes"]').setValue(true)

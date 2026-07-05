@@ -71,7 +71,7 @@ export interface StoredMistake {
   lastMissedAt: number
 }
 
-export type DirMode = "auto" | "ru" | "es"
+export type DirMode = "fwd" | "rev"
 
 export type TimerSec = 0 | 1 | 2 | 3 | 4 | 5
 

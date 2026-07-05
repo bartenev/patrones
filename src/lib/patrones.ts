@@ -122,38 +122,26 @@ export function buildQueue(selectedDecks: Deck[], order: OrderMode): QueueItem[]
   return out
 }
 
+function sideLabel(card: QueueItem, reversed: boolean): string {
+  const isVocab = card.mode === "vocab" || card.mode === "ru"
+  if (reversed) return isVocab ? "español" : "форма"
+  return isVocab ? "подсказка" : "форма"
+}
+
 export function sideFor(card: QueueItem, dirMode: DirMode): SideView {
-  let mode: DirMode | "es-fwd" = dirMode
-  if (mode === "auto") {
-    mode = (card.mode === "vocab" || card.mode === "ru") ? "ru" : "es-fwd"
-  }
+  const reversed = dirMode === "rev"
+  const prompt = reversed ? card.back : card.front
+  const answer = reversed ? card.front : card.back
+  const isVocab = card.mode === "vocab" || card.mode === "ru"
+  const spanish = reversed
+    ? (isVocab ? "" : card.front)
+    : card.back
 
-  const translation = card.translation
-
-  if (mode === "ru") {
-    return {
-      prompt: card.front,
-      answer: card.back,
-      side: "подсказка",
-      spanish: card.back,
-      translation
-    }
-  }
-  if (mode === "es") {
-    const isVocab = card.mode === "vocab" || card.mode === "ru"
-    return {
-      prompt: card.back,
-      answer: card.front,
-      side: "español",
-      spanish: isVocab ? "" : card.front,
-      translation
-    }
-  }
   return {
-    prompt: card.front,
-    answer: card.back,
-    side: "форма",
-    spanish: card.back,
-    translation
+    prompt,
+    answer,
+    side: sideLabel(card, reversed),
+    spanish,
+    translation: card.translation
   }
 }

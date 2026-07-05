@@ -30,50 +30,50 @@ describe("mistakes store", () => {
   })
 
   it("builds stable card keys with direction", () => {
-    expect(cardKey({ ...sample, dirMode: "ru" })).toBe("Unit\0hola\0привет\0ru")
-    expect(cardKey({ ...sample, dirMode: "es" })).toBe("Unit\0hola\0привет\0es")
+    expect(cardKey({ ...sample, dirMode: "fwd" })).toBe("Unit\0hola\0привет\0fwd")
+    expect(cardKey({ ...sample, dirMode: "rev" })).toBe("Unit\0hola\0привет\0rev")
   })
 
   it("records and upserts mistakes per direction", () => {
-    recordMistake(sample, "ru")
-    recordMistake(sample, "ru")
-    recordMistake(sample, "es")
+    recordMistake(sample, "fwd")
+    recordMistake(sample, "fwd")
+    recordMistake(sample, "rev")
 
     expect(mistakeCount()).toBe(2)
     const items = loadMistakes().sort((a, b) => a.dirMode.localeCompare(b.dirMode))
-    expect(items[0].dirMode).toBe("es")
-    expect(items[0].missCount).toBe(1)
-    expect(items[1].dirMode).toBe("ru")
-    expect(items[1].missCount).toBe(2)
+    expect(items[0].dirMode).toBe("fwd")
+    expect(items[0].missCount).toBe(2)
+    expect(items[1].dirMode).toBe("rev")
+    expect(items[1].missCount).toBe(1)
   })
 
   it("removes mistake by card identity and direction", () => {
-    recordMistake(sample, "ru")
-    recordMistake(sample, "es")
-    removeMistake(sample, "ru")
+    recordMistake(sample, "fwd")
+    recordMistake(sample, "rev")
+    removeMistake(sample, "fwd")
     expect(mistakeCount()).toBe(1)
-    expect(loadMistakes()[0].dirMode).toBe("es")
+    expect(loadMistakes()[0].dirMode).toBe("rev")
   })
 
   it("builds shuffled queue from stored mistakes", () => {
-    recordMistake(sample, "ru")
+    recordMistake(sample, "fwd")
     recordMistake({
       ...sample,
       front: "casa",
       back: "дом"
-    }, "es")
+    }, "rev")
 
     const queue = buildMistakesQueue()
     expect(queue).toHaveLength(2)
     expect(queue.every((q) => q.section === "")).toBe(true)
     expect(queue.map((q) => q.front).sort()).toEqual(["casa", "hola"])
-    expect(queue.find((q) => q.front === "hola")?.dirMode).toBe("ru")
-    expect(queue.find((q) => q.front === "casa")?.dirMode).toBe("es")
+    expect(queue.find((q) => q.front === "hola")?.dirMode).toBe("fwd")
+    expect(queue.find((q) => q.front === "casa")?.dirMode).toBe("rev")
   })
 
   it("limits session queue to batch size", () => {
     for (let i = 0; i < MISTAKES_BATCH_SIZE + 5; i++) {
-      recordMistake({ ...sample, front: `w${i}`, back: `b${i}` }, "ru")
+      recordMistake({ ...sample, front: `w${i}`, back: `b${i}` }, "fwd")
     }
     expect(mistakeCount()).toBe(MISTAKES_BATCH_SIZE + 5)
     expect(buildMistakesQueue()).toHaveLength(MISTAKES_BATCH_SIZE)
@@ -85,10 +85,10 @@ describe("mistakes store", () => {
     vi.spyOn(Date, "now").mockImplementation(() => now)
 
     for (let i = 0; i < 3; i++) {
-      recordMistake({ ...sample, front: `old${i}`, back: `b${i}` }, "ru")
+      recordMistake({ ...sample, front: `old${i}`, back: `b${i}` }, "fwd")
       now += 1
     }
-    recordMistake({ ...sample, front: "fresh", back: "new" }, "ru")
+    recordMistake({ ...sample, front: "fresh", back: "new" }, "fwd")
 
     const batch = pickMistakesForSession()
     expect(batch).toHaveLength(4)
@@ -98,7 +98,7 @@ describe("mistakes store", () => {
   })
 
   it("clears all mistakes", () => {
-    recordMistake(sample, "auto")
+    recordMistake(sample, "fwd")
     clearMistakes()
     expect(loadMistakes()).toEqual([])
   })
@@ -114,11 +114,11 @@ describe("mistakes store", () => {
   })
 
   it("no-ops when removing unknown mistake", () => {
-    removeMistake(sample, "ru")
+    removeMistake(sample, "fwd")
     expect(mistakeCount()).toBe(0)
   })
 
-  it("defaults legacy mistakes without dirMode to auto", () => {
+  it("defaults missing dirMode to fwd", () => {
     localStorage.setItem(MISTAKES_STORAGE_KEY, JSON.stringify([{
       deck: "Unit",
       front: "hola",
@@ -131,14 +131,14 @@ describe("mistakes store", () => {
       lastMissedAt: 1
     }]))
     expect(mistakeCount()).toBe(1)
-    expect(loadMistakes()[0].dirMode).toBe("auto")
+    expect(loadMistakes()[0].dirMode).toBe("fwd")
   })
 
   it("guards when localStorage is unavailable", () => {
     vi.stubGlobal("localStorage", undefined)
     expect(mistakeCount()).toBe(0)
-    recordMistake(sample, "ru")
-    removeMistake(sample, "ru")
+    recordMistake(sample, "fwd")
+    removeMistake(sample, "fwd")
     clearMistakes()
     vi.unstubAllGlobals()
   })

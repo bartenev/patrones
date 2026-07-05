@@ -270,8 +270,8 @@ describe("sideFor", () => {
     mode: "transform"
   }
 
-  it("auto uses ru direction for vocab", () => {
-    const v = sideFor({ ...base, mode: "vocab" }, "auto")
+  it("fwd uses front as prompt for vocab", () => {
+    const v = sideFor({ ...base, mode: "vocab" }, "fwd")
     expect(v).toEqual({
       prompt: "ru",
       answer: "es",
@@ -281,30 +281,24 @@ describe("sideFor", () => {
     })
   })
 
-  it("auto uses es-fwd for transform", () => {
-    const v = sideFor(base, "auto")
-    expect(v.side).toBe("форма")
-    expect(v.prompt).toBe("ru")
-    expect(v.translation).toBe("перевод")
-  })
-
-  it("ru mode always ru to es", () => {
-    expect(sideFor(base, "ru")).toEqual({
+  it("fwd uses front as prompt for transform", () => {
+    const v = sideFor(base, "fwd")
+    expect(v).toEqual({
       prompt: "ru",
       answer: "es",
-      side: "подсказка",
+      side: "форма",
       spanish: "es",
       translation: "перевод"
     })
   })
 
-  it("auto treats ru block mode like vocab", () => {
-    const v = sideFor({ ...base, mode: "ru" }, "auto")
+  it("fwd treats ru block mode like vocab", () => {
+    const v = sideFor({ ...base, mode: "ru" }, "fwd")
     expect(v.side).toBe("подсказка")
   })
 
-  it("es mode with vocab does not tts russian answer", () => {
-    const v = sideFor({ ...base, mode: "vocab" }, "es")
+  it("rev uses back as prompt for vocab", () => {
+    const v = sideFor({ ...base, mode: "vocab" }, "rev")
     expect(v).toEqual({
       prompt: "es",
       answer: "ru",
@@ -314,18 +308,18 @@ describe("sideFor", () => {
     })
   })
 
-  it("es mode reverses prompt and answer for transform", () => {
-    const v = sideFor(base, "es")
+  it("rev uses back as prompt for transform", () => {
+    const v = sideFor(base, "rev")
     expect(v).toEqual({
       prompt: "es",
       answer: "ru",
-      side: "español",
+      side: "форма",
       spanish: "ru",
       translation: "перевод"
     })
   })
 
-  it("es mode speaks revealed spanish answer for transform", () => {
+  it("rev speaks spanish answer for transform", () => {
     const v = sideFor({
       front: "el niño",
       back: "la niña",
@@ -334,7 +328,7 @@ describe("sideFor", () => {
       deck: "d",
       section: "",
       mode: "transform"
-    }, "es")
+    }, "rev")
     expect(v.prompt).toBe("la niña")
     expect(v.answer).toBe("el niño")
     expect(v.spanish).toBe("el niño")

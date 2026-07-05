@@ -15,7 +15,7 @@ export function cardKey(item: MistakeRef): string {
 function normalizeMistake(item: StoredMistake): StoredMistake {
   return {
     ...item,
-    dirMode: item.dirMode ?? "auto"
+    dirMode: item.dirMode === "rev" ? "rev" : "fwd"
   }
 }
 

@@ -21,7 +21,7 @@ const total = ref(0)
 const missed = ref(0)
 const missesRequeued = ref(0)
 const revealed = ref(false)
-const dirMode = ref<DirMode>("auto")
+const dirMode = ref<DirMode>("fwd")
 const requeue = ref(true)
 const curSection = ref<string | null>(null)
 const order = ref<OrderMode>("straight")
@@ -100,9 +100,8 @@ const orderOptions: { value: OrderMode; title: string; desc: string }[] = [
 ]
 
 const dirOptions: { value: DirMode; label: string }[] = [
-  { value: "auto", label: "по блоку" },
-  { value: "ru", label: "RU → ES" },
-  { value: "es", label: "ES → RU" }
+  { value: "fwd", label: "front → back" },
+  { value: "rev", label: "back → front" }
 ]
 
 const selectedDecks = computed(() => decks.value.filter((d) => d.on))
