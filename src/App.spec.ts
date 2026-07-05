@@ -327,7 +327,7 @@ describe("App", () => {
     try {
       const wrapper = await mountApp()
       await wrapper.get("select").setValue("1")
-      await wrapper.findAll("label.chk input")[0].setValue(true)
+      await wrapper.findAll("label.opt-toggle input")[0].setValue(true)
       await flushPromises()
       await startDrill(wrapper)
       await vi.advanceTimersByTimeAsync(1000)
@@ -444,7 +444,7 @@ describe("App", () => {
 
   it("does not requeue when option disabled", async () => {
     const wrapper = await mountApp()
-    await wrapper.findAll("label.chk input")[1].setValue(false)
+    await wrapper.findAll("label.opt-toggle input")[1].setValue(false)
     await flushPromises()
     await startDrill(wrapper)
     await wrapper.get(".reveal").trigger("click")

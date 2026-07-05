@@ -457,11 +457,99 @@ li.deck .ct {
 .radio .d { color: var(--muted); font-size: 12.5px; margin-top: 2px; display: block; }
 
 .opts {
+  margin: 24px 0 6px;
+}
+
+.opts h3 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--muted);
+  margin: 0 0 10px;
+  font-weight: 700;
+}
+
+.opts-panel {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 18px 0 4px;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  overflow: hidden;
+}
+
+.opt-row {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.opt-row:last-child {
+  border-bottom: none;
+}
+
+.opt-label {
+  font-size: 14px;
+  font-weight: 600;
+  flex: 1;
+  min-width: 0;
+}
+
+.opt-row--dir {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.dir-seg {
+  display: flex;
+  width: 100%;
+}
+
+.dir-seg button {
+  flex: 1;
+  min-width: 0;
+}
+
+.opt-toggle {
+  cursor: pointer;
+  user-select: none;
+  transition: background .12s;
+}
+
+.opt-toggle:hover {
+  background: color-mix(in srgb, var(--azulejo-soft) 55%, transparent);
+}
+
+.opt-toggle:has(input:checked) {
+  background: var(--azulejo-soft);
+}
+
+.opt-toggle:has(input:disabled) {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.opt-toggle input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--azulejo);
+  flex: none;
+}
+
+.opt-select {
+  font-family: inherit;
+  font-size: 13px;
+  padding: 7px 10px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  min-width: 108px;
+  accent-color: var(--azulejo);
 }
 
 .seg {
@@ -485,42 +573,6 @@ li.deck .ct {
 .seg button:disabled {
   opacity: .45;
   cursor: not-allowed;
-}
-
-.chk {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--muted);
-  font-size: 13px;
-  user-select: none;
-}
-
-.chk input { width: 16px; height: 16px; accent-color: var(--azulejo); }
-
-.chk:has(input:disabled) {
-  opacity: .45;
-  cursor: not-allowed;
-}
-
-.timer-sel {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--muted);
-  font-size: 13px;
-  user-select: none;
-}
-
-.timer-sel select {
-  font-family: inherit;
-  font-size: 13px;
-  padding: 7px 10px;
-  border-radius: 9px;
-  border: 1px solid var(--line);
-  background: var(--card);
-  color: var(--ink);
-  accent-color: var(--azulejo);
 }
 
 .card-timer {

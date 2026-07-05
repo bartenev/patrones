@@ -333,32 +333,43 @@ onUnmounted(() => {
       </div>
 
       <div class="opts">
-        <div class="seg dir-seg">
-          <button
-            v-for="opt in dirOptions"
-            :key="opt.value"
-            type="button"
-            :class="{ on: dirMode === opt.value }"
-            :disabled="isMistakesMode"
-            @click="dirMode = opt.value"
-          >
-            {{ opt.label }}
-          </button>
+        <h3>Сессия</h3>
+        <div class="opts-panel">
+          <div class="opt-row opt-row--dir">
+            <span class="opt-label">Направление</span>
+            <div class="seg dir-seg">
+              <button
+                v-for="opt in dirOptions"
+                :key="opt.value"
+                type="button"
+                :class="{ on: dirMode === opt.value }"
+                :disabled="isMistakesMode"
+                @click="dirMode = opt.value"
+              >
+                {{ opt.label }}
+              </button>
+            </div>
+          </div>
+
+          <label class="opt-row opt-toggle">
+            <span class="opt-label">Озвучивать ответ</span>
+            <input v-model="autospeak" type="checkbox">
+          </label>
+
+          <label class="opt-row opt-toggle">
+            <span class="opt-label">Повторять ошибки</span>
+            <input v-model="requeue" type="checkbox" :disabled="isMistakesMode">
+          </label>
+
+          <div class="opt-row">
+            <span class="opt-label">Таймер</span>
+            <select v-model.number="timerSec" class="opt-select">
+              <option v-for="opt in timerOptions" :key="opt.value" :value="opt.value">
+                {{ opt.label }}
+              </option>
+            </select>
+          </div>
         </div>
-        <label class="chk">
-          <input v-model="autospeak" type="checkbox"> озвучивать ответ
-        </label>
-        <label class="chk">
-          <input v-model="requeue" type="checkbox" :disabled="isMistakesMode"> повторять ошибки
-        </label>
-        <label class="timer-sel">
-          таймер
-          <select v-model.number="timerSec">
-            <option v-for="opt in timerOptions" :key="opt.value" :value="opt.value">
-              {{ opt.label }}
-            </option>
-          </select>
-        </label>
       </div>
 
       <button class="start" type="button" :disabled="startDisabled" @click="emit('start')">
