@@ -8,7 +8,8 @@
         { "front": "el niño", "back": "la niña", "translation": "ребёнок / мальчик" },
         { "front": "el cocinero", "back": "la cocinera", "translation": "повар" },
         { "front": "el camarero", "back": "la camarera", "translation": "официант" },
-        { "front": "el dependiente", "back": "la dependienta", "translation": "продавец" }
+        { "front": "el dependiente", "back": "la dependienta", "translation": "продавец" },
+        { "front": "el amigo", "back": "la amiga", "translation": "друг / подруга" }
       ]
     },
     {
@@ -20,6 +21,8 @@
         { "front": "el doctor", "back": "la doctora", "translation": "врач" },
         { "front": "el señor", "back": "la señora", "translation": "господин" },
         { "front": "el escritor", "back": "la escritora", "translation": "писатель" },
+        { "front": "el pintor", "back": "la pintora", "translation": "художник" },
+        { "front": "el marqués", "back": "la marquesa", "translation": "маркиз / маркиза" },
         { "front": "el bailarín", "back": "la bailarina", "note": "теряет графическое ударение: bailarín → bailarina", "translation": "танцор" }
       ]
     },
@@ -28,8 +31,11 @@
       "mode": "transform",
       "cards": [
         { "front": "el estudiante", "back": "la estudiante", "note": "-ante не меняется", "translation": "студент" },
+        { "front": "el cantante", "back": "la cantante", "note": "-ante не меняется", "translation": "певец / певица" },
         { "front": "el pianista", "back": "la pianista", "note": "-ista не меняется", "translation": "пианист" },
-        { "front": "el taxista", "back": "la taxista", "note": "-ista не меняется", "translation": "таксист" }
+        { "front": "el taxista", "back": "la taxista", "note": "-ista не меняется", "translation": "таксист" },
+        { "front": "el periodista", "back": "la periodista", "note": "-ista не меняется", "translation": "журналист" },
+        { "front": "el turista", "back": "la turista", "note": "-ista не меняется", "translation": "турист" }
       ]
     },
     {
@@ -43,6 +49,14 @@
       ]
     },
     {
+      "title": "Две формы женского рода (обе допустимы)",
+      "mode": "transform",
+      "cards": [
+        { "front": "el médico", "back": "la médica / la médico", "note": "две формы ж.р.", "translation": "врач" },
+        { "front": "el jefe", "back": "la jefa / la jefe", "note": "две формы ж.р.", "translation": "начальник" }
+      ]
+    },
+    {
       "title": "Особые формы (непредсказуемые)",
       "mode": "transform",
       "cards": [
@@ -52,11 +66,22 @@
       ]
     },
     {
+      "title": "Семья",
+      "mode": "transform",
+      "cards": [
+        { "front": "el hijo", "back": "la hija", "translation": "сын / дочь" },
+        { "front": "el hermano", "back": "la hermana", "translation": "брат / сестра" },
+        { "front": "el tío", "back": "la tía", "translation": "дядя / тётя" },
+        { "front": "el abuelo", "back": "la abuela", "translation": "дедушка / бабушка" }
+      ]
+    },
+    {
       "title": "Разные слова (лексика)",
       "mode": "vocab",
       "cards": [
         { "front": "муж / супруг", "back": "el marido", "note": "ж.р. → la mujer" },
         { "front": "жена", "back": "la mujer" },
+        { "front": "мужчина", "back": "el hombre", "note": "ж.р. → la mujer (та же, что «жена»)" },
         { "front": "отец", "back": "el padre", "note": "ж.р. → la madre" },
         { "front": "мать", "back": "la madre" },
         { "front": "папа", "back": "el papá", "note": "ж.р. → la mamá" },

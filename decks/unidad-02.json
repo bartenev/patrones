@@ -12,7 +12,8 @@
         { "front": "музей", "back": "el museo" },
         { "front": "тетрадь", "back": "el cuaderno" },
         { "front": "минута", "back": "el minuto" },
-        { "front": "словарь", "back": "el diccionario" }
+        { "front": "словарь", "back": "el diccionario" },
+        { "front": "театр", "back": "el teatro" }
       ]
     },
     {
@@ -83,11 +84,9 @@
       "title": "Согласная, но ЖЕНСКИЙ род",
       "mode": "vocab",
       "cards": [
-        { "front": "ночь", "back": "la noche", "note": "согласная/-e, но ж.р." },
         { "front": "соль", "back": "la sal", "note": "согласная, но ж.р." },
         { "front": "цветок", "back": "la flor", "note": "согласная, но ж.р." },
         { "front": "свет", "back": "la luz", "note": "согласная, но ж.р." },
-        { "front": "ключ", "back": "la llave", "note": "-e, но ж.р." },
         { "front": "нос", "back": "la nariz", "note": "согласная, но ж.р." }
       ]
     },
@@ -103,7 +102,8 @@
         { "front": "дерево", "back": "el árbol" },
         { "front": "больница", "back": "el hospital" },
         { "front": "вилка", "back": "el tenedor" },
-        { "front": "поезд", "back": "el tren" }
+        { "front": "поезд", "back": "el tren" },
+        { "front": "кино / кинотеатр", "back": "el cine" }
       ]
     },
     {
@@ -111,7 +111,9 @@
       "mode": "vocab",
       "cards": [
         { "front": "молоко", "back": "la leche" },
-        { "front": "класс / урок", "back": "la clase" }
+        { "front": "класс / урок", "back": "la clase" },
+        { "front": "ночь", "back": "la noche", "note": "-e, но ж.р." },
+        { "front": "ключ", "back": "la llave", "note": "-e, но ж.р." }
       ]
     },
     {
