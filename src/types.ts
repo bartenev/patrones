@@ -1,3 +1,7 @@
+export type CardMode = "transform" | "vocab" | "cloze" | "phrase"
+
+export const ALL_CARD_MODES: CardMode[] = ["transform", "vocab", "cloze", "phrase"]
+
 export interface Card {
   front: string
   back: string

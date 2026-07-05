@@ -1,6 +1,7 @@
 import type {
   Block,
   Card,
+  CardMode,
   CardRaw,
   Deck,
   DeckJsonInput,
@@ -9,6 +10,28 @@ import type {
   QueueItem,
   SideView
 } from "../types"
+
+export function blockMatchesMode(block: Block, filter: CardMode[]): boolean {
+  if (!filter.length) return false
+  const mode = (block.mode || "auto").trim()
+  return filter.some((item) => {
+    if (item === "vocab") return mode === "vocab" || mode === "ru"
+    return mode === item
+  })
+}
+
+export function matchingBlocks(deck: Deck, filter: CardMode[]): Block[] {
+  return deck.blocks.filter((b) => blockMatchesMode(b, filter))
+}
+
+export function deckHasMatchingBlocks(deck: Deck, filter: CardMode[]): boolean {
+  return matchingBlocks(deck, filter).length > 0
+}
+
+export function visibleDecks(decks: Deck[], filter: CardMode[]): Deck[] {
+  if (!filter.length) return []
+  return decks.filter((d) => deckHasMatchingBlocks(d, filter))
+}
 
 export function normalizeCard(c: CardRaw): Card | null {
   if (!c || typeof c !== "object") return null
@@ -65,25 +88,29 @@ export function blockCount(block: Block): number {
   return block.cards.length
 }
 
-export function selectedBlocks(deck: Deck): Block[] {
-  return deck.blocks.filter((b) => b.on)
+export function filteredDeckCount(deck: Deck, filter: CardMode[]): number {
+  return matchingBlocks(deck, filter).reduce((s, b) => s + blockCount(b), 0)
 }
 
-export function activeBlocks(deck: Deck): Block[] {
+export function selectedBlocks(deck: Deck, filter: CardMode[]): Block[] {
+  return deck.blocks.filter((b) => b.on && blockMatchesMode(b, filter))
+}
+
+export function activeBlocks(deck: Deck, filter: CardMode[]): Block[] {
   if (!deck.on) return []
-  return selectedBlocks(deck)
+  return selectedBlocks(deck, filter)
 }
 
-export function selectedDeckCount(deck: Deck): number {
-  return activeBlocks(deck).reduce((s, b) => s + blockCount(b), 0)
+export function selectedDeckCount(deck: Deck, filter: CardMode[]): number {
+  return activeBlocks(deck, filter).reduce((s, b) => s + blockCount(b), 0)
 }
 
 export function deckCount(d: Deck): number {
   return d.blocks.reduce((s, b) => s + b.cards.length, 0)
 }
 
-export function reviewCount(decks: Deck[]): number {
-  return decks.reduce((s, d) => s + activeBlocks(d).length, 0)
+export function reviewCount(decks: Deck[], filter: CardMode[]): number {
+  return decks.reduce((s, d) => s + activeBlocks(d, filter).length, 0)
 }
 
 export function shuffle<T>(a: T[]): T[] {
@@ -104,11 +131,15 @@ function blockToItems(deck: Deck, block: Block): QueueItem[] {
   }))
 }
 
-export function buildQueue(selectedDecks: Deck[], order: OrderMode): QueueItem[] {
+export function buildQueue(
+  selectedDecks: Deck[],
+  order: OrderMode,
+  filter: CardMode[]
+): QueueItem[] {
   if (order === "review") {
     const out: QueueItem[] = []
     selectedDecks.forEach((d) => {
-      selectedBlocks(d).forEach((bl) => {
+      selectedBlocks(d, filter).forEach((bl) => {
         const chunk = blockToItems(d, bl)
         if (chunk.length) {
           const idx = (Math.random() * chunk.length) | 0
@@ -122,7 +153,7 @@ export function buildQueue(selectedDecks: Deck[], order: OrderMode): QueueItem[]
   if (order === "shuffleAll") {
     const items: QueueItem[] = []
     selectedDecks.forEach((d) => {
-      selectedBlocks(d).forEach((bl) => items.push(...blockToItems(d, bl)))
+      selectedBlocks(d, filter).forEach((bl) => items.push(...blockToItems(d, bl)))
     })
     return shuffle(items).map((it) => ({ ...it, section: "" }))
   }
@@ -130,7 +161,7 @@ export function buildQueue(selectedDecks: Deck[], order: OrderMode): QueueItem[]
   const out: QueueItem[] = []
 
   selectedDecks.forEach((d) => {
-    const active = selectedBlocks(d)
+    const active = selectedBlocks(d, filter)
     if (!active.length) return
 
     const blocks = order === "shuffleBlocks" ? shuffle([...active]) : active

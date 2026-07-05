@@ -1,18 +1,22 @@
 import { describe, expect, it, vi } from "vitest"
 import {
   activeBlocks,
+  blockMatchesMode,
   buildQueue,
   cleanName,
   deckCount,
+  matchingBlocks,
   normalizeCard,
   parseDeck,
   reviewCount,
   selectedDeckCount,
   shuffle,
-  sideFor
+  sideFor,
+  visibleDecks
 } from "./patrones"
 import { flatDeckJson, makeDeck, sampleDeckJson } from "../test/fixtures"
 import type { QueueItem } from "../types"
+import { ALL_CARD_MODES } from "../types"
 
 describe("normalizeCard", () => {
   it("parses object cards with front and back", () => {
@@ -126,10 +130,10 @@ describe("deckCount", () => {
   it("sums cards in all blocks", () => {
     const deck = makeDeck("u", [["a", "b"], ["c", "d"]], {
       blocks: [
-        { title: "1", mode: "auto", on: true, cards: [{ front: "a", back: "b", translation: "", note: "" }] },
+        { title: "1", mode: "transform", on: true, cards: [{ front: "a", back: "b", translation: "", note: "" }] },
         {
           title: "2",
-          mode: "auto",
+          mode: "transform",
           on: true,
           cards: [
             { front: "c", back: "d", translation: "", note: "" },
@@ -163,10 +167,10 @@ describe("reviewCount", () => {
     const deck = makeDeck("u", [["a", "b"], ["c", "d"]], {
       on: true,
       blocks: [
-        { title: "1", mode: "auto", on: true, cards: [{ front: "a", back: "b", translation: "", note: "" }] },
+        { title: "1", mode: "transform", on: true, cards: [{ front: "a", back: "b", translation: "", note: "" }] },
         {
           title: "2",
-          mode: "auto",
+          mode: "transform",
           on: true,
           cards: [
             { front: "c", back: "d", translation: "", note: "" },
@@ -175,16 +179,17 @@ describe("reviewCount", () => {
         }
       ]
     })
-    expect(reviewCount([deck])).toBe(2)
+    expect(reviewCount([deck], [...ALL_CARD_MODES])).toBe(2)
   })
 })
 
 describe("buildQueue", () => {
+  const allModes = [...ALL_CARD_MODES]
   const deckA = makeDeck("Unit A", [["a1", "b1"], ["a2", "b2"]], { blockTitle: "A-block" })
   const deckB = makeDeck("Unit B", [["c1", "d1"]], { blockTitle: "B-block" })
 
   it("straight: preserves unit, block and card order", () => {
-    const queue = buildQueue([deckA, deckB], "straight")
+    const queue = buildQueue([deckA, deckB], "straight", allModes)
     expect(queue.map((q) => q.front)).toEqual(["a1", "a2", "c1"])
     expect(queue.map((q) => q.deck)).toEqual(["Unit A", "Unit A", "Unit B"])
     expect(queue[0].section).toBe("A-block")
@@ -192,7 +197,7 @@ describe("buildQueue", () => {
 
   it("shuffleCards: keeps units and blocks, shuffles cards inside block", () => {
     vi.spyOn(Math, "random").mockReturnValue(0)
-    const queue = buildQueue([deckA], "shuffleCards")
+    const queue = buildQueue([deckA], "shuffleCards", allModes)
     expect(queue.map((q) => q.front)).toEqual(["a2", "a1"])
     vi.restoreAllMocks()
   })
@@ -200,18 +205,18 @@ describe("buildQueue", () => {
   it("shuffleBlocks: shuffles blocks and cards within deck", () => {
     const multiBlock = makeDeck("Multi", [["x", "y"]], {
       blocks: [
-        { title: "First", mode: "auto", on: true, cards: [{ front: "f1", back: "f2", translation: "", note: "" }] },
-        { title: "Second", mode: "auto", on: true, cards: [{ front: "s1", back: "s2", translation: "", note: "" }] }
+        { title: "First", mode: "transform", on: true, cards: [{ front: "f1", back: "f2", translation: "", note: "" }] },
+        { title: "Second", mode: "transform", on: true, cards: [{ front: "s1", back: "s2", translation: "", note: "" }] }
       ]
     })
     vi.spyOn(Math, "random").mockReturnValue(0)
-    const queue = buildQueue([multiBlock], "shuffleBlocks")
+    const queue = buildQueue([multiBlock], "shuffleBlocks", allModes)
     expect(queue.map((q) => q.front)).toEqual(["s1", "f1"])
     vi.restoreAllMocks()
   })
 
   it("shuffleAll: mixes everything and clears sections", () => {
-    const queue = buildQueue([deckA, deckB], "shuffleAll")
+    const queue = buildQueue([deckA, deckB], "shuffleAll", allModes)
     expect(queue).toHaveLength(3)
     expect(queue.every((q) => q.section === "")).toBe(true)
     expect(queue.map((q) => q.front).sort()).toEqual(["a1", "a2", "c1"])
@@ -222,17 +227,17 @@ describe("buildQueue", () => {
       blocks: [
         {
           title: "First",
-          mode: "auto",
+          mode: "transform",
           on: true,
           cards: [
             { front: "f1", back: "f2", translation: "", note: "" },
             { front: "f3", back: "f4", translation: "", note: "" }
           ]
         },
-        { title: "Second", mode: "auto", on: true, cards: [{ front: "s1", back: "s2", translation: "", note: "" }] }
+        { title: "Second", mode: "transform", on: true, cards: [{ front: "s1", back: "s2", translation: "", note: "" }] }
       ]
     })
-    const queue = buildQueue([deckA, multiBlock], "review")
+    const queue = buildQueue([deckA, multiBlock], "review", allModes)
     expect(queue).toHaveLength(3)
     expect(queue.map((q) => q.section).sort()).toEqual(["A-block", "First", "Second"])
   })
@@ -242,7 +247,7 @@ describe("buildQueue", () => {
       blocks: [
         {
           title: "First",
-          mode: "auto",
+          mode: "transform",
           on: true,
           cards: [
             { front: "f1", back: "f2", translation: "", note: "" },
@@ -252,32 +257,74 @@ describe("buildQueue", () => {
       ]
     })
     vi.spyOn(Math, "random").mockReturnValue(0)
-    const queue = buildQueue([multiBlock], "review")
+    const queue = buildQueue([multiBlock], "review", allModes)
     expect(queue).toHaveLength(1)
     expect(queue[0].front).toBe("f1")
     vi.restoreAllMocks()
   })
 
-  it("uses auto mode for blocks without explicit mode", () => {
+  it("keeps block mode on queue items", () => {
     const deck = makeDeck("U", [["a", "b"]], {
-      blocks: [{ title: "", mode: "", on: true, cards: [{ front: "a", back: "b", translation: "", note: "" }] }]
+      blocks: [{ title: "", mode: "phrase", on: true, cards: [{ front: "a", back: "b", translation: "", note: "" }] }]
     })
-    const [item] = buildQueue([deck], "straight")
-    expect(item.mode).toBe("auto")
+    const [item] = buildQueue([deck], "straight", ["phrase"])
+    expect(item.mode).toBe("phrase")
   })
 
   it("includes only selected blocks", () => {
     const multiBlock = makeDeck("Multi", [["x", "y"]], {
       on: true,
       blocks: [
-        { title: "First", mode: "auto", on: true, cards: [{ front: "f1", back: "f2", translation: "", note: "" }] },
-        { title: "Second", mode: "auto", on: false, cards: [{ front: "s1", back: "s2", translation: "", note: "" }] }
+        { title: "First", mode: "transform", on: true, cards: [{ front: "f1", back: "f2", translation: "", note: "" }] },
+        { title: "Second", mode: "transform", on: false, cards: [{ front: "s1", back: "s2", translation: "", note: "" }] }
       ]
     })
-    const queue = buildQueue([multiBlock], "straight")
+    const queue = buildQueue([multiBlock], "straight", allModes)
     expect(queue).toHaveLength(1)
     expect(queue[0].front).toBe("f1")
     expect(queue[0].section).toBe("First")
+  })
+
+  it("filters queue by card mode", () => {
+    const deck = makeDeck("Mixed", [["x", "y"]], {
+      on: true,
+      blocks: [
+        { title: "T", mode: "transform", on: true, cards: [{ front: "t1", back: "t2", translation: "", note: "" }] },
+        { title: "V", mode: "vocab", on: true, cards: [{ front: "v1", back: "v2", translation: "", note: "" }] }
+      ]
+    })
+    const queue = buildQueue([deck], "straight", ["transform"])
+    expect(queue.map((q) => q.front)).toEqual(["t1"])
+  })
+})
+
+describe("blockMatchesMode", () => {
+  const block = { title: "B", mode: "vocab", on: true, cards: [] }
+
+  it("matches any selected mode", () => {
+    expect(blockMatchesMode(block, ["vocab", "transform"])).toBe(true)
+    expect(blockMatchesMode(block, ["transform"])).toBe(false)
+    expect(blockMatchesMode(block, [])).toBe(false)
+  })
+
+  it("matches vocab and ru modes", () => {
+    expect(blockMatchesMode(block, ["vocab"])).toBe(true)
+    expect(blockMatchesMode({ ...block, mode: "ru" }, ["vocab"])).toBe(true)
+    expect(blockMatchesMode({ ...block, mode: "transform" }, ["vocab"])).toBe(false)
+  })
+})
+
+describe("visibleDecks", () => {
+  it("hides decks without matching blocks", () => {
+    const deck = makeDeck("Mixed", [["x", "y"]], {
+      blocks: [
+        { title: "T", mode: "transform", on: true, cards: [{ front: "t1", back: "t2", translation: "", note: "" }] },
+        { title: "V", mode: "vocab", on: true, cards: [{ front: "v1", back: "v2", translation: "", note: "" }] }
+      ]
+    })
+    expect(visibleDecks([deck], ["cloze"])).toEqual([])
+    expect(matchingBlocks(deck, ["transform"])).toHaveLength(1)
+    expect(selectedDeckCount({ ...deck, on: true }, ["transform"])).toBe(1)
   })
 })
 
@@ -286,10 +333,10 @@ describe("selectedDeckCount", () => {
     const deck = makeDeck("u", [["a", "b"]], {
       on: true,
       blocks: [
-        { title: "1", mode: "auto", on: true, cards: [{ front: "a", back: "b", translation: "", note: "" }] },
+        { title: "1", mode: "transform", on: true, cards: [{ front: "a", back: "b", translation: "", note: "" }] },
         {
           title: "2",
-          mode: "auto",
+          mode: "transform",
           on: false,
           cards: [
             { front: "c", back: "d", translation: "", note: "" },
@@ -298,9 +345,9 @@ describe("selectedDeckCount", () => {
         }
       ]
     })
-    expect(selectedDeckCount(deck)).toBe(1)
-    expect(activeBlocks(deck)).toHaveLength(1)
-    expect(reviewCount([deck])).toBe(1)
+    expect(selectedDeckCount(deck, ["transform"])).toBe(1)
+    expect(activeBlocks(deck, ["transform"])).toHaveLength(1)
+    expect(reviewCount([deck], ["transform"])).toBe(1)
   })
 })
 

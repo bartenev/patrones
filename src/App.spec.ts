@@ -269,7 +269,7 @@ describe("App", () => {
 
   it("changes direction mode", async () => {
     const wrapper = await mountApp()
-    await wrapper.findAll(".seg button")[1].trigger("click")
+    await wrapper.findAll(".dir-seg button")[1].trigger("click")
     await wrapper.get(".start").trigger("click")
     await flushPromises()
     expect(wrapper.text()).toContain("español")
@@ -602,7 +602,7 @@ describe("App", () => {
     await wrapper.get(".reveal").trigger("click")
     await wrapper.get(".missed").trigger("click")
     await flushPromises()
-    await wrapper.findAll(".seg button")[1].trigger("click")
+    await wrapper.findAll(".dir-seg button")[1].trigger("click")
     await flushPromises()
     await wrapper.get(".reveal").trigger("click")
     await wrapper.get(".missed").trigger("click")

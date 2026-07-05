@@ -162,6 +162,36 @@ code {
   margin: 0 0 10px;
 }
 
+.mode-filter {
+  margin: 0 0 18px;
+}
+
+.mode-filter h3 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--muted);
+  margin: 0 0 10px;
+  font-weight: 700;
+}
+
+.mode-seg {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.mode-seg button {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 8px 10px;
+  font-size: 12.5px;
+}
+
+.mode-empty {
+  margin: 0 0 12px;
+}
+
 .deck-head h2 {
   font-size: 13px;
   text-transform: uppercase;

@@ -1,9 +1,22 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue"
-import { blockCount, deckCount, selectedDeckCount } from "../lib/patrones"
-import type { Block, Deck, DirMode, OrderMode, TimerSec } from "../types"
+import { computed, onMounted, onUnmounted, ref } from "vue"
+import {
+  blockCount,
+  filteredDeckCount,
+  matchingBlocks,
+  selectedDeckCount,
+  visibleDecks
+} from "../lib/patrones"
+import type { Block, CardMode, Deck, DirMode, OrderMode, TimerSec } from "../types"
 
-defineProps<{
+const modeFilterOptions: { value: CardMode; label: string }[] = [
+  { value: "transform", label: "transform" },
+  { value: "vocab", label: "vocab" },
+  { value: "cloze", label: "cloze" },
+  { value: "phrase", label: "phrase" }
+]
+
+const props = defineProps<{
   decks: Deck[]
   loadErr: string
   storedMistakeCount: number
@@ -17,12 +30,20 @@ const dirMode = defineModel<DirMode>("dirMode", { required: true })
 const autospeak = defineModel<boolean>("autospeak", { required: true })
 const requeue = defineModel<boolean>("requeue", { required: true })
 const timerSec = defineModel<TimerSec>("timerSec", { required: true })
+const modeFilter = defineModel<CardMode[]>("modeFilter", { required: true })
 
 const emit = defineEmits<{
   start: []
 }>()
 
 const blocksPickerDeck = ref<Deck | null>(null)
+
+const filteredDecks = computed(() => visibleDecks(props.decks, modeFilter.value))
+
+const pickerBlocks = computed(() => {
+  if (!blocksPickerDeck.value) return []
+  return matchingBlocks(blocksPickerDeck.value, modeFilter.value)
+})
 
 const orderOptions: { value: OrderMode; title: string; desc: string }[] = [
   {
@@ -71,6 +92,18 @@ const timerOptions: { value: TimerSec; label: string }[] = [
   { value: 5, label: "5 сек" }
 ]
 
+function toggleMode(mode: CardMode) {
+  if (modeFilter.value.includes(mode)) {
+    modeFilter.value = modeFilter.value.filter((item) => item !== mode)
+  } else {
+    modeFilter.value = [...modeFilter.value, mode]
+  }
+}
+
+function isModeSelected(mode: CardMode) {
+  return modeFilter.value.includes(mode)
+}
+
 function orderOptionTitle(value: OrderMode, title: string, mistakeCount: number) {
   if (value === "mistakes") {
     return `5 — только ошибки (${mistakeCount})`
@@ -78,27 +111,36 @@ function orderOptionTitle(value: OrderMode, title: string, mistakeCount: number)
   return title
 }
 
+function deckVisibleBlocks(deck: Deck) {
+  return matchingBlocks(deck, modeFilter.value)
+}
+
 function isPartialDeck(deck: Deck) {
-  return deck.on && deck.blocks.some((b) => !b.on)
+  const visible = deckVisibleBlocks(deck)
+  if (!deck.on || !visible.length) return false
+  const selected = visible.filter((b) => b.on)
+  return selected.length > 0 && selected.length < visible.length
 }
 
 function deckCountLabel(deck: Deck) {
-  const totalBlocks = deck.blocks.length
+  const visible = deckVisibleBlocks(deck)
+  const totalBlocks = visible.length
+  const totalCards = filteredDeckCount(deck, modeFilter.value)
   if (!deck.on) {
-    return `${deckCount(deck)} · ${totalBlocks} бл.`
+    return `${totalCards} · ${totalBlocks} бл.`
   }
-  const cards = selectedDeckCount(deck)
+  const cards = selectedDeckCount(deck, modeFilter.value)
   if (!isPartialDeck(deck)) {
     return `${cards} · ${totalBlocks} бл.`
   }
-  const activeBlocks = deck.blocks.filter((b) => b.on).length
+  const activeBlocks = visible.filter((b) => b.on).length
   return `${cards} · ${activeBlocks}/${totalBlocks} бл.`
 }
 
 function blocksBtnLabel(deck: Deck) {
-  const total = deck.blocks.length
-  const active = deck.blocks.filter((b) => b.on).length
-  return active === total ? "блоки" : `${active}/${total}`
+  const visible = deckVisibleBlocks(deck)
+  const active = visible.filter((b) => b.on).length
+  return active === visible.length ? "блоки" : `${active}/${visible.length}`
 }
 
 function blockTitle(block: Block) {
@@ -127,14 +169,14 @@ function closeBlocksPicker() {
 }
 
 function selectBlocksInPicker(on: boolean) {
-  blocksPickerDeck.value?.blocks.forEach((b) => { b.on = on })
+  pickerBlocks.value.forEach((b) => { b.on = on })
   if (blocksPickerDeck.value) {
-    blocksPickerDeck.value.on = on
+    blocksPickerDeck.value.on = blocksPickerDeck.value.blocks.some((b) => b.on)
   }
 }
 
-function selectAll(decks: Deck[], on: boolean) {
-  decks.forEach((d) => toggleDeck(d, on))
+function selectAll(on: boolean) {
+  filteredDecks.value.forEach((d) => toggleDeck(d, on))
   if (!on) {
     blocksPickerDeck.value = null
   }
@@ -157,18 +199,33 @@ onUnmounted(() => {
 
 <template>
   <section class="wrap">
-    <div class="deck-head">
-      <h2>Юниты</h2>
-      <div v-if="decks.length" class="tools">
-        <button class="mini" type="button" @click="selectAll(decks, true)">все</button>
-        <button class="mini" type="button" @click="selectAll(decks, false)">снять</button>
+    <div v-if="decks.length && !isMistakesMode" class="mode-filter">
+      <h3>Тип карточек</h3>
+      <div class="seg mode-seg">
+        <button
+          v-for="opt in modeFilterOptions"
+          :key="opt.value"
+          type="button"
+          :class="{ on: isModeSelected(opt.value) }"
+          @click="toggleMode(opt.value)"
+        >
+          {{ opt.label }}
+        </button>
       </div>
     </div>
 
-    <div v-if="decks.length" class="decks-scroll">
+    <div class="deck-head">
+      <h2>Юниты</h2>
+      <div v-if="filteredDecks.length" class="tools">
+        <button class="mini" type="button" @click="selectAll(true)">все</button>
+        <button class="mini" type="button" @click="selectAll(false)">снять</button>
+      </div>
+    </div>
+
+    <div v-if="filteredDecks.length" class="decks-scroll">
       <ul class="decks">
         <li
-          v-for="deck in decks"
+          v-for="deck in filteredDecks"
           :key="deck.fileName"
           class="deck"
           :class="{ on: deck.on, partial: isPartialDeck(deck) }"
@@ -200,6 +257,13 @@ onUnmounted(() => {
       </ul>
     </div>
 
+    <p v-else-if="decks.length && !isMistakesMode && !modeFilter.length" class="err mode-empty">
+      Выбери хотя бы один тип карточек.
+    </p>
+    <p v-else-if="decks.length && !isMistakesMode" class="err mode-empty">
+      Нет юнитов с выбранными типами карточек.
+    </p>
+
     <Teleport to="body">
       <div
         v-if="blocksPickerDeck"
@@ -224,7 +288,7 @@ onUnmounted(() => {
 
           <ul class="blocks-list">
             <li
-              v-for="block in blocksPickerDeck.blocks"
+              v-for="block in pickerBlocks"
               :key="`${blocksPickerDeck.fileName}:${block.title}:${block.mode}`"
               class="block-row"
               :class="{ on: block.on }"
@@ -269,7 +333,7 @@ onUnmounted(() => {
       </div>
 
       <div class="opts">
-        <div class="seg">
+        <div class="seg dir-seg">
           <button
             v-for="opt in dirOptions"
             :key="opt.value"

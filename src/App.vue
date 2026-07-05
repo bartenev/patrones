@@ -13,7 +13,8 @@ import {
   removeMistake
 } from "./lib/mistakes"
 import { dequeue } from "./lib/queue"
-import type { AppView, Deck, DirMode, OrderMode, QueueItem, TimerSec } from "./types"
+import { ALL_CARD_MODES } from "./types"
+import type { AppView, CardMode, Deck, DirMode, OrderMode, QueueItem, TimerSec } from "./types"
 
 const decks = ref<Deck[]>([])
 const loadErr = ref("")
@@ -28,6 +29,7 @@ const dirMode = ref<DirMode>("fwd")
 const requeue = ref(true)
 const curUnit = ref<string | null>(null)
 const order = ref<OrderMode>("straight")
+const modeFilter = ref<CardMode[]>([...ALL_CARD_MODES])
 const autospeak = ref(false)
 const timerSec = ref<TimerSec>(0)
 const isDark = ref(true)
@@ -60,13 +62,16 @@ const cardTranslation = ref("")
 const spanishText = ref("")
 
 const selectedDecks = computed(() => decks.value.filter((d) => d.on))
-const totalSelected = computed(() => selectedDecks.value.reduce((s, d) => s + selectedDeckCount(d), 0))
-const selectedReviewCount = computed(() => reviewCount(selectedDecks.value))
+const totalSelected = computed(() =>
+  selectedDecks.value.reduce((s, d) => s + selectedDeckCount(d, modeFilter.value), 0)
+)
+const selectedReviewCount = computed(() => reviewCount(selectedDecks.value, modeFilter.value))
 const isMistakesMode = computed(() => order.value === "mistakes")
 const isReviewMode = computed(() => order.value === "review")
 const mistakesSessionCount = computed(() => mistakesBatchCount(storedMistakeCount.value))
 const startDisabled = computed(() => {
   if (isMistakesMode.value) return storedMistakeCount.value === 0
+  if (!modeFilter.value.length) return true
   if (isReviewMode.value) return selectedReviewCount.value === 0
   return totalSelected.value === 0
 })
@@ -270,7 +275,7 @@ function startCards() {
   clearTimer()
   queue.value = isMistakesMode.value
     ? buildMistakesQueue()
-    : buildQueue(selectedDecks.value, order.value)
+    : buildQueue(selectedDecks.value, order.value, modeFilter.value)
   total.value = queue.value.length
   missed.value = 0
   missesRequeued.value = 0
@@ -392,6 +397,7 @@ onUnmounted(() => {
       v-model:autospeak="autospeak"
       v-model:requeue="requeue"
       v-model:timer-sec="timerSec"
+      v-model:mode-filter="modeFilter"
       :decks="decks"
       :load-err="loadErr"
       :stored-mistake-count="storedMistakeCount"
