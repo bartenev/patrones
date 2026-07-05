@@ -233,7 +233,7 @@ describe("App", () => {
     expect(wrapper.text()).toContain("споткнулся 1")
   })
 
-  it("shows section title and note after reveal", async () => {
+  it("shows unit title and note after reveal", async () => {
     loadDecksFromFolderMock.mockImplementationOnce(() => ({
       decks: [{
         name: "Rich",
@@ -256,7 +256,7 @@ describe("App", () => {
     await wrapper.find(".deck").trigger("click")
     await wrapper.get(".start").trigger("click")
     await flushPromises()
-    expect(wrapper.text()).toContain("Секция")
+    expect(wrapper.text()).toContain("Rich")
     expect(wrapper.text()).toContain("перевод")
     expect(wrapper.text()).not.toContain("подсказка")
     await wrapper.get(".reveal").trigger("click")
@@ -527,7 +527,7 @@ describe("App", () => {
     expect(wrapper.text()).toContain("¡Listo!")
   })
 
-  it("hides section bar after sectionless card in shuffle all", async () => {
+  it("shows unit name in secbar during shuffle all", async () => {
     loadDecksFromFolderMock.mockImplementationOnce(() => ({
       decks: [{
         name: "Mix",
@@ -545,7 +545,7 @@ describe("App", () => {
     await wrapper.find(".deck").trigger("click")
     await wrapper.get(".start").trigger("click")
     await flushPromises()
-    expect(wrapper.find(".secbar").exists()).toBe(false)
+    expect(wrapper.find(".secbar").text()).toContain("Mix")
   })
 
   it("stores mistake in localStorage on miss", async () => {

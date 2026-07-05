@@ -23,7 +23,7 @@ const missesRequeued = ref(0)
 const revealed = ref(false)
 const dirMode = ref<DirMode>("fwd")
 const requeue = ref(true)
-const curSection = ref<string | null>(null)
+const curUnit = ref<string | null>(null)
 const order = ref<OrderMode>("straight")
 const autospeak = ref(false)
 const timerSec = ref<TimerSec>(0)
@@ -133,7 +133,7 @@ const startLabel = computed(() => {
     : "Выбери хотя бы один юнит"
 })
 
-const showSecbar = computed(() => Boolean(curSection.value))
+const showSecbar = computed(() => Boolean(curUnit.value))
 const fillWidth = computed(() => {
   const denom = total.value + missesRequeued.value
   const done = denom - (queue.value.length + 1)
@@ -309,10 +309,10 @@ function next() {
   }
   revealed.value = false
 
-  if (cur.value.section && cur.value.section !== curSection.value) {
-    curSection.value = cur.value.section
-  } else if (!cur.value.section) {
-    curSection.value = null
+  if (cur.value.deck && cur.value.deck !== curUnit.value) {
+    curUnit.value = cur.value.deck
+  } else if (!cur.value.deck) {
+    curUnit.value = null
   }
 
   applyCardView()
@@ -335,7 +335,7 @@ function startCards() {
   total.value = queue.value.length
   missed.value = 0
   missesRequeued.value = 0
-  curSection.value = null
+  curUnit.value = null
   if (!total.value) return
   view.value = "drill"
   next()
@@ -542,7 +542,7 @@ onUnmounted(() => {
       </div>
 
       <div v-if="showSecbar" class="secbar">
-        <span>{{ curSection }}</span>
+        <span>{{ curUnit }}</span>
         <span class="ln" />
       </div>
 
