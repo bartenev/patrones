@@ -2,19 +2,25 @@
   "unit": "Unidad 1 — Masculino / femenino",
   "blocks": [
     {
-      "title": "Регулярные: -o/-e → -a",
+      "title": "Регулярные: -o, -e → -a",
       "mode": "transform",
       "cards": [
         { "front": "el niño", "back": "la niña", "translation": "ребёнок / мальчик" },
         { "front": "el cocinero", "back": "la cocinera", "translation": "повар" },
         { "front": "el camarero", "back": "la camarera", "translation": "официант" },
-        { "front": "el dependiente", "back": "la dependienta", "translation": "продавец" },
+        { "front": "el dependiente", "back": "la dependienta", "translation": "продавец" }
+      ]
+    },
+    {
+      "title": "Регулярные: -согласная → +a",
+      "mode": "transform",
+      "cards": [
         { "front": "el profesor", "back": "la profesora", "translation": "преподаватель" },
         { "front": "el director", "back": "la directora", "translation": "директор" },
         { "front": "el doctor", "back": "la doctora", "translation": "врач" },
         { "front": "el señor", "back": "la señora", "translation": "господин" },
         { "front": "el escritor", "back": "la escritora", "translation": "писатель" },
-        { "front": "el bailarín", "back": "la bailarina", "translation": "танцор" }
+        { "front": "el bailarín", "back": "la bailarina", "note": "теряет графическое ударение: bailarín → bailarina", "translation": "танцор" }
       ]
     },
     {
