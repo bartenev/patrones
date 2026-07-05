@@ -397,7 +397,7 @@ li.deck:hover { border-color: var(--azulejo); }
 li.deck.on { border-color: var(--azulejo); background: var(--azulejo-soft); }
 li.deck input { width: 18px; height: 18px; accent-color: var(--azulejo); flex: none; }
 .decks-scroll {
-  max-height: min(42vh, 320px);
+  max-height: min(52vh, 380px);
   overflow-y: auto;
   margin-bottom: 4px;
   padding-right: 4px;
@@ -425,9 +425,26 @@ li.deck .ct {
   flex: none;
 }
 
-.block { margin: 24px 0 6px; }
+.setup {
+  padding-bottom: calc(86px + env(safe-area-inset-bottom, 0px));
+}
 
-.block h3 {
+.setup-tabs {
+  display: flex;
+  width: 100%;
+  margin: 0 0 18px;
+}
+
+.setup-tabs button {
+  flex: 1;
+  min-width: 0;
+}
+
+.order-block {
+  margin: 0 0 18px;
+}
+
+.order-block h3 {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: .12em;
@@ -436,28 +453,50 @@ li.deck .ct {
   font-weight: 700;
 }
 
-.radio { display: flex; flex-direction: column; gap: 8px; }
-
-.radio label {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 11px;
+.order-select {
+  width: 100%;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
   padding: 12px 14px;
-  transition: .12s;
-  cursor: pointer;
+  border-radius: 11px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  accent-color: var(--azulejo);
 }
 
-.radio label:hover { border-color: var(--azulejo); }
-.radio label.on { border-color: var(--azulejo); background: var(--azulejo-soft); }
-.radio input { margin-top: 2px; accent-color: var(--azulejo); width: 16px; height: 16px; flex: none; }
-.radio .t { font-weight: 600; font-size: 14px; display: block; }
-.radio .d { color: var(--muted); font-size: 12.5px; margin-top: 2px; display: block; }
+.order-desc {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.setup-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  padding: 12px 20px calc(12px + env(safe-area-inset-bottom, 0px));
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--line);
+}
+
+.setup-bar-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.setup-bar .start {
+  margin-top: 0;
+}
 
 .opts {
-  margin: 24px 0 6px;
+  margin: 0;
 }
 
 .opts h3 {
@@ -593,7 +632,6 @@ li.deck .ct {
 }
 
 .start {
-  margin-top: 22px;
   width: 100%;
   background: var(--ink);
   color: var(--paper);

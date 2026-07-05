@@ -37,8 +37,13 @@ const emit = defineEmits<{
 }>()
 
 const blocksPickerDeck = ref<Deck | null>(null)
+const setupTab = ref<"content" | "mode">("content")
 
 const filteredDecks = computed(() => visibleDecks(props.decks, modeFilter.value))
+
+const selectedOrderOption = computed(() =>
+  orderOptions.find((opt) => opt.value === order.value) ?? orderOptions[0]
+)
 
 const pickerBlocks = computed(() => {
   if (!blocksPickerDeck.value) return []
@@ -198,71 +203,160 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section class="wrap">
-    <div v-if="decks.length && !isMistakesMode" class="mode-filter">
-      <h3>Тип карточек</h3>
-      <div class="seg mode-seg">
+  <section class="wrap setup">
+    <template v-if="decks.length">
+      <div class="setup-tabs seg" role="tablist" aria-label="Настройки прогона">
         <button
-          v-for="opt in modeFilterOptions"
-          :key="opt.value"
           type="button"
-          :class="{ on: isModeSelected(opt.value) }"
-          @click="toggleMode(opt.value)"
+          role="tab"
+          :class="{ on: setupTab === 'content' }"
+          :aria-selected="setupTab === 'content'"
+          @click="setupTab = 'content'"
         >
-          {{ opt.label }}
+          Контент
+        </button>
+        <button
+          type="button"
+          role="tab"
+          :class="{ on: setupTab === 'mode' }"
+          :aria-selected="setupTab === 'mode'"
+          @click="setupTab = 'mode'"
+        >
+          Режим
         </button>
       </div>
-    </div>
 
-    <div class="deck-head">
-      <h2>Юниты</h2>
-      <div v-if="filteredDecks.length" class="tools">
-        <button class="mini" type="button" @click="selectAll(true)">все</button>
-        <button class="mini" type="button" @click="selectAll(false)">снять</button>
-      </div>
-    </div>
-
-    <div v-if="filteredDecks.length" class="decks-scroll">
-      <ul class="decks">
-        <li
-          v-for="deck in filteredDecks"
-          :key="deck.fileName"
-          class="deck"
-          :class="{ on: deck.on, partial: isPartialDeck(deck) }"
-          @click="toggleDeck(deck, !deck.on)"
-        >
-          <div class="deck-main">
-            <input
-              type="checkbox"
-              :checked="deck.on"
-              tabindex="-1"
-              @click.prevent
-            >
-            <span class="nm" :title="deck.name">{{ deck.name }}</span>
-            <span class="ct">{{ deckCountLabel(deck) }}</span>
-          </div>
-          <span class="blocks-slot">
+      <div v-show="setupTab === 'content'" class="setup-pane" role="tabpanel">
+        <div v-if="!isMistakesMode" class="mode-filter">
+          <h3>Тип карточек</h3>
+          <div class="seg mode-seg">
             <button
-              class="blocks-btn"
-              :class="{ custom: isPartialDeck(deck), idle: !deck.on }"
+              v-for="opt in modeFilterOptions"
+              :key="opt.value"
               type="button"
-              title="Выбрать блоки"
-              :tabindex="deck.on ? 0 : -1"
-              @click.stop="deck.on && openBlocksPicker(deck)"
+              :class="{ on: isModeSelected(opt.value) }"
+              @click="toggleMode(opt.value)"
             >
-              {{ deck.on ? blocksBtnLabel(deck) : "блоки" }}
+              {{ opt.label }}
             </button>
-          </span>
-        </li>
-      </ul>
-    </div>
+          </div>
+        </div>
 
-    <p v-else-if="decks.length && !isMistakesMode && !modeFilter.length" class="err mode-empty">
-      Выбери хотя бы один тип карточек.
-    </p>
-    <p v-else-if="decks.length && !isMistakesMode" class="err mode-empty">
-      Нет юнитов с выбранными типами карточек.
-    </p>
+        <div class="deck-head">
+          <h2>Юниты</h2>
+          <div v-if="filteredDecks.length" class="tools">
+            <button class="mini" type="button" @click="selectAll(true)">все</button>
+            <button class="mini" type="button" @click="selectAll(false)">снять</button>
+          </div>
+        </div>
+
+        <div v-if="filteredDecks.length" class="decks-scroll">
+          <ul class="decks">
+            <li
+              v-for="deck in filteredDecks"
+              :key="deck.fileName"
+              class="deck"
+              :class="{ on: deck.on, partial: isPartialDeck(deck) }"
+              @click="toggleDeck(deck, !deck.on)"
+            >
+              <div class="deck-main">
+                <input
+                  type="checkbox"
+                  :checked="deck.on"
+                  tabindex="-1"
+                  @click.prevent
+                >
+                <span class="nm" :title="deck.name">{{ deck.name }}</span>
+                <span class="ct">{{ deckCountLabel(deck) }}</span>
+              </div>
+              <span class="blocks-slot">
+                <button
+                  class="blocks-btn"
+                  :class="{ custom: isPartialDeck(deck), idle: !deck.on }"
+                  type="button"
+                  title="Выбрать блоки"
+                  :tabindex="deck.on ? 0 : -1"
+                  @click.stop="deck.on && openBlocksPicker(deck)"
+                >
+                  {{ deck.on ? blocksBtnLabel(deck) : "блоки" }}
+                </button>
+              </span>
+            </li>
+          </ul>
+        </div>
+
+        <p v-else-if="!isMistakesMode && !modeFilter.length" class="err mode-empty">
+          Выбери хотя бы один тип карточек.
+        </p>
+        <p v-else-if="!isMistakesMode" class="err mode-empty">
+          Нет юнитов с выбранными типами карточек.
+        </p>
+      </div>
+
+      <div v-show="setupTab === 'mode'" class="setup-pane" role="tabpanel">
+        <div class="order-block">
+          <h3>Порядок карточек</h3>
+          <select v-model="order" class="order-select">
+            <option
+              v-for="opt in orderOptions"
+              :key="opt.value"
+              :value="opt.value"
+            >
+              {{ orderOptionTitle(opt.value, opt.title, storedMistakeCount) }}
+            </option>
+          </select>
+          <p class="order-desc">{{ selectedOrderOption.desc }}</p>
+        </div>
+
+        <div class="opts">
+          <h3>Сессия</h3>
+          <div class="opts-panel">
+            <div class="opt-row opt-row--dir">
+              <span class="opt-label">Направление</span>
+              <div class="seg dir-seg">
+                <button
+                  v-for="opt in dirOptions"
+                  :key="opt.value"
+                  type="button"
+                  :class="{ on: dirMode === opt.value }"
+                  :disabled="isMistakesMode"
+                  @click="dirMode = opt.value"
+                >
+                  {{ opt.label }}
+                </button>
+              </div>
+            </div>
+
+            <label class="opt-row opt-toggle">
+              <span class="opt-label">Озвучивать ответ</span>
+              <input v-model="autospeak" type="checkbox">
+            </label>
+
+            <label class="opt-row opt-toggle">
+              <span class="opt-label">Повторять ошибки</span>
+              <input v-model="requeue" type="checkbox" :disabled="isMistakesMode">
+            </label>
+
+            <div class="opt-row">
+              <span class="opt-label">Таймер</span>
+              <select v-model.number="timerSec" class="opt-select">
+                <option v-for="opt in timerOptions" :key="opt.value" :value="opt.value">
+                  {{ opt.label }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="setup-bar">
+        <div class="setup-bar-inner">
+          <button class="start" type="button" :disabled="startDisabled" @click="emit('start')">
+            {{ startLabel }}
+          </button>
+        </div>
+      </div>
+    </template>
 
     <Teleport to="body">
       <div
@@ -313,68 +407,5 @@ onUnmounted(() => {
     </Teleport>
 
     <p v-if="loadErr" class="err">{{ loadErr }}</p>
-
-    <template v-if="decks.length">
-      <div class="block">
-        <h3>Порядок карточек</h3>
-        <div class="radio">
-          <label
-            v-for="opt in orderOptions"
-            :key="opt.value"
-            :class="{ on: order === opt.value }"
-          >
-            <input v-model="order" type="radio" name="order" :value="opt.value">
-            <span>
-              <span class="t">{{ orderOptionTitle(opt.value, opt.title, storedMistakeCount) }}</span>
-              <span class="d">{{ opt.desc }}</span>
-            </span>
-          </label>
-        </div>
-      </div>
-
-      <div class="opts">
-        <h3>Сессия</h3>
-        <div class="opts-panel">
-          <div class="opt-row opt-row--dir">
-            <span class="opt-label">Направление</span>
-            <div class="seg dir-seg">
-              <button
-                v-for="opt in dirOptions"
-                :key="opt.value"
-                type="button"
-                :class="{ on: dirMode === opt.value }"
-                :disabled="isMistakesMode"
-                @click="dirMode = opt.value"
-              >
-                {{ opt.label }}
-              </button>
-            </div>
-          </div>
-
-          <label class="opt-row opt-toggle">
-            <span class="opt-label">Озвучивать ответ</span>
-            <input v-model="autospeak" type="checkbox">
-          </label>
-
-          <label class="opt-row opt-toggle">
-            <span class="opt-label">Повторять ошибки</span>
-            <input v-model="requeue" type="checkbox" :disabled="isMistakesMode">
-          </label>
-
-          <div class="opt-row">
-            <span class="opt-label">Таймер</span>
-            <select v-model.number="timerSec" class="opt-select">
-              <option v-for="opt in timerOptions" :key="opt.value" :value="opt.value">
-                {{ opt.label }}
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <button class="start" type="button" :disabled="startDisabled" @click="emit('start')">
-        {{ startLabel }}
-      </button>
-    </template>
   </section>
 </template>

@@ -62,6 +62,23 @@ async function startDrill(wrapper: VueWrapper) {
   await flushPromises()
 }
 
+async function openModeTab(wrapper: VueWrapper) {
+  await wrapper.findAll(".setup-tabs button")[1].trigger("click")
+  await flushPromises()
+}
+
+async function setOrder(wrapper: VueWrapper, value: string) {
+  await openModeTab(wrapper)
+  await wrapper.find(".order-select").setValue(value)
+  await flushPromises()
+}
+
+async function setTimer(wrapper: VueWrapper, seconds: string) {
+  await openModeTab(wrapper)
+  await wrapper.find(".opt-select").setValue(seconds)
+  await flushPromises()
+}
+
 describe("App", () => {
   beforeEach(() => {
     wrappers = []
@@ -186,10 +203,10 @@ describe("App", () => {
 
   it("shows six order modes", async () => {
     const wrapper = await mountApp()
+    await openModeTab(wrapper)
+    expect(wrapper.findAll(".order-select option")).toHaveLength(6)
     expect(wrapper.text()).toContain("1 — всё по порядку")
-    expect(wrapper.text()).toContain("4 — полный хаос")
-    expect(wrapper.text()).toContain("5 — только ошибки")
-    expect(wrapper.text()).toContain("6 — ревью")
+    expect(wrapper.text()).toContain("юниты по очереди")
   })
 
   it("shows error when folder has no decks", async () => {
@@ -269,6 +286,7 @@ describe("App", () => {
 
   it("changes direction mode", async () => {
     const wrapper = await mountApp()
+    await openModeTab(wrapper)
     await wrapper.findAll(".dir-seg button")[1].trigger("click")
     await wrapper.get(".start").trigger("click")
     await flushPromises()
@@ -287,8 +305,7 @@ describe("App", () => {
     vi.useFakeTimers()
     try {
       const wrapper = await mountApp()
-      const select = wrapper.get("select")
-      await select.setValue("2")
+      await setTimer(wrapper, "2")
       await flushPromises()
       await startDrill(wrapper)
       expect(wrapper.find(".card-timer").exists()).toBe(true)
@@ -310,7 +327,7 @@ describe("App", () => {
     const clearSpy = vi.spyOn(global, "clearTimeout")
     try {
       const wrapper = await mountApp()
-      await wrapper.get("select").setValue("3")
+      await setTimer(wrapper, "3")
       await flushPromises()
       await startDrill(wrapper)
       await wrapper.find(".bar .ghost").trigger("click")
@@ -326,7 +343,8 @@ describe("App", () => {
     vi.useFakeTimers()
     try {
       const wrapper = await mountApp()
-      await wrapper.get("select").setValue("1")
+      await setTimer(wrapper, "1")
+      await openModeTab(wrapper)
       await wrapper.findAll("label.opt-toggle input")[0].setValue(true)
       await flushPromises()
       await startDrill(wrapper)
@@ -342,7 +360,7 @@ describe("App", () => {
     vi.useFakeTimers()
     try {
       const wrapper = await mountApp()
-      await wrapper.get("select").setValue("2")
+      await setTimer(wrapper, "2")
       await flushPromises()
       await startDrill(wrapper)
 
@@ -373,7 +391,7 @@ describe("App", () => {
     vi.useFakeTimers()
     try {
       const wrapper = await mountApp()
-      await wrapper.get("select").setValue("1")
+      await setTimer(wrapper, "1")
       await flushPromises()
       await startDrill(wrapper)
 
@@ -399,7 +417,7 @@ describe("App", () => {
 
   it("disables start in mistakes mode when bank is empty", async () => {
     const wrapper = await mountApp()
-    await wrapper.find('input[value="mistakes"]').setValue(true)
+    await setOrder(wrapper, "mistakes")
     await flushPromises()
     expect(wrapper.text()).toContain("5 — только ошибки (0)")
     expect(wrapper.text()).toContain("Нет сохранённых ошибок")
@@ -444,6 +462,7 @@ describe("App", () => {
 
   it("does not requeue when option disabled", async () => {
     const wrapper = await mountApp()
+    await openModeTab(wrapper)
     await wrapper.findAll("label.opt-toggle input")[1].setValue(false)
     await flushPromises()
     await startDrill(wrapper)
@@ -528,7 +547,7 @@ describe("App", () => {
       bad: []
     }))
     const wrapper = await mountApp()
-    await wrapper.find('input[value="shuffleAll"]').setValue(true)
+    await setOrder(wrapper, "shuffleAll")
     await wrapper.find(".deck").trigger("click")
     await wrapper.get(".start").trigger("click")
     await flushPromises()
@@ -557,7 +576,7 @@ describe("App", () => {
     }, "fwd")
 
     const wrapper = await mountApp()
-    await wrapper.find('input[value="mistakes"]').setValue(true)
+    await setOrder(wrapper, "mistakes")
     await flushPromises()
     expect(wrapper.text()).toContain("Повторить ошибки → 1 пар")
     await wrapper.get(".start").trigger("click")
@@ -582,7 +601,7 @@ describe("App", () => {
     }, "fwd")
 
     const wrapper = await mountApp()
-    await wrapper.find('input[value="mistakes"]').setValue(true)
+    await setOrder(wrapper, "mistakes")
     await wrapper.get(".start").trigger("click")
     await flushPromises()
     await wrapper.get(".reveal").trigger("click")
@@ -670,7 +689,7 @@ describe("App", () => {
     }, "rev")
 
     const wrapper = await mountApp()
-    await wrapper.find('input[value="mistakes"]').setValue(true)
+    await setOrder(wrapper, "mistakes")
     await wrapper.get(".start").trigger("click")
     await flushPromises()
     expect(wrapper.text()).toContain("español")
@@ -679,7 +698,7 @@ describe("App", () => {
 
   it("shows review label when no units selected", async () => {
     const wrapper = await mountApp()
-    await wrapper.find('input[value="review"]').setValue(true)
+    await setOrder(wrapper, "review")
     await wrapper.findAll(".mini")[1].trigger("click")
     await flushPromises()
     expect(wrapper.text()).toContain("Выбери хотя бы один юнит")
@@ -698,7 +717,7 @@ describe("App", () => {
       }, "fwd")
     }
     const wrapper = await mountApp()
-    await wrapper.find('input[value="mistakes"]').setValue(true)
+    await setOrder(wrapper, "mistakes")
     await flushPromises()
     expect(wrapper.text()).toContain("Повторить ошибки → 10 из 11 пар")
   })
