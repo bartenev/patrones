@@ -36,7 +36,10 @@
       "mode": "vocab",
       "cards": [
         { "front": "футболист", "back": "un futbolista", "note": "-ista, но мужчина → un" },
-        { "front": "цветок", "back": "una flor", "note": "согласная, но ж.р. → una" }
+        { "front": "цветок", "back": "una flor", "note": "согласная, но ж.р. → una" },
+        { "front": "карта", "back": "un mapa", "note": "-a, но м.р. → un" },
+        { "front": "радио", "back": "una radio", "note": "-o, но ж.р. → una" },
+        { "front": "змея", "back": "una serpiente", "note": "-e, ж.р. → una" }
       ]
     },
     {
