@@ -1,0 +1,89 @@
+{
+  "unit": "Unidad 5 — Ausencia de artículo (артикль или ∅)",
+  "blocks": [
+    {
+      "title": "После ser/hacerse: профессия/религия/нация/идеология → ∅",
+      "mode": "cloze",
+      "cards": [
+        { "front": "Soy ___ estudiante.",           "back": "Soy estudiante.",           "note": "профессия после ser → ∅" },
+        { "front": "Chantal es ___ francesa.",       "back": "Chantal es francesa.",      "note": "национальность → ∅" },
+        { "front": "Es ___ abogada.",                "back": "Es abogada.",               "note": "профессия → ∅" },
+        { "front": "Lenin y Stalin eran ___ comunistas.", "back": "Lenin y Stalin eran comunistas.", "note": "идеология → ∅" },
+        { "front": "Alberto se ha hecho ___ budista.","back": "Alberto se ha hecho budista.","note": "религия после hacerse → ∅" },
+        { "front": "Tomás se ha hecho ___ musulmán.","back": "Tomás se ha hecho musulmán.","note": "религия → ∅" },
+        { "front": "Los tíos de Andrea son ___ protestantes.","back": "Los tíos de Andrea son protestantes.","note": "религия → ∅" },
+        { "front": "Alberto y Lola son ___ socialistas.","back": "Alberto y Lola son socialistas.","note": "идеология → ∅" }
+      ]
+    },
+    {
+      "title": "Прямое дополнение = класс вещей (не конкретный предмет) → ∅",
+      "mode": "cloze",
+      "cards": [
+        { "front": "Lola colecciona ___ sellos.",    "back": "Lola colecciona sellos.",   "note": "вещи вообще → ∅" },
+        { "front": "Escribe ___ novelas.",           "back": "Escribe novelas.",          "note": "класс → ∅" },
+        { "front": "Están buscando ___ piso.",       "back": "Están buscando piso.",      "note": "не конкретный → ∅" },
+        { "front": "¿Tienes ___ teléfono?",          "back": "¿Tienes teléfono?",         "note": "вообще → ∅" },
+        { "front": "No tengo ___ coche.",            "back": "No tengo coche.",           "note": "вообще → ∅" },
+        { "front": "Siempre bebemos ___ agua en las comidas.","back": "Siempre bebemos agua en las comidas.","note": "неисчисляемое → ∅" },
+        { "front": "Ernesto no come ___ carne.",     "back": "Ernesto no come carne.",    "note": "класс → ∅" },
+        { "front": "¿Hay ___ pan?",                  "back": "¿Hay pan?",                 "note": "вообще → ∅" },
+        { "front": "Tomás canta ___ flamenco.",      "back": "Tomás canta flamenco.",     "note": "вообще → ∅" },
+        { "front": "Antonio vende ___ coches.",      "back": "Antonio vende coches.",     "note": "класс → ∅" },
+        { "front": "Necesito ___ gafas.",            "back": "Necesito gafas.",           "note": "вообще → ∅" },
+        { "front": "¿Tienes ___ hermanos?",          "back": "¿Tienes hermanos?",         "note": "вообще → ∅" }
+      ]
+    },
+    {
+      "title": "PERO: есть прилагательное → артикль возвращается",
+      "mode": "cloze",
+      "cards": [
+        { "front": "Chantal es ___ francesa muy simpática.", "back": "Chantal es una francesa muy simpática.", "note": "+ прилаг. → una" },
+        { "front": "Es ___ médico extraordinario.",  "back": "Es un médico extraordinario.", "note": "+ прилаг. → un" },
+        { "front": "Es ___ profesora muy seria.",    "back": "Es una profesora muy seria.", "note": "+ прилаг. → una" },
+        { "front": "Es ___ actriz muy famosa.",      "back": "Es una actriz muy famosa.", "note": "+ прилаг. → una" },
+        { "front": "Tengo ___ sellos muy raros.",    "back": "Tengo unos sellos muy raros.", "note": "+ прилаг. → unos" },
+        { "front": "Aquí hacen ___ pan buenísimo.",  "back": "Aquí hacen un pan buenísimo.", "note": "+ прилаг. → un" },
+        { "front": "Necesito ___ gafas especiales.", "back": "Necesito unas gafas especiales.", "note": "+ прилаг. → unas" },
+        { "front": "Hoy lleva ___ corbata muy original.", "back": "Hoy lleva una corbata muy original.", "note": "+ прилаг. → una" }
+      ]
+    },
+    {
+      "title": "PERO: идентификация по профессии (¿Quién es?) → артикль",
+      "mode": "cloze",
+      "cards": [
+        { "front": "¿Quiénes son las Hijas del Sol? — Son ___ cantantes.", "back": "Son unas cantantes.", "note": "идентификация → unas" },
+        { "front": "¿Quién es Almodóvar? — Es ___ director de cine.", "back": "Es un director de cine.", "note": "идентификация → un" },
+        { "front": "¿Quién es Luis Miguel? — Es ___ cantante.", "back": "Es un cantante.", "note": "идентификация → un" },
+        { "front": "¿Quién es Vargas Llosa? — Es ___ escritor.", "back": "Es un escritor.", "note": "идентификация → un" }
+      ]
+    },
+    {
+      "title": "PERO: количество (=1 или несколько) → артикль",
+      "mode": "cloze",
+      "cards": [
+        { "front": "La novia ha publicado ___ novela.", "back": "una novela", "note": "= одна → una" },
+        { "front": "Me han regalado ___ sellos.",    "back": "unos sellos", "note": "= несколько → unos" },
+        { "front": "Hoy ha vendido ___ coche.",      "back": "un coche", "note": "= один → un" },
+        { "front": "Tengo ___ hermana.",             "back": "una hermana", "note": "= одна → una" },
+        { "front": "Alberto tiene ___ apartamento en Benidorm.", "back": "un apartamento", "note": "= один → un" },
+        { "front": "Solo ___ taza al día.",          "back": "una taza", "note": "= одна → una" }
+      ]
+    },
+    {
+      "title": "Контраст: реши в паре (∅ или артикль)",
+      "mode": "cloze",
+      "cards": [
+        { "front": "La hermana de Rosa es ___ profesora de español.", "back": "es profesora", "note": "профессия → ∅" },
+        { "front": "Es ___ profesora muy seria.",    "back": "una profesora", "note": "+ прилаг. → una" },
+        { "front": "Almodóvar es ___ director de cine.", "back": "es director de cine", "note": "профессия → ∅" },
+        { "front": "¿Quién es Almodóvar? — Es ___ director de cine.", "back": "un director de cine", "note": "идентификация → un" },
+        { "front": "Antonio vende ___ coches.",      "back": "vende coches", "note": "класс → ∅" },
+        { "front": "Hoy ha vendido ___ coche.",      "back": "un coche", "note": "количество → un" },
+        { "front": "¿Comes ___ carne? — No, soy ___ vegetariano.", "back": "¿Comes carne? — soy vegetariano", "note": "оба ∅" },
+        { "front": "Ernesto es ___ músico. Escribe ___ canciones.", "back": "es músico / escribe canciones", "note": "оба ∅" },
+        { "front": "¿Quieres ___ queso? — No, es ___ queso muy fuerte.", "back": "¿Quieres queso? — es un queso muy fuerte", "note": "∅, затем + прилаг. → un" },
+        { "front": "Carolina es ___ vendedora. Vende ___ enciclopedias.", "back": "es vendedora / vende enciclopedias", "note": "оба ∅" }
+      ]
+    }
+  ]
+}
