@@ -5,296 +5,101 @@
       "title": "Гласная (-a/-e/-i/-o/-u) → +s",
       "mode": "transform",
       "cards": [
-        {
-          "front": "casa",
-          "back": "casas",
-          "translation": "дом"
-        },
-        {
-          "front": "libro",
-          "back": "libros",
-          "translation": "книга"
-        },
-        {
-          "front": "niño",
-          "back": "niños",
-          "translation": "ребёнок"
-        },
-        {
-          "front": "gato",
-          "back": "gatos",
-          "translation": "кот"
-        },
-        {
-          "front": "mesa",
-          "back": "mesas",
-          "translation": "стол"
-        },
-        {
-          "front": "clase",
-          "back": "clases",
-          "translation": "класс / урок"
-        },
-        {
-          "front": "banana",
-          "back": "bananas",
-          "translation": "банан"
-        },
-        {
-          "front": "hermana",
-          "back": "hermanas",
-          "translation": "сестра"
-        }
+        { "front": "casa", "back": "casas", "translation": "дом" },
+        { "front": "libro", "back": "libros", "translation": "книга" },
+        { "front": "niño", "back": "niños", "translation": "ребёнок" },
+        { "front": "gato", "back": "gatos", "translation": "кот" },
+        { "front": "mesa", "back": "mesas", "translation": "стол" },
+        { "front": "clase", "back": "clases", "translation": "класс / урок" },
+        { "front": "banana", "back": "bananas", "translation": "банан" },
+        { "front": "hermana", "back": "hermanas", "translation": "сестра" }
       ]
     },
     {
       "title": "Ударная гласная (-á/-é/-ó/-ú) → +s",
       "mode": "transform",
       "cards": [
-        {
-          "front": "café",
-          "back": "cafés",
-          "translation": "кофе / кафе"
-        },
-        {
-          "front": "menú",
-          "back": "menús",
-          "translation": "меню"
-        },
-        {
-          "front": "mamá",
-          "back": "mamás",
-          "translation": "мама"
-        },
-        {
-          "front": "papá",
-          "back": "papás",
-          "translation": "папа"
-        }
+        { "front": "café", "back": "cafés", "translation": "кофе / кафе" },
+        { "front": "menú", "back": "menús", "translation": "меню" },
+        { "front": "mamá", "back": "mamás", "translation": "мама" },
+        { "front": "papá", "back": "papás", "translation": "папа" }
       ]
     },
     {
       "title": "Согласная → +es",
       "mode": "transform",
       "cards": [
-        {
-          "front": "reloj",
-          "back": "relojes",
-          "translation": "часы (наручные)"
-        },
-        {
-          "front": "mes",
-          "back": "meses",
-          "translation": "месяц"
-        },
-        {
-          "front": "frijol",
-          "back": "frijoles",
-          "translation": "фасоль"
-        },
-        {
-          "front": "mujer",
-          "back": "mujeres",
-          "translation": "женщина"
-        },
-        {
-          "front": "hotel",
-          "back": "hoteles",
-          "translation": "отель"
-        }
+        { "front": "reloj", "back": "relojes", "translation": "часы (наручные)" },
+        { "front": "mes", "back": "meses", "translation": "месяц" },
+        { "front": "frijol", "back": "frijoles", "translation": "фасоль" },
+        { "front": "mujer", "back": "mujeres", "translation": "женщина" },
+        { "front": "hotel", "back": "hoteles", "translation": "отель" }
       ]
     },
     {
       "title": "Ударные -í / -y → +es",
       "mode": "transform",
       "cards": [
-        {
-          "front": "rubí",
-          "back": "rubíes",
-          "translation": "рубин"
-        },
-        {
-          "front": "ley",
-          "back": "leyes",
-          "translation": "закон"
-        }
+        { "front": "rubí", "back": "rubíes", "translation": "рубин" },
+        { "front": "ley", "back": "leyes", "translation": "закон" }
       ]
     },
     {
       "title": "-z → -ces",
       "mode": "transform",
       "cards": [
-        {
-          "front": "actriz",
-          "back": "actrices",
-          "translation": "актриса"
-        },
-        {
-          "front": "pez",
-          "back": "peces",
-          "translation": "рыба"
-        },
-        {
-          "front": "luz",
-          "back": "luces",
-          "translation": "свет"
-        },
-        {
-          "front": "lápiz",
-          "back": "lápices",
-          "translation": "карандаш"
-        }
+        { "front": "actriz", "back": "actrices", "translation": "актриса" },
+        { "front": "pez", "back": "peces", "translation": "рыба" },
+        { "front": "luz", "back": "luces", "translation": "свет" },
+        { "front": "lápiz", "back": "lápices", "translation": "карандаш" }
       ]
     },
     {
       "title": "Ловушки: при +es уходит тильда",
       "mode": "transform",
       "cards": [
-        {
-          "front": "autobús",
-          "back": "autobuses",
-          "translation": "автобус",
-          "note": "тильда уходит"
-        },
-        {
-          "front": "televisión",
-          "back": "televisiones",
-          "translation": "телевидение",
-          "note": "тильда уходит"
-        },
-        {
-          "front": "habitación",
-          "back": "habitaciones",
-          "translation": "комната",
-          "note": "тильда уходит"
-        },
-        {
-          "front": "expresión",
-          "back": "expresiones",
-          "translation": "выражение",
-          "note": "тильда уходит"
-        },
-        {
-          "front": "león",
-          "back": "leones",
-          "translation": "лев",
-          "note": "тильда уходит (león→leones)"
-        },
-        {
-          "front": "pantalón",
-          "back": "pantalones",
-          "translation": "брюки (ед. форма)",
-          "note": "тильда уходит"
-        }
+        { "front": "autobús", "back": "autobuses", "note": "тильда уходит", "translation": "автобус" },
+        { "front": "televisión", "back": "televisiones", "note": "тильда уходит", "translation": "телевидение" },
+        { "front": "habitación", "back": "habitaciones", "note": "тильда уходит", "translation": "комната" },
+        { "front": "expresión", "back": "expresiones", "note": "тильда уходит", "translation": "выражение" },
+        { "front": "león", "back": "leones", "note": "тильда уходит (león→leones)", "translation": "лев" },
+        { "front": "pantalón", "back": "pantalones", "note": "тильда уходит", "translation": "брюки (ед. форма)" }
       ]
     },
     {
       "title": "Не меняются: -as/-es/-is/-os/-us (2+ слога)",
       "mode": "transform",
       "cards": [
-        {
-          "front": "el lunes",
-          "back": "los lunes",
-          "translation": "понедельник",
-          "note": "не меняется"
-        },
-        {
-          "front": "el jueves",
-          "back": "los jueves",
-          "translation": "четверг",
-          "note": "не меняется"
-        },
-        {
-          "front": "el paraguas",
-          "back": "los paraguas",
-          "translation": "зонт",
-          "note": "не меняется"
-        },
-        {
-          "front": "el cumpleaños",
-          "back": "los cumpleaños",
-          "translation": "день рождения",
-          "note": "не меняется"
-        }
+        { "front": "el lunes", "back": "los lunes", "note": "не меняется", "translation": "понедельник" },
+        { "front": "el jueves", "back": "los jueves", "note": "не меняется", "translation": "четверг" },
+        { "front": "el paraguas", "back": "los paraguas", "note": "не меняется", "translation": "зонт" },
+        { "front": "el cumpleaños", "back": "los cumpleaños", "note": "не меняется", "translation": "день рождения" }
       ]
     },
     {
       "title": "Только во множественном (форма не меняется)",
       "mode": "vocab",
       "cards": [
-        {
-          "front": "ножницы",
-          "back": "las tijeras",
-          "note": "tijeras и в ед., и во мн."
-        },
-        {
-          "front": "очки",
-          "back": "las gafas"
-        },
-        {
-          "front": "брюки",
-          "back": "los pantalones"
-        },
-        {
-          "front": "джинсы",
-          "back": "los vaqueros"
-        }
+        { "front": "ножницы", "back": "las tijeras", "note": "tijeras и в ед., и во мн." },
+        { "front": "очки", "back": "las gafas" },
+        { "front": "брюки", "back": "los pantalones" },
+        { "front": "джинсы", "back": "los vaqueros" }
       ]
     },
     {
       "title": "Мужской + женский = мужской плюрал",
       "mode": "transform",
       "cards": [
-        {
-          "front": "padre + madre",
-          "back": "los padres",
-          "translation": "родители"
-        },
-        {
-          "front": "hijo + hija",
-          "back": "los hijos",
-          "translation": "дети"
-        },
-        {
-          "front": "rey + reina",
-          "back": "los reyes",
-          "translation": "король и королева / монархи"
-        },
-        {
-          "front": "abuelo + abuela",
-          "back": "los abuelos",
-          "translation": "дедушка и бабушка"
-        },
-        {
-          "front": "amigo + amiga",
-          "back": "los amigos",
-          "translation": "друзья"
-        },
-        {
-          "front": "hermano + hermana",
-          "back": "los hermanos",
-          "translation": "брат и сестра"
-        },
-        {
-          "front": "tío + tía",
-          "back": "los tíos",
-          "translation": "дядя и тётя"
-        },
-        {
-          "front": "bailarín + bailarina",
-          "back": "los bailarines",
-          "translation": "танцоры"
-        },
-        {
-          "front": "profesor + profesora",
-          "back": "los profesores",
-          "translation": "преподаватели"
-        },
-        {
-          "front": "alumno + alumna",
-          "back": "los alumnos",
-          "translation": "ученики"
-        }
+        { "front": "padre + madre", "back": "los padres", "translation": "родители" },
+        { "front": "hijo + hija", "back": "los hijos", "translation": "дети" },
+        { "front": "rey + reina", "back": "los reyes", "translation": "король и королева / монархи" },
+        { "front": "abuelo + abuela", "back": "los abuelos", "translation": "дедушка и бабушка" },
+        { "front": "amigo + amiga", "back": "los amigos", "translation": "друзья" },
+        { "front": "hermano + hermana", "back": "los hermanos", "translation": "брат и сестра" },
+        { "front": "tío + tía", "back": "los tíos", "translation": "дядя и тётя" },
+        { "front": "bailarín + bailarina", "back": "los bailarines", "translation": "танцоры" },
+        { "front": "profesor + profesora", "back": "los profesores", "translation": "преподаватели" },
+        { "front": "alumno + alumna", "back": "los alumnos", "translation": "ученики" }
       ]
     }
   ]
