@@ -18,6 +18,7 @@ export interface Block {
   title: string
   mode: string
   cards: Card[]
+  on: boolean
 }
 
 export interface BlockJson {

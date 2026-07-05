@@ -1,11 +1,13 @@
 import { describe, expect, it, vi } from "vitest"
 import {
+  activeBlocks,
   buildQueue,
   cleanName,
   deckCount,
   normalizeCard,
   parseDeck,
   reviewCount,
+  selectedDeckCount,
   shuffle,
   sideFor
 } from "./patrones"
@@ -47,6 +49,7 @@ describe("parseDeck", () => {
     const deck = parseDeck(sampleDeckJson, "fallback")
     expect(deck?.name).toBe("Unidad test")
     expect(deck?.blocks).toHaveLength(2)
+    expect(deck?.blocks.every((b) => b.on)).toBe(true)
     expect(deckCount(deck!)).toBe(3)
   })
 
@@ -123,10 +126,11 @@ describe("deckCount", () => {
   it("sums cards in all blocks", () => {
     const deck = makeDeck("u", [["a", "b"], ["c", "d"]], {
       blocks: [
-        { title: "1", mode: "auto", cards: [{ front: "a", back: "b", translation: "", note: "" }] },
+        { title: "1", mode: "auto", on: true, cards: [{ front: "a", back: "b", translation: "", note: "" }] },
         {
           title: "2",
           mode: "auto",
+          on: true,
           cards: [
             { front: "c", back: "d", translation: "", note: "" },
             { front: "e", back: "f", translation: "", note: "" }
@@ -157,11 +161,13 @@ describe("shuffle", () => {
 describe("reviewCount", () => {
   it("sums blocks in selected decks", () => {
     const deck = makeDeck("u", [["a", "b"], ["c", "d"]], {
+      on: true,
       blocks: [
-        { title: "1", mode: "auto", cards: [{ front: "a", back: "b", translation: "", note: "" }] },
+        { title: "1", mode: "auto", on: true, cards: [{ front: "a", back: "b", translation: "", note: "" }] },
         {
           title: "2",
           mode: "auto",
+          on: true,
           cards: [
             { front: "c", back: "d", translation: "", note: "" },
             { front: "e", back: "f", translation: "", note: "" }
@@ -194,8 +200,8 @@ describe("buildQueue", () => {
   it("shuffleBlocks: shuffles blocks and cards within deck", () => {
     const multiBlock = makeDeck("Multi", [["x", "y"]], {
       blocks: [
-        { title: "First", mode: "auto", cards: [{ front: "f1", back: "f2", translation: "", note: "" }] },
-        { title: "Second", mode: "auto", cards: [{ front: "s1", back: "s2", translation: "", note: "" }] }
+        { title: "First", mode: "auto", on: true, cards: [{ front: "f1", back: "f2", translation: "", note: "" }] },
+        { title: "Second", mode: "auto", on: true, cards: [{ front: "s1", back: "s2", translation: "", note: "" }] }
       ]
     })
     vi.spyOn(Math, "random").mockReturnValue(0)
@@ -217,12 +223,13 @@ describe("buildQueue", () => {
         {
           title: "First",
           mode: "auto",
+          on: true,
           cards: [
             { front: "f1", back: "f2", translation: "", note: "" },
             { front: "f3", back: "f4", translation: "", note: "" }
           ]
         },
-        { title: "Second", mode: "auto", cards: [{ front: "s1", back: "s2", translation: "", note: "" }] }
+        { title: "Second", mode: "auto", on: true, cards: [{ front: "s1", back: "s2", translation: "", note: "" }] }
       ]
     })
     const queue = buildQueue([deckA, multiBlock], "review")
@@ -236,6 +243,7 @@ describe("buildQueue", () => {
         {
           title: "First",
           mode: "auto",
+          on: true,
           cards: [
             { front: "f1", back: "f2", translation: "", note: "" },
             { front: "f3", back: "f4", translation: "", note: "" }
@@ -252,10 +260,47 @@ describe("buildQueue", () => {
 
   it("uses auto mode for blocks without explicit mode", () => {
     const deck = makeDeck("U", [["a", "b"]], {
-      blocks: [{ title: "", mode: "", cards: [{ front: "a", back: "b", translation: "", note: "" }] }]
+      blocks: [{ title: "", mode: "", on: true, cards: [{ front: "a", back: "b", translation: "", note: "" }] }]
     })
     const [item] = buildQueue([deck], "straight")
     expect(item.mode).toBe("auto")
+  })
+
+  it("includes only selected blocks", () => {
+    const multiBlock = makeDeck("Multi", [["x", "y"]], {
+      on: true,
+      blocks: [
+        { title: "First", mode: "auto", on: true, cards: [{ front: "f1", back: "f2", translation: "", note: "" }] },
+        { title: "Second", mode: "auto", on: false, cards: [{ front: "s1", back: "s2", translation: "", note: "" }] }
+      ]
+    })
+    const queue = buildQueue([multiBlock], "straight")
+    expect(queue).toHaveLength(1)
+    expect(queue[0].front).toBe("f1")
+    expect(queue[0].section).toBe("First")
+  })
+})
+
+describe("selectedDeckCount", () => {
+  it("counts cards only in selected blocks", () => {
+    const deck = makeDeck("u", [["a", "b"]], {
+      on: true,
+      blocks: [
+        { title: "1", mode: "auto", on: true, cards: [{ front: "a", back: "b", translation: "", note: "" }] },
+        {
+          title: "2",
+          mode: "auto",
+          on: false,
+          cards: [
+            { front: "c", back: "d", translation: "", note: "" },
+            { front: "e", back: "f", translation: "", note: "" }
+          ]
+        }
+      ]
+    })
+    expect(selectedDeckCount(deck)).toBe(1)
+    expect(activeBlocks(deck)).toHaveLength(1)
+    expect(reviewCount([deck])).toBe(1)
   })
 })
 

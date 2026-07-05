@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { deckCount } from "../lib/patrones"
-import type { Deck, DirMode, OrderMode, TimerSec } from "../types"
+import { onMounted, onUnmounted, ref } from "vue"
+import { blockCount, deckCount, selectedDeckCount } from "../lib/patrones"
+import type { Block, Deck, DirMode, OrderMode, TimerSec } from "../types"
 
 defineProps<{
   decks: Deck[]
@@ -20,6 +21,8 @@ const timerSec = defineModel<TimerSec>("timerSec", { required: true })
 const emit = defineEmits<{
   start: []
 }>()
+
+const blocksPickerDeck = ref<Deck | null>(null)
 
 const orderOptions: { value: OrderMode; title: string; desc: string }[] = [
   {
@@ -75,13 +78,81 @@ function orderOptionTitle(value: OrderMode, title: string, mistakeCount: number)
   return title
 }
 
+function isPartialDeck(deck: Deck) {
+  return deck.on && deck.blocks.some((b) => !b.on)
+}
+
+function deckCountLabel(deck: Deck) {
+  const totalBlocks = deck.blocks.length
+  if (!deck.on) {
+    return `${deckCount(deck)} · ${totalBlocks} бл.`
+  }
+  const cards = selectedDeckCount(deck)
+  if (!isPartialDeck(deck)) {
+    return `${cards} · ${totalBlocks} бл.`
+  }
+  const activeBlocks = deck.blocks.filter((b) => b.on).length
+  return `${cards} · ${activeBlocks}/${totalBlocks} бл.`
+}
+
+function blocksBtnLabel(deck: Deck) {
+  const total = deck.blocks.length
+  const active = deck.blocks.filter((b) => b.on).length
+  return active === total ? "блоки" : `${active}/${total}`
+}
+
+function blockTitle(block: Block) {
+  return block.title || "Без названия"
+}
+
 function toggleDeck(deck: Deck, on: boolean) {
   deck.on = on
+  deck.blocks.forEach((b) => { b.on = on })
+  if (!on && blocksPickerDeck.value === deck) {
+    blocksPickerDeck.value = null
+  }
+}
+
+function toggleBlock(deck: Deck, block: Block, on: boolean) {
+  block.on = on
+  deck.on = deck.blocks.some((b) => b.on)
+}
+
+function openBlocksPicker(deck: Deck) {
+  blocksPickerDeck.value = deck
+}
+
+function closeBlocksPicker() {
+  blocksPickerDeck.value = null
+}
+
+function selectBlocksInPicker(on: boolean) {
+  blocksPickerDeck.value?.blocks.forEach((b) => { b.on = on })
+  if (blocksPickerDeck.value) {
+    blocksPickerDeck.value.on = on
+  }
 }
 
 function selectAll(decks: Deck[], on: boolean) {
-  decks.forEach((d) => { d.on = on })
+  decks.forEach((d) => toggleDeck(d, on))
+  if (!on) {
+    blocksPickerDeck.value = null
+  }
 }
+
+function onKeydown(e: KeyboardEvent) {
+  if (e.key === "Escape" && blocksPickerDeck.value) {
+    closeBlocksPicker()
+  }
+}
+
+onMounted(() => {
+  document.addEventListener("keydown", onKeydown)
+})
+
+onUnmounted(() => {
+  document.removeEventListener("keydown", onKeydown)
+})
 </script>
 
 <template>
@@ -100,20 +171,82 @@ function selectAll(decks: Deck[], on: boolean) {
           v-for="deck in decks"
           :key="deck.fileName"
           class="deck"
-          :class="{ on: deck.on }"
+          :class="{ on: deck.on, partial: isPartialDeck(deck) }"
           @click="toggleDeck(deck, !deck.on)"
         >
-          <input
-            type="checkbox"
-            :checked="deck.on"
-            tabindex="-1"
-            @click.prevent
-          >
-          <span class="nm" :title="deck.name">{{ deck.name }}</span>
-          <span class="ct">{{ deckCount(deck) }} · {{ deck.blocks.length }} бл.</span>
+          <div class="deck-main">
+            <input
+              type="checkbox"
+              :checked="deck.on"
+              tabindex="-1"
+              @click.prevent
+            >
+            <span class="nm" :title="deck.name">{{ deck.name }}</span>
+            <span class="ct">{{ deckCountLabel(deck) }}</span>
+          </div>
+          <span class="blocks-slot">
+            <button
+              class="blocks-btn"
+              :class="{ custom: isPartialDeck(deck), idle: !deck.on }"
+              type="button"
+              title="Выбрать блоки"
+              :tabindex="deck.on ? 0 : -1"
+              @click.stop="deck.on && openBlocksPicker(deck)"
+            >
+              {{ deck.on ? blocksBtnLabel(deck) : "блоки" }}
+            </button>
+          </span>
         </li>
       </ul>
     </div>
+
+    <Teleport to="body">
+      <div
+        v-if="blocksPickerDeck"
+        class="blocks-overlay"
+        @click.self="closeBlocksPicker"
+      >
+        <div class="blocks-popover" role="dialog" aria-modal="true" :aria-label="blocksPickerDeck.name">
+          <div class="blocks-popover-head">
+            <div>
+              <h3>Блоки</h3>
+              <p>{{ blocksPickerDeck.name }}</p>
+            </div>
+            <button class="ghost blocks-close" type="button" aria-label="Закрыть" @click="closeBlocksPicker">
+              ×
+            </button>
+          </div>
+
+          <div class="blocks-popover-tools">
+            <button class="mini" type="button" @click="selectBlocksInPicker(true)">все</button>
+            <button class="mini" type="button" @click="selectBlocksInPicker(false)">снять</button>
+          </div>
+
+          <ul class="blocks-list">
+            <li
+              v-for="block in blocksPickerDeck.blocks"
+              :key="`${blocksPickerDeck.fileName}:${block.title}:${block.mode}`"
+              class="block-row"
+              :class="{ on: block.on }"
+              @click="toggleBlock(blocksPickerDeck, block, !block.on)"
+            >
+              <input
+                type="checkbox"
+                :checked="block.on"
+                tabindex="-1"
+                @click.prevent
+              >
+              <span class="nm" :title="blockTitle(block)">{{ blockTitle(block) }}</span>
+              <span class="ct">{{ blockCount(block) }} карт.</span>
+            </li>
+          </ul>
+
+          <button class="file-btn blocks-done" type="button" @click="closeBlocksPicker">
+            Готово
+          </button>
+        </div>
+      </div>
+    </Teleport>
 
     <p v-if="loadErr" class="err">{{ loadErr }}</p>
 

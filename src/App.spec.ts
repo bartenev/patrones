@@ -13,6 +13,7 @@ const { mockDecks, loadDecksFromFolderMock } = vi.hoisted(() => {
       blocks: [{
         title: "Блок",
         mode: "transform",
+        on: true,
         cards: [{ front: "el niño", back: "la niña", translation: "", note: "" }]
       }]
     },
@@ -23,6 +24,7 @@ const { mockDecks, loadDecksFromFolderMock } = vi.hoisted(() => {
       blocks: [{
         title: "Блок",
         mode: "vocab",
+        on: true,
         cards: [{ front: "hola", back: "привет", translation: "", note: "" }]
       }]
     }
@@ -242,6 +244,7 @@ describe("App", () => {
         blocks: [{
           title: "Секция",
           mode: "transform",
+          on: true,
           cards: [{
             front: "forma",
             back: "respuesta",
@@ -518,8 +521,8 @@ describe("App", () => {
         fileName: "mix.json",
         on: false,
         blocks: [
-          { title: "A", mode: "vocab", cards: [{ front: "one", back: "uno", translation: "", note: "" }] },
-          { title: "B", mode: "vocab", cards: [{ front: "two", back: "dos", translation: "", note: "" }] }
+          { title: "A", mode: "vocab", on: true, cards: [{ front: "one", back: "uno", translation: "", note: "" }] },
+          { title: "B", mode: "vocab", on: true, cards: [{ front: "two", back: "dos", translation: "", note: "" }] }
         ]
       }],
       bad: []
@@ -607,6 +610,52 @@ describe("App", () => {
     expect(wrapper.text()).toContain("5 — только ошибки (2)")
     const stored = JSON.parse(localStorage.getItem("patrones:mistakes") || "[]")
     expect(stored.map((item: { dirMode: string }) => item.dirMode).sort()).toEqual(["fwd", "rev"])
+  })
+
+  it("toggles block selection inside unit", async () => {
+    loadDecksFromFolderMock.mockImplementationOnce(() => ({
+      decks: [{
+        name: "Blocks",
+        fileName: "blocks.json",
+        on: true,
+        blocks: [
+          {
+            title: "Правило A",
+            mode: "transform",
+            on: true,
+            cards: [{ front: "a1", back: "a2", translation: "", note: "" }]
+          },
+          {
+            title: "Правило B",
+            mode: "transform",
+            on: true,
+            cards: [
+              { front: "b1", back: "b2", translation: "", note: "" },
+              { front: "b3", back: "b4", translation: "", note: "" }
+            ]
+          }
+        ]
+      }],
+      bad: []
+    }))
+    const wrapper = await mountApp()
+    expect(wrapper.text()).toContain("Начать прогон → 3 пар")
+    await wrapper.get(".blocks-btn").trigger("click")
+    await flushPromises()
+    const rows = document.body.querySelectorAll(".block-row")
+    expect(rows.length).toBeGreaterThan(1)
+    ;(rows[1] as HTMLElement).click()
+    await flushPromises()
+    ;(document.body.querySelector(".blocks-done") as HTMLElement).click()
+    await flushPromises()
+    expect(wrapper.text()).toContain("Начать прогон → 1 пар")
+    await wrapper.get(".start").trigger("click")
+    await flushPromises()
+    expect(wrapper.text()).toContain("a1")
+    await wrapper.get(".reveal").trigger("click")
+    await wrapper.get(".knew").trigger("click")
+    await flushPromises()
+    expect(wrapper.text()).toContain("¡Listo!")
   })
 
   it("replays mistake in saved direction mode", async () => {

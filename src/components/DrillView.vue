@@ -6,6 +6,7 @@ defineProps<{
   leftCount: number
   missed: number
   curUnit: string | null
+  curSection: string
   showSecbar: boolean
   cardSide: string
   cardPrompt: string
@@ -42,6 +43,7 @@ const emit = defineEmits<{
 
     <div v-if="showSecbar" class="secbar">
       <span>{{ curUnit }}</span>
+      <span v-if="curSection" class="section">{{ curSection }}</span>
       <span class="ln" />
     </div>
 

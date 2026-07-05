@@ -36,6 +36,7 @@ export function parseDeck(obj: DeckJsonInput, fallbackName: string): Deck | null
         .map((bl) => ({
           title: (bl.title || "").trim(),
           mode: bl.mode || "auto",
+          on: true,
           cards: (Array.isArray(bl.cards) ? bl.cards : [])
             .map(normalizeCard)
             .filter((c): c is Card => Boolean(c))
@@ -45,6 +46,7 @@ export function parseDeck(obj: DeckJsonInput, fallbackName: string): Deck | null
       blocks = [{
         title: "",
         mode: obj.mode || "auto",
+        on: true,
         cards: obj.cards.map(normalizeCard).filter((c): c is Card => Boolean(c))
       }]
     }
@@ -59,12 +61,29 @@ export function cleanName(fn: string): string {
   return fn.replace(/\.json$/i, "")
 }
 
+export function blockCount(block: Block): number {
+  return block.cards.length
+}
+
+export function selectedBlocks(deck: Deck): Block[] {
+  return deck.blocks.filter((b) => b.on)
+}
+
+export function activeBlocks(deck: Deck): Block[] {
+  if (!deck.on) return []
+  return selectedBlocks(deck)
+}
+
+export function selectedDeckCount(deck: Deck): number {
+  return activeBlocks(deck).reduce((s, b) => s + blockCount(b), 0)
+}
+
 export function deckCount(d: Deck): number {
   return d.blocks.reduce((s, b) => s + b.cards.length, 0)
 }
 
 export function reviewCount(decks: Deck[]): number {
-  return decks.reduce((s, d) => s + d.blocks.length, 0)
+  return decks.reduce((s, d) => s + activeBlocks(d).length, 0)
 }
 
 export function shuffle<T>(a: T[]): T[] {
@@ -89,7 +108,7 @@ export function buildQueue(selectedDecks: Deck[], order: OrderMode): QueueItem[]
   if (order === "review") {
     const out: QueueItem[] = []
     selectedDecks.forEach((d) => {
-      d.blocks.forEach((bl) => {
+      selectedBlocks(d).forEach((bl) => {
         const chunk = blockToItems(d, bl)
         if (chunk.length) {
           const idx = (Math.random() * chunk.length) | 0
@@ -103,7 +122,7 @@ export function buildQueue(selectedDecks: Deck[], order: OrderMode): QueueItem[]
   if (order === "shuffleAll") {
     const items: QueueItem[] = []
     selectedDecks.forEach((d) => {
-      d.blocks.forEach((bl) => items.push(...blockToItems(d, bl)))
+      selectedBlocks(d).forEach((bl) => items.push(...blockToItems(d, bl)))
     })
     return shuffle(items).map((it) => ({ ...it, section: "" }))
   }
@@ -111,7 +130,10 @@ export function buildQueue(selectedDecks: Deck[], order: OrderMode): QueueItem[]
   const out: QueueItem[] = []
 
   selectedDecks.forEach((d) => {
-    const blocks = order === "shuffleBlocks" ? shuffle([...d.blocks]) : d.blocks
+    const active = selectedBlocks(d)
+    if (!active.length) return
+
+    const blocks = order === "shuffleBlocks" ? shuffle([...active]) : active
 
     blocks.forEach((bl) => {
       const chunk = blockToItems(d, bl)

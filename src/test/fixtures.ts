@@ -26,6 +26,7 @@ export function makeDeck(
     blocks: [{
       title: blockTitle,
       mode,
+      on: true,
       cards: cards.map((c) => (
         Array.isArray(c) ? makeCard(c[0], c[1]) : c
       ))

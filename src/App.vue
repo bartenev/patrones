@@ -4,7 +4,7 @@ import DoneView from "./components/DoneView.vue"
 import DrillView from "./components/DrillView.vue"
 import SetupView from "./components/SetupView.vue"
 import { loadDecksFromFolder } from "./lib/loadDecks"
-import { buildQueue, deckCount, reviewCount, sideFor } from "./lib/patrones"
+import { buildQueue, reviewCount, selectedDeckCount, sideFor } from "./lib/patrones"
 import {
   buildMistakesQueue,
   mistakeCount as getMistakeCount,
@@ -60,7 +60,7 @@ const cardTranslation = ref("")
 const spanishText = ref("")
 
 const selectedDecks = computed(() => decks.value.filter((d) => d.on))
-const totalSelected = computed(() => selectedDecks.value.reduce((s, d) => s + deckCount(d), 0))
+const totalSelected = computed(() => selectedDecks.value.reduce((s, d) => s + selectedDeckCount(d), 0))
 const selectedReviewCount = computed(() => reviewCount(selectedDecks.value))
 const isMistakesMode = computed(() => order.value === "mistakes")
 const isReviewMode = computed(() => order.value === "review")
@@ -88,7 +88,7 @@ const startLabel = computed(() => {
     : "Выбери хотя бы один юнит"
 })
 
-const showSecbar = computed(() => Boolean(curUnit.value))
+const showSecbar = computed(() => Boolean(curUnit.value || cur.value?.section))
 const fillWidth = computed(() => {
   const denom = total.value + missesRequeued.value
   const done = denom - (queue.value.length + 1)
@@ -407,6 +407,7 @@ onUnmounted(() => {
       :left-count="leftCount"
       :missed="missed"
       :cur-unit="curUnit"
+      :cur-section="cur?.section || ''"
       :show-secbar="showSecbar"
       :card-side="cardSide"
       :card-prompt="cardPrompt"
