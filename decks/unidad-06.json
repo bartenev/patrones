@@ -24,6 +24,7 @@
         { "front": "сестра", "back": "la hermana" },
         { "front": "дверь", "back": "la puerta" },
         { "front": "кухня", "back": "la cocina" },
+        { "front": "окно", "back": "la ventana" },
         { "front": "столица", "back": "la capital", "note": "la capital = столица (el capital = капитал)" }
       ]
     },
@@ -46,6 +47,20 @@
         { "front": "стулья", "back": "las sillas" },
         { "front": "ножницы", "back": "las tijeras" },
         { "front": "розы", "back": "las rosas" }
+      ]
+    },
+    {
+      "title": "Семья с артиклем",
+      "mode": "vocab",
+      "cards": [
+        { "front": "отец", "back": "el padre" },
+        { "front": "мать", "back": "la madre" },
+        { "front": "муж", "back": "el marido" },
+        { "front": "дядя", "back": "el tío" },
+        { "front": "тётя", "back": "la tía" },
+        { "front": "братья (и сёстры)", "back": "los hermanos" },
+        { "front": "сестра", "back": "la hermana" },
+        { "front": "дочери", "back": "las hijas" }
       ]
     },
     {
