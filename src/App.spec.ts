@@ -91,8 +91,8 @@ describe("App", () => {
   it("renders setup with loaded units", async () => {
     const wrapper = await mountApp()
     expect(wrapper.text()).toContain("Patrones")
-    expect(wrapper.text()).toContain("unit-a.json")
-    expect(wrapper.text()).toContain("unit-b.json")
+    expect(wrapper.text()).toContain("Unit A")
+    expect(wrapper.text()).toContain("Unit B")
     expect(wrapper.get(".start").attributes("disabled")).toBeUndefined()
     expect(wrapper.text()).toContain("Начать прогон → 1 пар")
   })
@@ -267,7 +267,6 @@ describe("App", () => {
   it("changes direction mode", async () => {
     const wrapper = await mountApp()
     await wrapper.findAll(".seg button")[1].trigger("click")
-    await wrapper.find(".deck").trigger("click")
     await wrapper.get(".start").trigger("click")
     await flushPromises()
     expect(wrapper.text()).toContain("español")
