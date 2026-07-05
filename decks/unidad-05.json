@@ -17,7 +17,8 @@
         { "front": "Ernesto es ___ músico.", "back": "∅", "note": "профессия → ∅", "translation": "Эрнесто — музыкант." },
         { "front": "Carolina es ___ vendedora.", "back": "∅", "note": "профессия → ∅", "translation": "Каролина — продавщица." },
         { "front": "La hermana de Rosa es ___ profesora de español.", "back": "∅", "note": "профессия → ∅", "translation": "Сестра Розы — преподавательница испанского." },
-        { "front": "Almodóvar es ___ director de cine.", "back": "∅", "note": "профессия → ∅", "translation": "Альмодовар — кинорежиссёр." }
+        { "front": "Almodóvar es ___ director de cine.", "back": "∅", "note": "профессия → ∅", "translation": "Альмодовар — кинорежиссёр." },
+        { "front": "Vargas Llosa es ___ peruano.", "back": "∅", "note": "национальность → ∅", "translation": "Варгас Льоса — перуанец." }
       ]
     },
     {
@@ -39,7 +40,9 @@
         { "front": "Escribe ___ canciones.", "back": "∅", "note": "класс → ∅", "translation": "Он пишет песни." },
         { "front": "Vende ___ enciclopedias.", "back": "∅", "note": "класс → ∅", "translation": "Она продаёт энциклопедии." },
         { "front": "¿Comes ___ carne?", "back": "∅", "note": "класс → ∅", "translation": "Ты ешь мясо?" },
-        { "front": "¿Quieres ___ queso?", "back": "∅", "note": "вещество вообще → ∅", "translation": "Хочешь сыра?" }
+        { "front": "¿Quieres ___ queso?", "back": "∅", "note": "вещество вообще → ∅", "translation": "Хочешь сыра?" },
+        { "front": "No tomo ___ azúcar.", "back": "∅", "note": "неисчисляемое → ∅", "translation": "Я не пью с сахаром / не ем сахар." },
+        { "front": "¿Necesitas ___ dinero?", "back": "∅", "note": "абстрактное/неисчисл. → ∅", "translation": "Тебе нужны деньги?" }
       ]
     },
     {
