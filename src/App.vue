@@ -61,7 +61,6 @@ function timerStepMs(phase: "question" | "answer"): number {
 const cardSide = ref("")
 const cardPrompt = ref("")
 const cardAnswer = ref("")
-const cardTag = ref("")
 const cardNote = ref("")
 const cardTranslation = ref("")
 const spanishText = ref("")
@@ -289,7 +288,6 @@ function applyCardView() {
   cardSide.value = v.side
   cardPrompt.value = v.prompt
   cardAnswer.value = v.answer
-  cardTag.value = cur.value.deck || ""
   cardNote.value = cur.value.note || ""
   cardTranslation.value = v.translation || ""
 }
@@ -551,7 +549,6 @@ onUnmounted(() => {
         :class="{ paused: isTimerMode && timerPaused }"
         @click="onCardClick"
       >
-        <span class="tag">{{ cardTag }}</span>
         <div class="side">{{ cardSide }}</div>
         <div class="prompt">{{ cardPrompt }}</div>
         <div v-if="!revealed && cardTranslation" class="translation">{{ cardTranslation }}</div>

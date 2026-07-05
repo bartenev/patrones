@@ -431,15 +431,6 @@ li.deck .ct {
   opacity: 0.55;
 }
 
-.tag {
-  position: absolute;
-  top: 14px;
-  left: 16px;
-  font-size: 11px;
-  letter-spacing: .06em;
-  color: var(--muted);
-}
-
 .side {
   font-size: 12px;
   letter-spacing: .14em;

@@ -428,21 +428,6 @@ describe("App", () => {
     expect(wrapper.find(".reveal").exists()).toBe(true)
   })
 
-  it("shows empty deck tag when card has no deck name", async () => {
-    vi.spyOn(patrones, "buildQueue").mockReturnValueOnce([{
-      front: "hola",
-      back: "привет",
-      translation: "",
-      note: "",
-      deck: "",
-      section: "",
-      mode: "vocab"
-    }])
-    const wrapper = await mountApp()
-    await startDrill(wrapper)
-    expect(wrapper.find(".tag").text()).toBe("")
-  })
-
   it("shows done text with misses", async () => {
     const wrapper = await mountApp()
     await startDrill(wrapper)
