@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from "vue"
+import DoneView from "./components/DoneView.vue"
+import DrillView from "./components/DrillView.vue"
+import SetupView from "./components/SetupView.vue"
 import { loadDecksFromFolder } from "./lib/loadDecks"
 import { buildQueue, deckCount, reviewCount, sideFor } from "./lib/patrones"
 import {
@@ -41,15 +44,6 @@ let timerDurationMs = 0
 let timerStartedAt = 0
 let timerRemainingMs = 0
 
-const timerOptions: { value: TimerSec; label: string }[] = [
-  { value: 0, label: "вручную" },
-  { value: 1, label: "1 сек" },
-  { value: 2, label: "2 сек" },
-  { value: 3, label: "3 сек" },
-  { value: 4, label: "4 сек" },
-  { value: 5, label: "5 сек" }
-]
-
 const isTimerMode = computed(() => timerSec.value > 0)
 
 const ANSWER_TIMER_MS = 1000
@@ -64,44 +58,6 @@ const cardAnswer = ref("")
 const cardNote = ref("")
 const cardTranslation = ref("")
 const spanishText = ref("")
-
-const orderOptions: { value: OrderMode; title: string; desc: string }[] = [
-  {
-    value: "straight",
-    title: "1 — всё по порядку",
-    desc: "юниты по очереди → блоки прямо → карточки прямо. Для постановки навыка."
-  },
-  {
-    value: "shuffleCards",
-    title: "2 — карточки вперемешку",
-    desc: "юниты по очереди → блоки прямо → карточки внутри блока случайно."
-  },
-  {
-    value: "shuffleBlocks",
-    title: "3 — блоки и карточки вперемешку",
-    desc: "юниты по очереди → блоки случайно → карточки внутри блока случайно."
-  },
-  {
-    value: "shuffleAll",
-    title: "4 — полный хаос",
-    desc: "все карточки из выбранных юнитов в один случайный поток. Экзамен."
-  },
-  {
-    value: "mistakes",
-    title: "5 — только ошибки",
-    desc: "до 10 карточек за раз из банка. Ошибся — снова в очередь; знал — убирается из банка."
-  },
-  {
-    value: "review",
-    title: "6 — ревью",
-    desc: "по одной случайной карточке из каждого блока выбранных юнитов. Быстрая проверка."
-  }
-]
-
-const dirOptions: { value: DirMode; label: string }[] = [
-  { value: "fwd", label: "front → back" },
-  { value: "rev", label: "back → front" }
-]
 
 const selectedDecks = computed(() => decks.value.filter((d) => d.on))
 const totalSelected = computed(() => selectedDecks.value.reduce((s, d) => s + deckCount(d), 0))
@@ -244,21 +200,6 @@ function onCardClick() {
 
 function refreshMistakeCount() {
   storedMistakeCount.value = getMistakeCount()
-}
-
-function orderOptionTitle(value: OrderMode, title: string) {
-  if (value === "mistakes") {
-    return `5 — только ошибки (${storedMistakeCount.value})`
-  }
-  return title
-}
-
-function toggleDeck(deck: Deck, on: boolean) {
-  deck.on = on
-}
-
-function selectAll(on: boolean) {
-  decks.value.forEach((d) => { d.on = on })
 }
 
 function pickVoice() {
@@ -444,159 +385,52 @@ onUnmounted(() => {
   </header>
 
   <main>
-    <section v-show="view === 'setup'" class="wrap">
-      <div class="deck-head">
-        <h2>Юниты</h2>
-        <div v-if="decks.length" class="tools">
-          <button class="mini" type="button" @click="selectAll(true)">все</button>
-          <button class="mini" type="button" @click="selectAll(false)">снять</button>
-        </div>
-      </div>
+    <SetupView
+      v-show="view === 'setup'"
+      v-model:order="order"
+      v-model:dir-mode="dirMode"
+      v-model:autospeak="autospeak"
+      v-model:requeue="requeue"
+      v-model:timer-sec="timerSec"
+      :decks="decks"
+      :load-err="loadErr"
+      :stored-mistake-count="storedMistakeCount"
+      :is-mistakes-mode="isMistakesMode"
+      :start-disabled="startDisabled"
+      :start-label="startLabel"
+      @start="startCards"
+    />
 
-      <div v-if="decks.length" class="decks-scroll">
-        <ul class="decks">
-          <li
-            v-for="deck in decks"
-            :key="deck.fileName"
-            class="deck"
-            :class="{ on: deck.on }"
-            @click="toggleDeck(deck, !deck.on)"
-          >
-            <input
-              type="checkbox"
-              :checked="deck.on"
-              tabindex="-1"
-              @click.prevent
-            >
-            <span class="nm" :title="deck.name">{{ deck.name }}</span>
-            <span class="ct">{{ deckCount(deck) }} · {{ deck.blocks.length }} бл.</span>
-          </li>
-        </ul>
-      </div>
+    <DrillView
+      v-show="view === 'drill'"
+      :fill-width="fillWidth"
+      :left-count="leftCount"
+      :missed="missed"
+      :cur-unit="curUnit"
+      :show-secbar="showSecbar"
+      :card-side="cardSide"
+      :card-prompt="cardPrompt"
+      :card-answer="cardAnswer"
+      :card-note="cardNote"
+      :card-translation="cardTranslation"
+      :revealed="revealed"
+      :is-timer-mode="isTimerMode"
+      :timer-paused="timerPaused"
+      :timer-fill="timerFill"
+      :timer-transition="timerTransition"
+      :timer-sec="timerSec"
+      @quit="quitDrill"
+      @card-click="onCardClick"
+      @reveal="reveal"
+      @rate="rate"
+      @speak="speak(spanishText)"
+    />
 
-      <p v-if="loadErr" class="err">{{ loadErr }}</p>
-
-      <template v-if="decks.length">
-        <div class="block">
-          <h3>Порядок карточек</h3>
-          <div class="radio">
-            <label
-              v-for="opt in orderOptions"
-              :key="opt.value"
-              :class="{ on: order === opt.value }"
-            >
-              <input v-model="order" type="radio" name="order" :value="opt.value">
-              <span>
-                <span class="t">{{ orderOptionTitle(opt.value, opt.title) }}</span>
-                <span class="d">{{ opt.desc }}</span>
-              </span>
-            </label>
-          </div>
-        </div>
-
-        <div class="opts">
-          <div class="seg">
-            <button
-              v-for="opt in dirOptions"
-              :key="opt.value"
-              type="button"
-              :class="{ on: dirMode === opt.value }"
-              :disabled="isMistakesMode"
-              @click="dirMode = opt.value"
-            >
-              {{ opt.label }}
-            </button>
-          </div>
-          <label class="chk">
-            <input v-model="autospeak" type="checkbox"> озвучивать ответ
-          </label>
-          <label class="chk">
-            <input v-model="requeue" type="checkbox" :disabled="isMistakesMode"> повторять ошибки
-          </label>
-          <label class="timer-sel">
-            таймер
-            <select v-model.number="timerSec">
-              <option v-for="opt in timerOptions" :key="opt.value" :value="opt.value">
-                {{ opt.label }}
-              </option>
-            </select>
-          </label>
-        </div>
-
-        <button class="start" type="button" :disabled="startDisabled" @click="startCards">
-          {{ startLabel }}
-        </button>
-      </template>
-    </section>
-
-    <section v-show="view === 'drill'" class="wrap">
-      <div class="bar">
-        <button class="ghost" type="button" @click="quitDrill">‹ выход</button>
-        <div class="track">
-          <div class="fill" :style="{ width: fillWidth }" />
-        </div>
-        <span>осталось <b>{{ leftCount }}</b></span>
-        <span class="miss">споткнулся <b style="color: inherit">{{ missed }}</b></span>
-      </div>
-
-      <div v-if="showSecbar" class="secbar">
-        <span>{{ curUnit }}</span>
-        <span class="ln" />
-      </div>
-
-      <div
-        class="card"
-        :class="{ paused: isTimerMode && timerPaused }"
-        @click="onCardClick"
-      >
-        <div class="side">{{ cardSide }}</div>
-        <div class="prompt">{{ cardPrompt }}</div>
-        <div v-if="!revealed && cardTranslation" class="translation">{{ cardTranslation }}</div>
-        <div v-if="revealed" class="answer">{{ cardAnswer }}</div>
-        <div v-if="revealed && cardNote" class="note">{{ cardNote }}</div>
-        <button
-          v-if="revealed && !isTimerMode"
-          class="spk"
-          type="button"
-          @click="speak(spanishText)"
-        >
-          🔊 произнести
-        </button>
-        <div v-if="isTimerMode" class="card-timer">
-          <div
-            class="fill"
-            :style="{ width: timerFill, transition: timerTransition }"
-          />
-        </div>
-      </div>
-
-      <div v-if="!isTimerMode && !revealed" class="controls">
-        <button class="reveal" type="button" @click="reveal">Показать ответ</button>
-      </div>
-      <div v-else-if="!isTimerMode" class="controls">
-        <button class="missed" type="button" @click="rate(false)">Споткнулся</button>
-        <button class="knew" type="button" @click="rate(true)">Знал</button>
-      </div>
-
-      <div class="hint">
-        <template v-if="isTimerMode">
-          авто · {{ timerSec }} с на вопрос · 1 с на ответ · клик — пауза · <kbd>Esc</kbd> выход
-        </template>
-        <template v-else>
-          <kbd>Пробел</kbd> показать ответ · <kbd>←</kbd> споткнулся · <kbd>→</kbd> знал · <kbd>S</kbd> озвучить · <kbd>Esc</kbd> выход
-        </template>
-      </div>
-    </section>
-
-    <section v-show="view === 'done'" class="wrap">
-      <div class="done">
-        <h2>¡Listo!</h2>
-        <p>{{ doneText }}</p>
-        <div class="row">
-          <button class="file-btn" type="button" @click="startCards">Прогнать ещё раз</button>
-          <button class="ghost" type="button" @click="view = 'setup'">К выбору колод</button>
-        </div>
-      </div>
-    </section>
+    <DoneView
+      v-show="view === 'done'"
+      :done-text="doneText"
+      @restart="startCards"
+      @setup="view = 'setup'"
+    />
   </main>
 </template>
