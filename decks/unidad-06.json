@@ -1,0 +1,102 @@
+{
+  "unit": "Unidad 6 — Artículo determinado (el / la / los / las)",
+  "blocks": [
+    {
+      "title": "el + сущ. (м.р., ед.)",
+      "mode": "vocab",
+      "cards": [
+        { "front": "машина (авто)", "back": "el coche" },
+        { "front": "врач", "back": "el médico" },
+        { "front": "пёс / собака", "back": "el perro" },
+        { "front": "преподаватель", "back": "el profesor" },
+        { "front": "табак", "back": "el tabaco" },
+        { "front": "центр", "back": "el centro" },
+        { "front": "сад", "back": "el jardín" },
+        { "front": "словарь", "back": "el diccionario" }
+      ]
+    },
+    {
+      "title": "la + сущ. (ж.р., ед.)",
+      "mode": "vocab",
+      "cards": [
+        { "front": "дом", "back": "la casa" },
+        { "front": "комната", "back": "la habitación" },
+        { "front": "сестра", "back": "la hermana" },
+        { "front": "дверь", "back": "la puerta" },
+        { "front": "кухня", "back": "la cocina" },
+        { "front": "столица", "back": "la capital", "note": "la capital = столица (el capital = капитал)" }
+      ]
+    },
+    {
+      "title": "los + сущ. (м.р., мн.)",
+      "mode": "vocab",
+      "cards": [
+        { "front": "брюки", "back": "los pantalones" },
+        { "front": "карандаши", "back": "los lápices" },
+        { "front": "ученики", "back": "los alumnos" },
+        { "front": "родители", "back": "los padres" },
+        { "front": "чилийцы", "back": "los chilenos" }
+      ]
+    },
+    {
+      "title": "las + сущ. (ж.р., мн.)",
+      "mode": "vocab",
+      "cards": [
+        { "front": "апельсины", "back": "las naranjas" },
+        { "front": "стулья", "back": "las sillas" },
+        { "front": "ножницы", "back": "las tijeras" },
+        { "front": "розы", "back": "las rosas" }
+      ]
+    },
+    {
+      "title": "Ловушка a-/ha-: ж.р. в ед. → el",
+      "mode": "vocab",
+      "cards": [
+        { "front": "аудитория (ед.)", "back": "el aula", "note": "ж.р.! но el (ударная á-)" },
+        { "front": "вода (ед.)", "back": "el agua", "note": "ж.р.! но el (ударная á-)" },
+        { "front": "топор (ед.)", "back": "el hacha", "note": "ж.р.! но el (ударная ha-)" },
+        { "front": "орёл (ед.)", "back": "el águila", "note": "ж.р.! но el (ударная á-)" }
+      ]
+    },
+    {
+      "title": "Ловушка a-/ha-: во мн. → las, с прилаг. → la",
+      "mode": "vocab",
+      "cards": [
+        { "front": "аудитории (мн.)", "back": "las aulas", "note": "во мн. род виден → las" },
+        { "front": "топоры (мн.)", "back": "las hachas", "note": "во мн. → las" },
+        { "front": "орлы (мн.)", "back": "las águilas", "note": "во мн. → las" },
+        { "front": "другая аудитория", "back": "la otra aula", "note": "прилаг. между → la" }
+      ]
+    },
+    {
+      "title": "Слияния: a + el = al, de + el = del",
+      "mode": "cloze",
+      "cards": [
+        { "front": "Juego a ___ fútbol.", "back": "al", "note": "a + el = al", "translation": "Я играю в футбол." },
+        { "front": "El hijo de ___ profesor está en mi clase.", "back": "del", "note": "de + el = del", "translation": "Сын преподавателя в моём классе." },
+        { "front": "Quiero ver a ___ director.", "back": "al", "note": "a + el = al", "translation": "Я хочу увидеть директора." },
+        { "front": "Queremos ver a ___ jefe de estudios.", "back": "al", "note": "a + el = al", "translation": "Мы хотим увидеть завуча." },
+        { "front": "Vivimos cerca de ___ centro.", "back": "del", "note": "de + el = del", "translation": "Мы живём рядом с центром." },
+        { "front": "Ese coche es de ___ padre de Mónica.", "back": "del", "note": "de + el = del", "translation": "Эта машина — отца Моники." },
+        { "front": "Tenéis que ir a ___ aula 15.", "back": "al", "note": "a + el = al (el aula)", "translation": "Вам нужно идти в аудиторию 15." },
+        { "front": "Cierra la puerta de ___ jardín.", "back": "del", "note": "de + el = del", "translation": "Закрой дверь сада." }
+      ]
+    },
+    {
+      "title": "Употребление: единственное/конкретное/обобщённое → артикль",
+      "mode": "cloze",
+      "cards": [
+        { "front": "___ madre de Antonio es policía.", "back": "La", "note": "единственная → артикль", "translation": "Мать Антонио — полицейская." },
+        { "front": "Buenos Aires es ___ capital de Argentina.", "back": "la", "note": "единственная → артикль", "translation": "Буэнос-Айрес — столица Аргентины." },
+        { "front": "¿Quién es ___ presidente de Brasil?", "back": "el", "note": "единственный → артикль", "translation": "Кто президент Бразилии?" },
+        { "front": "Enciende ___ luz, por favor.", "back": "la", "note": "конкретная (этой комнаты) → артикль", "translation": "Включи свет, пожалуйста." },
+        { "front": "Luis está en ___ cocina.", "back": "la", "note": "конкретная (этого дома) → артикль", "translation": "Луис на кухне." },
+        { "front": "___ tabaco es malo para la salud.", "back": "El", "note": "обобщение (весь табак) → артикль", "translation": "Табак вреден для здоровья." },
+        { "front": "___ chilenos hablan español.", "back": "Los", "note": "обобщение (все чилийцы) → артикль", "translation": "Чилийцы говорят по-испански." },
+        { "front": "___ águilas son aves.", "back": "Las", "note": "обобщение → артикль", "translation": "Орлы — птицы." },
+        { "front": "Me gustan ___ naranjas.", "back": "las", "note": "обобщение → артикль", "translation": "Мне нравятся апельсины." },
+        { "front": "___ agua es mi bebida preferida.", "back": "El", "note": "обобщение + ловушка el agua", "translation": "Вода — мой любимый напиток." }
+      ]
+    }
+  ]
+}
