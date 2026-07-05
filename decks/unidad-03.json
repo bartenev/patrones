@@ -12,7 +12,9 @@
         { "front": "mesa", "back": "mesas", "translation": "стол" },
         { "front": "clase", "back": "clases", "translation": "класс / урок" },
         { "front": "banana", "back": "bananas", "translation": "банан" },
-        { "front": "hermana", "back": "hermanas", "translation": "сестра" }
+        { "front": "hermana", "back": "hermanas", "translation": "сестра" },
+        { "front": "día", "back": "días", "note": "м.р. на -a, плюрал обычный +s", "translation": "день" },
+        { "front": "foto", "back": "fotos", "translation": "фото" }
       ]
     },
     {
@@ -33,7 +35,9 @@
         { "front": "mes", "back": "meses", "translation": "месяц" },
         { "front": "frijol", "back": "frijoles", "translation": "фасоль" },
         { "front": "mujer", "back": "mujeres", "translation": "женщина" },
-        { "front": "hotel", "back": "hoteles", "translation": "отель" }
+        { "front": "hotel", "back": "hoteles", "translation": "отель" },
+        { "front": "universidad", "back": "universidades", "note": "-dad + es", "translation": "университет" },
+        { "front": "postal", "back": "postales", "translation": "открытка" }
       ]
     },
     {
