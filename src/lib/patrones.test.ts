@@ -296,6 +296,16 @@ describe("buildQueue", () => {
     const queue = buildQueue([deck], "straight", ["transform"])
     expect(queue.map((q) => q.front)).toEqual(["t1"])
   })
+
+  it("skips deck when no blocks match filter", () => {
+    const deck = makeDeck("Only vocab", [["x", "y"]], {
+      on: true,
+      blocks: [
+        { title: "V", mode: "vocab", on: true, cards: [{ front: "v1", back: "v2", translation: "", note: "" }] }
+      ]
+    })
+    expect(buildQueue([deck], "straight", ["transform"])).toEqual([])
+  })
 })
 
 describe("blockMatchesMode", () => {
@@ -323,8 +333,16 @@ describe("visibleDecks", () => {
       ]
     })
     expect(visibleDecks([deck], ["cloze"])).toEqual([])
+    expect(visibleDecks([deck], [])).toEqual([])
     expect(matchingBlocks(deck, ["transform"])).toHaveLength(1)
     expect(selectedDeckCount({ ...deck, on: true }, ["transform"])).toBe(1)
+  })
+})
+
+describe("activeBlocks", () => {
+  it("returns empty list for turned off deck", () => {
+    const deck = makeDeck("u", [["a", "b"]], { on: false })
+    expect(activeBlocks(deck, ["transform"])).toEqual([])
   })
 })
 

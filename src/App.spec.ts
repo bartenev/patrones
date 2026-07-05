@@ -676,4 +676,114 @@ describe("App", () => {
     expect(wrapper.text()).toContain("español")
     expect(wrapper.text()).toContain("привет")
   })
+
+  it("shows review label when no units selected", async () => {
+    const wrapper = await mountApp()
+    await wrapper.find('input[value="review"]').setValue(true)
+    await wrapper.findAll(".mini")[1].trigger("click")
+    await flushPromises()
+    expect(wrapper.text()).toContain("Выбери хотя бы один юнит")
+  })
+
+  it("shows partial mistakes batch label", async () => {
+    for (let i = 0; i < 11; i++) {
+      recordMistake({
+        front: `f${i}`,
+        back: `b${i}`,
+        translation: "",
+        note: "",
+        deck: `Unit ${i}`,
+        section: "",
+        mode: "vocab"
+      }, "fwd")
+    }
+    const wrapper = await mountApp()
+    await wrapper.find('input[value="mistakes"]').setValue(true)
+    await flushPromises()
+    expect(wrapper.text()).toContain("Повторить ошибки → 10 из 11 пар")
+  })
+
+  it("toggles mode filter and shows empty state", async () => {
+    const wrapper = await mountApp()
+    const modeButtons = wrapper.findAll(".mode-seg button")
+    for (const btn of modeButtons) {
+      await btn.trigger("click")
+    }
+    await flushPromises()
+    expect(wrapper.text()).toContain("Выбери хотя бы один тип карточек")
+    await modeButtons[0].trigger("click")
+    await flushPromises()
+    expect(wrapper.text()).toContain("Unit A")
+    expect(wrapper.text()).not.toContain("Unit B")
+  })
+
+  it("closes blocks picker via escape and overlay", async () => {
+    const wrapper = await mountApp()
+    await wrapper.find(".deck.on .blocks-btn").trigger("click")
+    await flushPromises()
+    expect(document.body.querySelector(".blocks-popover")).toBeTruthy()
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }))
+    await flushPromises()
+    expect(document.body.querySelector(".blocks-popover")).toBeFalsy()
+    await wrapper.find(".deck.on .blocks-btn").trigger("click")
+    await flushPromises()
+    ;(document.body.querySelector(".blocks-close") as HTMLElement).click()
+    await flushPromises()
+    expect(document.body.querySelector(".blocks-popover")).toBeFalsy()
+  })
+
+  it("selects and clears blocks inside picker", async () => {
+    loadDecksFromFolderMock.mockImplementationOnce(() => ({
+      decks: [{
+        name: "Blocks",
+        fileName: "blocks.json",
+        on: true,
+        blocks: [
+          {
+            title: "",
+            mode: "transform",
+            on: true,
+            cards: [{ front: "a1", back: "a2", translation: "", note: "" }]
+          },
+          {
+            title: "Правило B",
+            mode: "transform",
+            on: true,
+            cards: [{ front: "b1", back: "b2", translation: "", note: "" }]
+          }
+        ]
+      }],
+      bad: []
+    }))
+    const wrapper = await mountApp()
+    await wrapper.get(".blocks-btn").trigger("click")
+    await flushPromises()
+    expect(document.body.textContent).toContain("Без названия")
+    const tools = document.body.querySelectorAll(".blocks-popover-tools .mini")
+    await (tools[1] as HTMLElement).click()
+    await flushPromises()
+    await (tools[0] as HTMLElement).click()
+    await flushPromises()
+    ;(document.body.querySelector(".blocks-done") as HTMLElement).click()
+    await flushPromises()
+    expect(wrapper.text()).toContain("Начать прогон → 2 пар")
+  })
+
+  it("clears unit title when queue item has no deck", async () => {
+    vi.spyOn(patrones, "buildQueue").mockReturnValueOnce([
+      {
+        front: "solo",
+        back: "answer",
+        translation: "",
+        note: "",
+        deck: "",
+        section: "S",
+        mode: "vocab"
+      }
+    ])
+    const wrapper = await mountApp()
+    await startDrill(wrapper)
+    expect(wrapper.find(".secbar").text()).toContain("S")
+    expect(wrapper.find(".secbar").text()).not.toContain("Unit")
+  })
 })

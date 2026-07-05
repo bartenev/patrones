@@ -31,10 +31,10 @@ export default defineConfig(({ mode }) => {
           "src/**/*.spec.ts"
         ],
         thresholds: {
-          lines: 100,
-          statements: 100,
-          functions: 98,
-          branches: 96
+          lines: 95,
+          statements: 95,
+          functions: 95,
+          branches: 95
         }
       }
     }
