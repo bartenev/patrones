@@ -4,15 +4,18 @@ import {
   LESSONS_STORE,
   MISTAKES_STORE
 } from "./idb"
-import type { LessonProgress, PatronesBackup, StoredMistake } from "../types"
+import type { LessonProgress, PatronesBackup, PatronesSettings, StoredMistake } from "../types"
+import { SETTINGS_STORE, idbGet } from "./idb"
+import { SETTINGS_ID } from "./settings"
 
 export const BACKUP_FORMAT = "patrones-backup" as const
 export const BACKUP_VERSION = 1
 
 export async function exportPatronesBackup(): Promise<PatronesBackup> {
-  const [lessons, mistakes] = await Promise.all([
+  const [lessons, mistakes, settings] = await Promise.all([
     idbGetAll<LessonProgress>(LESSONS_STORE),
-    idbGetAll<StoredMistake>(MISTAKES_STORE)
+    idbGetAll<StoredMistake>(MISTAKES_STORE),
+    idbGet<PatronesSettings>(SETTINGS_STORE, SETTINGS_ID)
   ])
 
   return {
@@ -21,7 +24,8 @@ export async function exportPatronesBackup(): Promise<PatronesBackup> {
     exportedAt: Date.now(),
     dbVersion: DB_VERSION,
     lessons,
-    mistakes
+    mistakes,
+    settings: settings ?? undefined
   }
 }
 

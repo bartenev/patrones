@@ -4,6 +4,7 @@ import type { Deck, QueueItem } from "./types"
 import * as patrones from "./lib/patrones"
 import { clearMistakes, initMistakesStore, loadMistakes, recordMistake } from "./lib/mistakes"
 import { clearAllProgress, getLessonProgress, initProgressStore, recordProgress } from "./lib/progress"
+import { clearPatronesSettings } from "./lib/settings"
 import { closePatronesDb, resetPatronesDbCache } from "./lib/idb"
 
 const { mockDecks, loadDecksFromFolderMock } = vi.hoisted(() => {
@@ -93,6 +94,7 @@ describe("App", () => {
     wrappers = []
     await clearAllProgress()
     await clearMistakes()
+    await clearPatronesSettings()
     loadDecksFromFolderMock.mockClear()
     loadDecksFromFolderMock.mockImplementation(() => ({
       decks: structuredClone(mockDecks),

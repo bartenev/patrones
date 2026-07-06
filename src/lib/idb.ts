@@ -1,7 +1,8 @@
 export const DB_NAME = "patrones"
-export const DB_VERSION = 2
+export const DB_VERSION = 3
 export const LESSONS_STORE = "lessons"
 export const MISTAKES_STORE = "mistakes"
+export const SETTINGS_STORE = "settings"
 
 let dbPromise: Promise<IDBDatabase> | null = null
 let dbInstance: IDBDatabase | null = null
@@ -25,6 +26,9 @@ export function openPatronesDb(): Promise<IDBDatabase> {
       }
       if (!db.objectStoreNames.contains(MISTAKES_STORE)) {
         db.createObjectStore(MISTAKES_STORE, { keyPath: "id" })
+      }
+      if (!db.objectStoreNames.contains(SETTINGS_STORE)) {
+        db.createObjectStore(SETTINGS_STORE, { keyPath: "id" })
       }
     }
 

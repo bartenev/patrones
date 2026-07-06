@@ -129,6 +129,36 @@ export interface PatronesBackup {
   dbVersion: number
   lessons: LessonProgress[]
   mistakes: StoredMistake[]
+  settings?: PatronesSettings
 }
 
 export type BackupExportMode = "download" | "clipboard"
+
+export type SetupTab = "content" | "mode"
+
+export interface StoredBlockSelection {
+  title: string
+  mode: string
+  on: boolean
+}
+
+export interface StoredDeckSelection {
+  on: boolean
+  blocks: StoredBlockSelection[]
+}
+
+export interface PatronesSettings {
+  id: "ui"
+  version: 1
+  updatedAt: number
+  isDark: boolean
+  order: OrderMode
+  dirMode: DirMode
+  requeue: boolean
+  autospeak: boolean
+  timerSec: TimerSec
+  modeFilter: CardMode[]
+  setupTab: SetupTab
+  backupExportMode: BackupExportMode
+  decks: Record<string, StoredDeckSelection>
+}

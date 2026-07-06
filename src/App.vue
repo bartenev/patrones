@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from "vue"
+import { computed, onMounted, onUnmounted, ref, watch } from "vue"
 import DoneView from "./components/DoneView.vue"
 import DrillView from "./components/DrillView.vue"
 import SetupView from "./components/SetupView.vue"
@@ -15,8 +15,25 @@ import {
 import { dequeue } from "./lib/queue"
 import { recordProgressSafe, buildWeakQueue, countWeakCards, weakBatchCount } from "./lib/progress"
 import { copyPatronesBackupToClipboard, downloadPatronesBackup } from "./lib/backup"
+import {
+  applyDeckSelections,
+  applyPatronesSettings,
+  loadPatronesSettings,
+  resetPatronesSettingsSaveTimer,
+  scheduleSavePatronesSettings
+} from "./lib/settings"
 import { ALL_CARD_MODES } from "./types"
-import type { AppView, BackupExportMode, CardMode, Deck, DirMode, OrderMode, QueueItem, TimerSec } from "./types"
+import type {
+  AppView,
+  BackupExportMode,
+  CardMode,
+  Deck,
+  DirMode,
+  OrderMode,
+  QueueItem,
+  SetupTab,
+  TimerSec
+} from "./types"
 
 const decks = ref<Deck[]>([])
 const loadErr = ref("")
@@ -35,6 +52,9 @@ const modeFilter = ref<CardMode[]>([...ALL_CARD_MODES])
 const autospeak = ref(false)
 const timerSec = ref<TimerSec>(0)
 const isDark = ref(true)
+const setupTab = ref<SetupTab>("content")
+const backupExportMode = ref<BackupExportMode>("download")
+const settingsHydrated = ref(false)
 const esVoice = ref<SpeechSynthesisVoice | null>(null)
 const timerFill = ref("0%")
 const timerTransition = ref("none")
@@ -359,6 +379,23 @@ function quitDrill() {
   void refreshWeakCount()
 }
 
+const settingsRefs = {
+  isDark,
+  order,
+  dirMode,
+  requeue,
+  autospeak,
+  timerSec,
+  modeFilter,
+  setupTab,
+  backupExportMode
+}
+
+function persistSettings() {
+  if (!settingsHydrated.value) return
+  scheduleSavePatronesSettings(settingsRefs, decks.value)
+}
+
 function toggleTheme() {
   isDark.value = !isDark.value
   document.documentElement.setAttribute("data-theme", isDark.value ? "dark" : "light")
@@ -391,11 +428,16 @@ function onKeydown(e: KeyboardEvent) {
   }
 }
 
-onMounted(() => {
-  document.documentElement.setAttribute("data-theme", isDark.value ? "dark" : "light")
-
+onMounted(async () => {
   const { decks: loaded, bad } = loadDecksFromFolder()
+  const saved = await loadPatronesSettings()
+  if (saved) {
+    applyPatronesSettings(saved, settingsRefs)
+    applyDeckSelections(loaded, saved.decks)
+  }
+
   decks.value = loaded
+  document.documentElement.setAttribute("data-theme", isDark.value ? "dark" : "light")
   void refreshMistakeCount()
   void refreshWeakCount()
 
@@ -410,10 +452,24 @@ onMounted(() => {
     speechSynthesis.onvoiceschanged = pickVoice
   }
   document.addEventListener("keydown", onKeydown)
+  settingsHydrated.value = true
+})
+
+watch(
+  [isDark, order, dirMode, requeue, autospeak, timerSec, modeFilter, setupTab, backupExportMode, decks],
+  () => {
+    persistSettings()
+  },
+  { deep: true }
+)
+
+watch(isDark, (dark) => {
+  document.documentElement.setAttribute("data-theme", dark ? "dark" : "light")
 })
 
 onUnmounted(() => {
   clearTimer()
+  resetPatronesSettingsSaveTimer()
   document.removeEventListener("keydown", onKeydown)
 })
 </script>
@@ -439,6 +495,8 @@ onUnmounted(() => {
       v-model:requeue="requeue"
       v-model:timer-sec="timerSec"
       v-model:mode-filter="modeFilter"
+      v-model:setup-tab="setupTab"
+      v-model:backup-export-mode="backupExportMode"
       :decks="decks"
       :load-err="loadErr"
       :stored-mistake-count="storedMistakeCount"

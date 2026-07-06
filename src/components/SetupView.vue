@@ -7,7 +7,7 @@ import {
   selectedDeckCount,
   visibleDecks
 } from "../lib/patrones"
-import type { Block, BackupExportMode, CardMode, Deck, DirMode, OrderMode, TimerSec } from "../types"
+import type { Block, BackupExportMode, CardMode, Deck, DirMode, OrderMode, SetupTab, TimerSec } from "../types"
 
 const modeFilterOptions: { value: CardMode; label: string }[] = [
   { value: "transform", label: "transform" },
@@ -32,6 +32,8 @@ const autospeak = defineModel<boolean>("autospeak", { required: true })
 const requeue = defineModel<boolean>("requeue", { required: true })
 const timerSec = defineModel<TimerSec>("timerSec", { required: true })
 const modeFilter = defineModel<CardMode[]>("modeFilter", { required: true })
+const setupTab = defineModel<SetupTab>("setupTab", { required: true })
+const backupExportMode = defineModel<BackupExportMode>("backupExportMode", { required: true })
 
 const emit = defineEmits<{
   start: []
@@ -40,8 +42,6 @@ const emit = defineEmits<{
 }>()
 
 const blocksPickerDeck = ref<Deck | null>(null)
-const setupTab = ref<"content" | "mode">("content")
-const backupExportMode = ref<BackupExportMode>("download")
 
 const backupActionLabel = computed(() =>
   backupExportMode.value === "clipboard"
