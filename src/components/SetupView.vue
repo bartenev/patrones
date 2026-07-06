@@ -7,7 +7,7 @@ import {
   selectedDeckCount,
   visibleDecks
 } from "../lib/patrones"
-import type { Block, BackupExportMode, CardMode, Deck, DirMode, OrderMode, SetupTab, TimerSec } from "../types"
+import type { Block, BackupExportMode, CardMode, Deck, DirMode, LessonMastery, OrderMode, SetupTab, TimerSec } from "../types"
 
 const modeFilterOptions: { value: CardMode; label: string }[] = [
   { value: "transform", label: "transform" },
@@ -18,6 +18,7 @@ const modeFilterOptions: { value: CardMode; label: string }[] = [
 
 const props = defineProps<{
   decks: Deck[]
+  deckMastery: Record<string, LessonMastery>
   loadErr: string
   storedWeakCount: number
   mistakesStartDisabled: boolean
@@ -164,6 +165,24 @@ function blockTitle(block: Block) {
   return block.title || "Без названия"
 }
 
+function deckMasteryInfo(deck: Deck): LessonMastery | null {
+  const info = props.deckMastery[deck.fileName]
+  if (!info?.trackableCards) return null
+  return info
+}
+
+function deckMasteryClass(deck: Deck): string {
+  return `mastery-${deckMasteryInfo(deck)?.level ?? "none"}`
+}
+
+function deckMasteryTitle(deck: Deck): string {
+  const info = deckMasteryInfo(deck)
+  if (!info) return ""
+  if (!info.attemptedCards) return "Ещё не проходил"
+  const coverage = Math.round(info.coverage * 100)
+  return `Знание юнита: ${info.score}% · пройдено ${coverage}% карточек`
+}
+
 function toggleDeck(deck: Deck, on: boolean) {
   deck.on = on
   deck.blocks.forEach((b) => { b.on = on })
@@ -284,9 +303,17 @@ onUnmounted(() => {
               v-for="deck in filteredDecks"
               :key="deck.fileName"
               class="deck"
-              :class="{ on: deck.on, partial: isPartialDeck(deck) }"
+              :class="{ on: deck.on, partial: isPartialDeck(deck), [deckMasteryClass(deck)]: true }"
+              :title="deckMasteryTitle(deck) || deck.name"
               @click="toggleDeck(deck, !deck.on)"
             >
+              <div
+                v-if="deckMasteryInfo(deck)?.attemptedCards"
+                class="deck-mastery-fill"
+                :class="deckMasteryClass(deck)"
+                :style="{ width: `${deckMasteryInfo(deck)?.score ?? 0}%` }"
+                aria-hidden="true"
+              />
               <div class="deck-main">
                 <input
                   type="checkbox"
@@ -295,6 +322,13 @@ onUnmounted(() => {
                   @click.prevent
                 >
                 <span class="nm" :title="deck.name">{{ deck.name }}</span>
+                <span
+                  v-if="deckMasteryInfo(deck)?.attemptedCards"
+                  class="deck-mastery-pct"
+                  :class="deckMasteryClass(deck)"
+                >
+                  {{ deckMasteryInfo(deck)?.score }}%
+                </span>
                 <span class="ct">{{ deckCountLabel(deck) }}</span>
               </div>
               <span class="deck-actions">

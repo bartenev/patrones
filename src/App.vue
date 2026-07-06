@@ -14,6 +14,7 @@ import {
 } from "./lib/mistakes"
 import { dequeue } from "./lib/queue"
 import { recordProgressSafe, buildWeakQueue, countWeakCards, weakBatchCount } from "./lib/progress"
+import { loadDecksMasteryMap } from "./lib/mastery"
 import { copyPatronesBackupToClipboard, downloadPatronesBackup } from "./lib/backup"
 import {
   applyDeckSelections,
@@ -29,6 +30,7 @@ import type {
   CardMode,
   Deck,
   DirMode,
+  LessonMastery,
   OrderMode,
   QueueItem,
   SetupTab,
@@ -61,6 +63,7 @@ const timerTransition = ref("none")
 const timerPaused = ref(false)
 const storedMistakeCount = ref(0)
 const storedWeakCount = ref(0)
+const deckMastery = ref<Record<string, LessonMastery>>({})
 const sessionMistakesMode = ref(false)
 
 let timerId: ReturnType<typeof setTimeout> | null = null
@@ -237,6 +240,14 @@ function onCardClick() {
   else pauseTimer()
 }
 
+async function refreshDeckMastery() {
+  if (!decks.value.length) {
+    deckMastery.value = {}
+    return
+  }
+  deckMastery.value = await loadDecksMasteryMap(decks.value)
+}
+
 async function refreshMistakeCount() {
   storedMistakeCount.value = await getMistakeCount()
 }
@@ -372,6 +383,7 @@ function rate(knew: boolean) {
     void removeMistake(item, dir).then(() => refreshMistakeCount()).catch(() => {})
   }
   void refreshWeakCount()
+  void refreshDeckMastery()
   next()
 }
 
@@ -380,6 +392,7 @@ function finish() {
   sessionMistakesMode.value = false
   view.value = "done"
   void refreshWeakCount()
+  void refreshDeckMastery()
 }
 
 function quitDrill() {
@@ -387,6 +400,7 @@ function quitDrill() {
   sessionMistakesMode.value = false
   view.value = "setup"
   void refreshWeakCount()
+  void refreshDeckMastery()
 }
 
 const settingsRefs = {
@@ -450,6 +464,7 @@ onMounted(async () => {
   document.documentElement.setAttribute("data-theme", isDark.value ? "dark" : "light")
   void refreshMistakeCount()
   void refreshWeakCount()
+  void refreshDeckMastery()
 
   if (bad.length) {
     loadErr.value = `Не удалось разобрать: ${bad.join(", ")}`
@@ -508,6 +523,7 @@ onUnmounted(() => {
       v-model:setup-tab="setupTab"
       v-model:backup-export-mode="backupExportMode"
       :decks="decks"
+      :deck-mastery="deckMastery"
       :load-err="loadErr"
       :stored-weak-count="storedWeakCount"
       :mistakes-start-disabled="mistakesStartDisabled"

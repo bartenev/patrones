@@ -137,6 +137,17 @@ export type BackupExportMode = "download" | "clipboard"
 
 export type SetupTab = "content" | "mode"
 
+export type LessonMasteryLevel = "none" | "low" | "mid" | "good" | "solid"
+
+export interface LessonMastery {
+  lessonId: string
+  score: number
+  level: LessonMasteryLevel
+  coverage: number
+  attemptedCards: number
+  trackableCards: number
+}
+
 export interface StoredBlockSelection {
   title: string
   mode: string

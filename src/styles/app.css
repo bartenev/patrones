@@ -9,6 +9,9 @@
   --amber: #C9883B;
   --amber-soft: #F6EAD7;
   --good: #3F7D58;
+  --bad: #C44B4B;
+  --warn: #C9883B;
+  --ok: #B59A2F;
   --shadow: 0 1px 0 rgba(0, 0, 0, .03), 0 12px 30px -18px rgba(27, 27, 42, .28);
   --radius: 14px;
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
@@ -26,6 +29,9 @@
   --amber: #E0A458;
   --amber-soft: #322A1E;
   --good: #7FC79A;
+  --bad: #F08A8A;
+  --warn: #E0A458;
+  --ok: #D9C36A;
   --shadow: 0 12px 34px -20px rgba(0, 0, 0, .7);
 }
 
@@ -232,7 +238,41 @@ li.deck {
   user-select: none;
   cursor: pointer;
   min-height: 44px;
+  position: relative;
+  overflow: hidden;
 }
+
+.deck-mastery-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  max-width: 100%;
+  opacity: 0.14;
+  pointer-events: none;
+  transition: width .2s ease;
+}
+
+li.deck.mastery-low .deck-mastery-fill { background: var(--bad); }
+li.deck.mastery-mid .deck-mastery-fill { background: var(--warn); }
+li.deck.mastery-good .deck-mastery-fill { background: var(--ok); }
+li.deck.mastery-solid .deck-mastery-fill { background: var(--good); }
+
+li.deck.mastery-low { border-left: 3px solid var(--bad); }
+li.deck.mastery-mid { border-left: 3px solid var(--warn); }
+li.deck.mastery-good { border-left: 3px solid var(--ok); }
+li.deck.mastery-solid { border-left: 3px solid var(--good); }
+
+.deck-mastery-pct {
+  flex: none;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 30px;
+  text-align: right;
+}
+
+.deck-mastery-pct.mastery-low { color: var(--bad); }
+.deck-mastery-pct.mastery-mid { color: var(--warn); }
+.deck-mastery-pct.mastery-good { color: var(--ok); }
+.deck-mastery-pct.mastery-solid { color: var(--good); }
 
 .deck-main {
   display: flex;
