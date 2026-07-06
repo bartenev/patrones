@@ -341,16 +341,16 @@ onUnmounted(() => {
                   сводка
                 </button>
                 <button
-                  v-show="deck.on"
                   class="blocks-btn"
-                  :class="{ custom: isPartialDeck(deck) }"
+                  :class="{ custom: isPartialDeck(deck), idle: !deck.on }"
                   type="button"
                   title="Выбрать блоки"
+                  :tabindex="deck.on ? 0 : -1"
+                  :disabled="!deck.on"
                   @click="openBlocksPicker(deck)"
                 >
                   {{ blocksBtnLabel(deck) }}
                 </button>
-                <span v-show="!deck.on" class="blocks-slot-placeholder" aria-hidden="true" />
               </div>
             </li>
           </ul>

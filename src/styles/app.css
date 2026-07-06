@@ -223,20 +223,20 @@ ul.decks {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 li.deck {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 11px;
-  padding: 6px 6px 6px 14px;
+  border-radius: 9px;
+  padding: 4px 4px 4px 10px;
   transition: .12s;
   user-select: none;
-  min-height: 44px;
+  min-height: 34px;
   position: relative;
   overflow: hidden;
 }
@@ -278,7 +278,7 @@ li.deck.mastery-solid { border-left: 3px solid var(--good); }
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   margin: 0;
   padding: 0;
   border: none;
@@ -289,11 +289,12 @@ li.deck.mastery-solid { border-left: 3px solid var(--good); }
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  min-height: 26px;
 }
 
 .deck-check {
-  width: 18px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
   accent-color: var(--azulejo);
   flex: none;
   pointer-events: none;
@@ -302,14 +303,8 @@ li.deck.mastery-solid { border-left: 3px solid var(--good); }
 .deck-actions {
   flex: none;
   display: flex;
-  gap: 4px;
+  gap: 3px;
   align-items: center;
-}
-
-.blocks-slot-placeholder {
-  flex: none;
-  width: 54px;
-  height: 1px;
 }
 
 .summary-btn,
@@ -318,23 +313,29 @@ li.deck.mastery-solid { border-left: 3px solid var(--good); }
   border: 1px solid var(--line);
   background: transparent;
   color: var(--muted);
-  border-radius: 8px;
-  padding: 6px 4px;
-  font-size: 12px;
+  border-radius: 7px;
+  padding: 3px 4px;
+  font-size: 11px;
   font-weight: 600;
+  line-height: 1.2;
   transition: .12s;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
 
 .summary-btn {
-  padding: 6px 6px;
-  font-size: 11px;
+  padding: 3px 5px;
+  font-size: 10px;
 }
 
 .blocks-btn {
-  width: 54px;
-  min-height: 32px;
+  width: 48px;
+  min-height: 26px;
+}
+
+.blocks-btn.idle {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .summary-btn:hover,
@@ -539,11 +540,11 @@ li.deck.on { border-color: var(--azulejo); background: var(--azulejo-soft); }
   background: var(--card);
 }
 
-.decks-scroll .decks { padding: 8px; }
+.decks-scroll .decks { padding: 6px; }
 
 li.deck .nm {
   font-weight: 600;
-  font-size: 14.5px;
+  font-size: 13px;
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -553,7 +554,7 @@ li.deck .nm {
 
 li.deck .ct {
   color: var(--muted);
-  font-size: 12.5px;
+  font-size: 11px;
   font-variant-numeric: tabular-nums;
   flex: none;
 }
@@ -1066,14 +1067,10 @@ kbd {
 
   .summary-btn,
   .blocks-btn {
-    min-height: 44px;
-    min-width: 44px;
+    min-height: 36px;
+    min-width: 36px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .blocks-slot-placeholder {
-    width: 44px;
   }
 }
