@@ -392,24 +392,24 @@ onUnmounted(() => {
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="data-block">
-        <h3>Данные</h3>
-        <p class="data-hint">Прогресс и банк ошибок из IndexedDB</p>
-        <div class="backup-radio" role="radiogroup" aria-label="Способ экспорта">
-          <label class="backup-radio__item">
-            <input v-model="backupExportMode" type="radio" value="download">
-            <span>Скачать файл</span>
-          </label>
-          <label class="backup-radio__item">
-            <input v-model="backupExportMode" type="radio" value="clipboard">
-            <span>Скопировать в буфер</span>
-          </label>
+        <div class="data-block">
+          <h3>Данные</h3>
+          <p class="data-hint">Прогресс и банк ошибок из IndexedDB</p>
+          <div class="backup-radio" role="radiogroup" aria-label="Способ экспорта">
+            <label class="backup-radio__item">
+              <input v-model="backupExportMode" type="radio" value="download">
+              <span>Скачать файл</span>
+            </label>
+            <label class="backup-radio__item">
+              <input v-model="backupExportMode" type="radio" value="clipboard">
+              <span>Скопировать в буфер</span>
+            </label>
+          </div>
+          <button class="file-btn" type="button" @click="emit('exportBackup', backupExportMode)">
+            {{ backupActionLabel }}
+          </button>
         </div>
-        <button class="file-btn" type="button" @click="emit('exportBackup', backupExportMode)">
-          {{ backupActionLabel }}
-        </button>
       </div>
 
       <div class="setup-bar">
