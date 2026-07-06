@@ -1,7 +1,6 @@
 {
   "unit": "Unidad 2 — Masculino / femenino (предметы и животные)",
-  "summary": "Род существительных-предметов. Обычно -o → м.р. (el libro), -a → ж.р. (la casa). Ловушки: -o, но ж.р. (la mano, la foto, la moto, la radio) и -a, но м.р. (el día, el problema, el mapa, el idioma, el planeta). Окончания-индикаторы: -ción/-sión/-dad/-tad → всегда ж.р. Дни недели и составные слова → м.р. (el lunes, el paraguas). На согласную/-e род надо запоминать (la noche, la luz — ж.р.; el hotel, el pan — м.р.). Животные: пара gato/gata, либо фиксированный род (el pez, la jirafa).",
-  "blocks": [
+  "summary": "<h4>Род предметов</h4> <p><b>Правило:</b> -o → м.р. (<em>el libro</em>), -a → ж.р. (<em>la casa</em>)</p> <p><b>⚠ Ловушки:</b></p> <ul> <li>-o, но ж.р.: <em>la mano, la foto, la moto, la radio</em></li> <li>-a, но м.р.: <em>el día, el problema, el mapa, el idioma, el planeta</em></li> </ul> <p><b>Окончание = ж.р.:</b> -ción / -sión / -dad / -tad (<em>la canción, la ciudad, la libertad</em>)</p> <p><b>Дни недели и составные → м.р.:</b> <em>el lunes, el paraguas, el cumpleaños</em></p> <p><b>Запомнить (согласная / -e):</b> <em>la noche, la luz</em> — ж.р.; <em>el hotel, el pan</em> — м.р.</p> <p><b>Животные:</b> пара <em>gato / gata</em> или фиксированный род (<em>el pez, la jirafa</em>)</p>",  "blocks": [
     {
       "title": "-o → мужской род (по правилу)",
       "mode": "vocab",

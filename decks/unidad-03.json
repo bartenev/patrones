@@ -1,7 +1,6 @@
 {
   "unit": "Unidad 3 — Singular / plural",
-  "summary": "Образование множественного числа. Гласная → +s (casa/casas). Ударная гласная -á/-é/-ó/-ú → +s (café/cafés). Согласная → +es (reloj/relojes). Ударные -í/-y → +es (rubí/rubíes, ley/leyes). -z → -ces (pez/peces, luz/luces). Ловушка: при +es уходит тильда (autobús/autobuses, televisión/televisiones, león/leones). Слова на -as/-es/-is/-os/-us в 2+ слога не меняются (el lunes/los lunes, el paraguas/los paraguas). Некоторые всегда во мн. (tijeras, gafas, pantalones). М + Ж = мужской плюрал (padre+madre → los padres).",
-  "blocks": [
+  "summary": "<h4>Множественное число</h4> <ul> <li>Гласная → +s: <em>casa → casas</em></li> <li>Ударная -á/-é/-ó/-ú → +s: <em>café → cafés</em></li> <li>Согласная → +es: <em>reloj → relojes</em></li> <li>Ударные -í/-y → +es: <em>rubí → rubíes, ley → leyes</em></li> <li>-z → -ces: <em>pez → peces, luz → luces</em></li> </ul> <p><b>⚠ Ловушка:</b> при +es уходит тильда: <em>autobús → autobuses, televisión → televisiones, león → leones</em></p> <p><b>Не меняются</b> (-as/-es/-is/-os/-us, 2+ слога): <em>el lunes → los lunes, el paraguas → los paraguas</em></p> <p><b>Всегда во мн.:</b> <em>tijeras, gafas, pantalones</em></p> <p><b>М + Ж = мужской плюрал:</b> <em>padre + madre → los padres</em></p>",  "blocks": [
     {
       "title": "Гласная (-a/-e/-i/-o/-u) → +s",
       "mode": "transform",

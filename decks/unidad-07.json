@@ -1,7 +1,6 @@
 {
   "unit": "Unidad 7 — Contraste: artículo determinado / indeterminado",
-  "summary": "Контраст неопределённого и определённого артикля. un/una/unos/unas: что-то новое, впервые упоминаемое (Tengo un perro); один из класса или группы (Tucumán es una ciudad, trabajo en un hospital); количество (Un melón, unos bombones). el/la/los/las: уже упомянутое, известное (Tengo un perro. El perro se llama…); единственное или конкретное в ситуации (la capital de Argentina, la novia de Arturo, el Sol, la Luna); общий смысл, в том числе после gustar/encantar (Me encanta el melón, ¿Te gustan las peras?).",
-  "blocks": [
+  "summary": "<h4>Контраст: un / el</h4> <p><b>Неопределённый (un/una/unos/unas):</b></p> <ul> <li>что-то новое, впервые: <em>Tengo un perro</em></li> <li>один из класса / группы: <em>Tucumán es una ciudad, trabajo en un hospital</em></li> <li>количество: <em>Un melón, unos bombones</em></li> </ul> <p><b>Определённый (el/la/los/las):</b></p> <ul> <li>уже упомянутое, известное: <em>Tengo un perro. El perro se llama…</em></li> <li>единственное / конкретное: <em>la capital de Argentina, la novia de Arturo, el Sol, la Luna</em></li> <li>общий смысл, в т.ч. после gustar/encantar: <em>Me encanta el melón, ¿Te gustan las peras?</em></li> </ul>",  "blocks": [
     {
       "title": "Новое, первое упоминание → un/una",
       "mode": "cloze",

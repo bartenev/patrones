@@ -1,7 +1,6 @@
 {
   "unit": "Unidad 4 — Artículo indeterminado (un / una / unos / unas)",
-  "summary": "Неопределённый артикль. Форма по роду и числу: un (м.р. ед.), una (ж.р. ед.), unos (м.р. мн.), unas (ж.р. мн.). Сложность — вспомнить род слова, а не саму форму. Ловушки рода: un futbolista (-ista, но мужчина), una flor (согласная, но ж.р.). Pluralia tantum = 1 предмет: unos pantalones, unas tijeras, unas gafas. Главная ловушка: женские слова на ударную a-/ha- в ед. берут un (un águila, un aula, un hacha), но во мн. → unas (unas águilas) и с прилагательным между → una (una buena aula).",
-  "blocks": [
+  "summary": "<h4>Неопределённый артикль</h4> <p><b>Форма по роду и числу:</b> un (м.ед.), una (ж.ед.), unos (м.мн.), unas (ж.мн.). Сложность — вспомнить <b>род слова</b>, а не форму.</p> <p><b>⚠ Ловушки рода:</b> <em>un futbolista</em> (-ista, но мужчина), <em>una flor</em> (согласная, но ж.р.)</p> <p><b>Pluralia tantum</b> (= 1 предмет): <em>unos pantalones, unas tijeras, unas gafas</em></p> <p><b>⚠ Главная ловушка a-/ha-:</b> ж.р. на ударную a-/ha- в ед. → <b>un</b> (<em>un águila, un aula, un hacha</em>), но во мн. → <b>unas</b> (<em>unas águilas</em>), с прилагательным между → <b>una</b> (<em>una buena aula</em>)</p>",  "blocks": [
     {
       "title": "un + сущ. (м.р., ед.) — по правилу",
       "mode": "vocab",

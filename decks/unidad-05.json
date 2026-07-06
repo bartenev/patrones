@@ -1,7 +1,6 @@
 {
   "unit": "Unidad 5 — Ausencia de artículo (артикль или ∅)",
-  "summary": "Артикль или его отсутствие. БЕЗ артикля (∅): после ser/hacerse с профессией, религией, национальностью, идеологией (Soy estudiante, Es abogada, se ha hecho budista); прямое дополнение о классе вещей вообще (No tengo coche, Ernesto no come carne, ¿Tienes teléfono?). Артикль ВОЗВРАЩАЕТСЯ (un/una): когда есть прилагательное (Es un médico extraordinario); при идентификации ¿Quién es? (Es un director de cine); при количестве (una novela = одна, unos sellos = несколько).",
-  "blocks": [
+  "summary": "<h4>Артикль или его отсутствие (∅)</h4> <p><b>БЕЗ артикля (∅):</b></p> <ul> <li>после ser/hacerse — профессия, религия, нация, идеология: <em>Soy estudiante, Es abogada, se ha hecho budista</em></li> <li>прямое дополнение = класс вещей вообще: <em>No tengo coche, Ernesto no come carne, ¿Tienes teléfono?</em></li> </ul> <p><b>Артикль ВОЗВРАЩАЕТСЯ (un/una):</b></p> <ul> <li>есть прилагательное: <em>Es un médico extraordinario</em></li> <li>идентификация ¿Quién es?: <em>Es un director de cine</em></li> <li>количество: <em>una novela</em> (=одна), <em>unos sellos</em> (=несколько)</li> </ul>",  "blocks": [
     {
       "title": "После ser/hacerse: профессия/религия/нация/идеология → ∅",
       "mode": "cloze",

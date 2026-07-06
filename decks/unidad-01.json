@@ -1,7 +1,6 @@
 {
   "unit": "Unidad 1 — Masculino / femenino",
-  "summary": "Род существительных по полу человека. Мужчина → м.р., женщина → ж.р. Обычно -o/-e → -a (niño/niña, profesor/profesora). Не меняются слова на -ista/-ante (estudiante, pianista) — меняется только артикль. Исключения, которые не меняются вопреки окончанию: piloto, paciente, modelo, joven. Особые формы: actor/actriz, rey/reina, alcalde/alcaldesa. Разные слова: marido/mujer, padre/madre.",
-  "blocks": [
+  "summary": "<h4>Род по полу человека</h4> <p><b>Правило:</b> мужчина → м.р., женщина → ж.р.</p> <ul> <li>-o / -e → -a: <em>niño → niña, profesor → profesora</em></li> <li>-ista / -ante не меняются, меняется только артикль: <em>el/la estudiante, el/la pianista</em></li> </ul> <p><b>⚠ Исключения</b> (по окончанию должны меняться, но нет): <em>piloto, paciente, modelo, joven</em></p> <p><b>Особые формы:</b> <em>actor → actriz, rey → reina, alcalde → alcaldesa</em></p> <p><b>Разные слова:</b> <em>marido / mujer, padre / madre, papá / mamá</em></p>",  "blocks": [
     {
       "title": "Регулярные: -o, -e → -a",
       "mode": "transform",
