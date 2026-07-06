@@ -304,8 +304,6 @@ onUnmounted(() => {
               :key="deck.fileName"
               class="deck"
               :class="{ on: deck.on, partial: isPartialDeck(deck), [deckMasteryClass(deck)]: true }"
-              :title="deckMasteryTitle(deck) || deck.name"
-              @click="toggleDeck(deck, !deck.on)"
             >
               <div
                 v-if="deckMasteryInfo(deck)?.attemptedCards"
@@ -314,12 +312,20 @@ onUnmounted(() => {
                 :style="{ width: `${deckMasteryInfo(deck)?.score ?? 0}%` }"
                 aria-hidden="true"
               />
-              <div class="deck-main">
+              <button
+                type="button"
+                class="deck-toggle"
+                :aria-pressed="deck.on"
+                :title="deckMasteryTitle(deck) || deck.name"
+                @click="toggleDeck(deck, !deck.on)"
+              >
                 <input
                   type="checkbox"
+                  class="deck-check"
                   :checked="deck.on"
                   tabindex="-1"
-                  @click.prevent
+                  aria-hidden="true"
+                  readonly
                 >
                 <span class="nm" :title="deck.name">{{ deck.name }}</span>
                 <span
@@ -330,29 +336,29 @@ onUnmounted(() => {
                   {{ deckMasteryInfo(deck)?.score }}%
                 </span>
                 <span class="ct">{{ deckCountLabel(deck) }}</span>
-              </div>
-              <span class="deck-actions">
+              </button>
+              <div class="deck-actions" @click.stop>
                 <button
                   v-if="deck.summary"
                   class="summary-btn"
                   type="button"
                   title="Сводка по юниту"
-                  tabindex="-1"
-                  @click.stop="openSummary(deck)"
+                  @click="openSummary(deck)"
                 >
                   сводка
                 </button>
                 <button
+                  v-show="deck.on"
                   class="blocks-btn"
-                  :class="{ custom: isPartialDeck(deck), idle: !deck.on }"
+                  :class="{ custom: isPartialDeck(deck) }"
                   type="button"
                   title="Выбрать блоки"
-                  :tabindex="deck.on ? 0 : -1"
-                  @click.stop="deck.on && openBlocksPicker(deck)"
+                  @click="openBlocksPicker(deck)"
                 >
-                  {{ deck.on ? blocksBtnLabel(deck) : "блоки" }}
+                  {{ blocksBtnLabel(deck) }}
                 </button>
-              </span>
+                <span v-show="!deck.on" class="blocks-slot-placeholder" aria-hidden="true" />
+              </div>
             </li>
           </ul>
         </div>

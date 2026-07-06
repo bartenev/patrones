@@ -60,8 +60,8 @@ async function mountApp() {
 
 async function startDrill(wrapper: VueWrapper) {
   if (wrapper.get(".start").attributes("disabled") !== undefined) {
-    const rows = wrapper.findAll(".deck")
-    await rows[rows.length - 1].trigger("click")
+    const toggles = wrapper.findAll(".deck-toggle")
+    await toggles[toggles.length - 1].trigger("click")
   }
   await wrapper.get(".start").trigger("click")
   await flushPromises()
@@ -139,11 +139,11 @@ describe("App", () => {
     expect(wrapper.text()).toContain("Начать прогон → 1 пар")
   })
 
-  it("toggles unit selection by row click", async () => {
+  it("toggles unit selection by toggle click", async () => {
     const wrapper = await mountApp()
     const row = wrapper.find(".deck")
     expect(row.classes()).not.toContain("on")
-    await row.trigger("click")
+    await wrapper.find(".deck-toggle").trigger("click")
     expect(row.classes()).toContain("on")
     expect(wrapper.get(".start").attributes("disabled")).toBeUndefined()
     expect(wrapper.text()).toContain("Начать прогон → 2 пар")
@@ -219,9 +219,9 @@ describe("App", () => {
     expect(document.documentElement.getAttribute("data-theme")).toBe("dark")
   })
 
-  it("handles deck checkbox click", async () => {
+  it("handles deck toggle click", async () => {
     const wrapper = await mountApp()
-    await wrapper.find(".deck input").trigger("click")
+    await wrapper.find(".deck-toggle").trigger("click")
   })
 
   it("shows six order modes", async () => {
@@ -307,7 +307,7 @@ describe("App", () => {
       bad: []
     }))
     const wrapper = await mountApp()
-    await wrapper.find(".deck").trigger("click")
+    await wrapper.find(".deck-toggle").trigger("click")
     await wrapper.get(".start").trigger("click")
     await flushPromises()
     expect(wrapper.text()).toContain("Rich")
@@ -618,7 +618,7 @@ describe("App", () => {
     }))
     const wrapper = await mountApp()
     await setOrder(wrapper, "shuffleAll")
-    await wrapper.find(".deck").trigger("click")
+    await wrapper.find(".deck-toggle").trigger("click")
     await wrapper.get(".start").trigger("click")
     await flushPromises()
     expect(wrapper.find(".secbar").text()).toContain("Mix")
@@ -772,7 +772,7 @@ describe("App", () => {
     await wrapper.get(".blocks-btn").trigger("click")
     await flushPromises()
     expect(document.body.querySelector(".blocks-popover")).toBeTruthy()
-    await wrapper.get(".deck").trigger("click")
+    await wrapper.get(".deck-toggle").trigger("click")
     await flushPromises()
     expect(document.body.querySelector(".blocks-popover")).toBeFalsy()
   })

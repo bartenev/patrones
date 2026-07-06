@@ -236,7 +236,6 @@ li.deck {
   padding: 6px 6px 6px 14px;
   transition: .12s;
   user-select: none;
-  cursor: pointer;
   min-height: 44px;
   position: relative;
   overflow: hidden;
@@ -274,20 +273,43 @@ li.deck.mastery-solid { border-left: 3px solid var(--good); }
 .deck-mastery-pct.mastery-good { color: var(--ok); }
 .deck-mastery-pct.mastery-solid { color: var(--good); }
 
-.deck-main {
+.deck-toggle {
+  flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 12px;
-  flex: 1;
-  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.blocks-slot,
+.deck-check {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--azulejo);
+  flex: none;
+  pointer-events: none;
+}
+
 .deck-actions {
   flex: none;
   display: flex;
   gap: 4px;
   align-items: center;
+}
+
+.blocks-slot-placeholder {
+  flex: none;
+  width: 54px;
+  height: 1px;
 }
 
 .summary-btn,
@@ -301,6 +323,8 @@ li.deck.mastery-solid { border-left: 3px solid var(--good); }
   font-size: 12px;
   font-weight: 600;
   transition: .12s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .summary-btn {
@@ -310,17 +334,13 @@ li.deck.mastery-solid { border-left: 3px solid var(--good); }
 
 .blocks-btn {
   width: 54px;
+  min-height: 32px;
 }
 
 .summary-btn:hover,
 .blocks-btn:hover {
   border-color: var(--azulejo);
   color: var(--azulejo);
-}
-
-.blocks-btn.idle {
-  visibility: hidden;
-  pointer-events: none;
 }
 
 .blocks-btn.custom {
@@ -509,7 +529,6 @@ li.deck.partial.on {
 
 li.deck:hover { border-color: var(--azulejo); }
 li.deck.on { border-color: var(--azulejo); background: var(--azulejo-soft); }
-li.deck input { width: 18px; height: 18px; accent-color: var(--azulejo); flex: none; }
 .decks-scroll {
   max-height: min(52vh, 380px);
   overflow-y: auto;
@@ -1010,3 +1029,72 @@ kbd {
 .done .row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
 .err { color: var(--amber); font-size: 13px; margin-top: 10px; }
+
+@media (hover: none) and (pointer: coarse) {
+  button,
+  label,
+  select,
+  input,
+  .deck-toggle,
+  .order-radio__item,
+  .backup-radio__item,
+  .seg button,
+  li.deck {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:focus,
+  button:focus-visible,
+  select:focus,
+  select:focus-visible,
+  input:focus,
+  input:focus-visible,
+  label:focus-within,
+  .deck-toggle:focus,
+  .deck-toggle:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+
+  li.deck:hover {
+    border-color: var(--line);
+    background: var(--card);
+  }
+
+  li.deck.on:hover,
+  li.deck.partial.on:hover {
+    border-color: var(--azulejo);
+    background: var(--azulejo-soft);
+  }
+
+  li.deck.partial.on:hover {
+    border-color: var(--amber);
+    background: var(--amber-soft);
+  }
+
+  .summary-btn:hover,
+  .blocks-btn:hover,
+  .seg button:hover,
+  .ghost:hover,
+  .mini:hover,
+  .start:hover,
+  .mistakes-start:hover:not(:disabled),
+  .reveal:hover,
+  .missed:hover,
+  .knew:hover {
+    filter: none;
+  }
+
+  .summary-btn,
+  .blocks-btn {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .blocks-slot-placeholder {
+    width: 44px;
+  }
+}
