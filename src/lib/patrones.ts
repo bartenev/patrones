@@ -51,10 +51,12 @@ export function normalizeCard(c: CardRaw): Card | null {
 
 export function parseDeck(obj: DeckJsonInput, fallbackName: string): Deck | null {
   let name = fallbackName
+  let summary = ""
   let blocks: Block[] = []
 
   if (obj && typeof obj === "object") {
     name = obj.unit || obj.title || fallbackName
+    summary = (obj.summary || "").trim()
     if (Array.isArray(obj.blocks)) {
       blocks = obj.blocks
         .map((bl) => ({
@@ -78,7 +80,7 @@ export function parseDeck(obj: DeckJsonInput, fallbackName: string): Deck | null
 
   blocks = blocks.filter((bl) => bl.cards.length > 0)
   const count = blocks.reduce((s, b) => s + b.cards.length, 0)
-  return count ? { name, blocks, on: false, fileName: "" } : null
+  return count ? { name, summary, blocks, on: false, fileName: "" } : null
 }
 
 export function cleanName(fn: string): string {

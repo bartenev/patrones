@@ -36,6 +36,7 @@ export interface BlockJson {
 export interface DeckJson {
   unit?: string
   title?: string
+  summary?: string
   mode?: string
   blocks?: BlockJson[]
   cards?: CardRaw[]
@@ -45,6 +46,7 @@ export type DeckJsonInput = DeckJson
 
 export interface Deck {
   name: string
+  summary: string
   blocks: Block[]
   on: boolean
   fileName: string

@@ -118,6 +118,7 @@ describe("progress store (indexedDB)", () => {
     const deck = {
       name: "Unit 1",
       fileName: sample.lessonId,
+      summary: "",
       on: true,
       blocks: [{
         title: "Lex",

@@ -22,6 +22,7 @@ export function makeDeck(
   return {
     name,
     fileName: `${name}.json`,
+    summary: "",
     on: false,
     blocks: [{
       title: blockTitle,

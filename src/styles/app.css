@@ -242,16 +242,17 @@ li.deck {
   min-width: 0;
 }
 
-.blocks-slot {
+.blocks-slot,
+.deck-actions {
   flex: none;
-  width: 54px;
   display: flex;
-  justify-content: center;
+  gap: 4px;
+  align-items: center;
 }
 
+.summary-btn,
 .blocks-btn {
   flex: none;
-  width: 100%;
   border: 1px solid var(--line);
   background: transparent;
   color: var(--muted);
@@ -262,20 +263,51 @@ li.deck {
   transition: .12s;
 }
 
-.blocks-btn.idle {
-  visibility: hidden;
-  pointer-events: none;
+.summary-btn {
+  padding: 6px 6px;
+  font-size: 11px;
 }
 
+.blocks-btn {
+  width: 54px;
+}
+
+.summary-btn:hover,
 .blocks-btn:hover {
   border-color: var(--azulejo);
   color: var(--azulejo);
+}
+
+.blocks-btn.idle {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .blocks-btn.custom {
   border-color: var(--amber);
   color: var(--amber);
   background: var(--amber-soft);
+}
+
+.summary-popover {
+  width: min(100%, 520px);
+  max-height: min(80vh, 560px);
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+.summary-text {
+  flex: 1;
+  overflow-y: auto;
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text);
 }
 
 .blocks-overlay {

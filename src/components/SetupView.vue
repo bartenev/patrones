@@ -42,6 +42,7 @@ const emit = defineEmits<{
 }>()
 
 const blocksPickerDeck = ref<Deck | null>(null)
+const summaryDeck = ref<Deck | null>(null)
 
 const backupActionLabel = computed(() =>
   backupExportMode.value === "clipboard"
@@ -173,8 +174,9 @@ function blockTitle(block: Block) {
 function toggleDeck(deck: Deck, on: boolean) {
   deck.on = on
   deck.blocks.forEach((b) => { b.on = on })
-  if (!on && blocksPickerDeck.value === deck) {
-    blocksPickerDeck.value = null
+  if (!on) {
+    if (blocksPickerDeck.value === deck) blocksPickerDeck.value = null
+    if (summaryDeck.value === deck) summaryDeck.value = null
   }
 }
 
@@ -185,10 +187,20 @@ function toggleBlock(deck: Deck, block: Block, on: boolean) {
 
 function openBlocksPicker(deck: Deck) {
   blocksPickerDeck.value = deck
+  summaryDeck.value = null
 }
 
 function closeBlocksPicker() {
   blocksPickerDeck.value = null
+}
+
+function openSummary(deck: Deck) {
+  summaryDeck.value = deck
+  blocksPickerDeck.value = null
+}
+
+function closeSummary() {
+  summaryDeck.value = null
 }
 
 function selectBlocksInPicker(on: boolean) {
@@ -202,13 +214,14 @@ function selectAll(on: boolean) {
   filteredDecks.value.forEach((d) => toggleDeck(d, on))
   if (!on) {
     blocksPickerDeck.value = null
+    summaryDeck.value = null
   }
 }
 
 function onKeydown(e: KeyboardEvent) {
-  if (e.key === "Escape" && blocksPickerDeck.value) {
-    closeBlocksPicker()
-  }
+  if (e.key !== "Escape") return
+  if (blocksPickerDeck.value) closeBlocksPicker()
+  else if (summaryDeck.value) closeSummary()
 }
 
 onMounted(() => {
@@ -291,7 +304,17 @@ onUnmounted(() => {
                 <span class="nm" :title="deck.name">{{ deck.name }}</span>
                 <span class="ct">{{ deckCountLabel(deck) }}</span>
               </div>
-              <span class="blocks-slot">
+              <span class="deck-actions">
+                <button
+                  v-if="deck.summary"
+                  class="summary-btn"
+                  type="button"
+                  title="Сводка по юниту"
+                  tabindex="-1"
+                  @click.stop="openSummary(deck)"
+                >
+                  сводка
+                </button>
                 <button
                   class="blocks-btn"
                   :class="{ custom: isPartialDeck(deck), idle: !deck.on }"
@@ -399,6 +422,30 @@ onUnmounted(() => {
     </template>
 
     <Teleport to="body">
+      <div
+        v-if="summaryDeck"
+        class="blocks-overlay"
+        @click.self="closeSummary"
+      >
+        <div class="summary-popover" role="dialog" aria-modal="true" :aria-label="summaryDeck.name">
+          <div class="blocks-popover-head">
+            <div>
+              <h3>Сводка</h3>
+              <p>{{ summaryDeck.name }}</p>
+            </div>
+            <button class="ghost blocks-close" type="button" aria-label="Закрыть" @click="closeSummary">
+              ×
+            </button>
+          </div>
+
+          <p class="summary-text">{{ summaryDeck.summary }}</p>
+
+          <button class="file-btn blocks-done" type="button" @click="closeSummary">
+            Готово
+          </button>
+        </div>
+      </div>
+
       <div
         v-if="blocksPickerDeck"
         class="blocks-overlay"

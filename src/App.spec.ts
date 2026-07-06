@@ -12,6 +12,7 @@ const { mockDecks, loadDecksFromFolderMock } = vi.hoisted(() => {
     {
       name: "Unit A",
       fileName: "unit-a.json",
+      summary: "",
       on: false,
       blocks: [{
         title: "Блок",
@@ -23,6 +24,7 @@ const { mockDecks, loadDecksFromFolderMock } = vi.hoisted(() => {
     {
       name: "Unit B",
       fileName: "unit-b.json",
+      summary: "",
       on: true,
       blocks: [{
         title: "Блок",
@@ -282,6 +284,7 @@ describe("App", () => {
       decks: [{
         name: "Rich",
         fileName: "rich.json",
+        summary: "",
         on: false,
         blocks: [{
           title: "Секция",
@@ -600,6 +603,7 @@ describe("App", () => {
       decks: [{
         name: "Mix",
         fileName: "mix.json",
+        summary: "",
         on: false,
         blocks: [
           { title: "A", mode: "vocab", on: true, cards: [{ front: "one", back: "uno", translation: "", note: "" }] },
@@ -707,6 +711,7 @@ describe("App", () => {
       decks: [{
         name: "Blocks",
         fileName: "blocks.json",
+        summary: "",
         on: true,
         blocks: [
           {
@@ -753,6 +758,7 @@ describe("App", () => {
       decks: [{
         name: "Blocks",
         fileName: "blocks.json",
+        summary: "",
         on: true,
         blocks: [{
           title: "A",
@@ -844,6 +850,7 @@ describe("App", () => {
       decks: [{
         name: "Weak",
         fileName: "weak.json",
+        summary: "",
         on: true,
         blocks: [{ title: "B", mode: "vocab", on: true, cards }]
       }],
@@ -889,6 +896,7 @@ describe("App", () => {
       decks: [{
         name: "Blocks",
         fileName: "blocks.json",
+        summary: "",
         on: true,
         blocks: [
           {
