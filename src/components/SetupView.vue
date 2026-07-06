@@ -368,15 +368,19 @@ onUnmounted(() => {
       <div v-show="setupTab === 'mode'" class="setup-pane" role="tabpanel">
         <div class="order-block">
           <h3>Порядок карточек</h3>
-          <select v-model="order" class="order-select">
-            <option
+          <div class="order-radio" role="radiogroup" aria-label="Порядок карточек">
+            <label
               v-for="opt in orderOptions"
               :key="opt.value"
-              :value="opt.value"
+              class="order-radio__item"
+              :class="{ on: order === opt.value }"
             >
-              {{ orderOptionTitle(opt.value, opt.title, storedWeakCount) }}
-            </option>
-          </select>
+              <input v-model="order" type="radio" :value="opt.value">
+              <span class="order-radio__title">
+                {{ orderOptionTitle(opt.value, opt.title, storedWeakCount) }}
+              </span>
+            </label>
+          </div>
           <p class="order-desc">{{ selectedOrderOption.desc }}</p>
         </div>
 

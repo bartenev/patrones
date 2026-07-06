@@ -567,17 +567,39 @@ li.deck .ct {
   font-weight: 700;
 }
 
-.order-select {
-  width: 100%;
-  font-family: inherit;
+.order-radio {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.order-radio__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--card);
+  cursor: pointer;
+  transition: .12s;
+}
+
+.order-radio__item.on {
+  border-color: var(--azulejo);
+  background: var(--azulejo-soft);
+}
+
+.order-radio__item input {
+  margin: 2px 0 0;
+  accent-color: var(--azulejo);
+  flex: none;
+}
+
+.order-radio__title {
   font-size: 14px;
   font-weight: 600;
-  padding: 12px 14px;
-  border-radius: 11px;
-  border: 1px solid var(--line);
-  background: var(--card);
-  color: var(--ink);
-  accent-color: var(--azulejo);
+  line-height: 1.35;
 }
 
 .order-desc {

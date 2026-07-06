@@ -79,7 +79,8 @@ async function openModeTab(wrapper: VueWrapper) {
 
 async function setOrder(wrapper: VueWrapper, value: string) {
   await openModeTab(wrapper)
-  await wrapper.find(".order-select").setValue(value)
+  const input = wrapper.find(`.order-radio input[value="${value}"]`)
+  await input.setValue(true)
   await flushPromises()
 }
 
@@ -226,7 +227,7 @@ describe("App", () => {
   it("shows six order modes", async () => {
     const wrapper = await mountApp()
     await openModeTab(wrapper)
-    expect(wrapper.findAll(".order-select option")).toHaveLength(6)
+    expect(wrapper.findAll(".order-radio input[type='radio']")).toHaveLength(6)
     expect(wrapper.text()).toContain("6 — слабые")
   })
 
