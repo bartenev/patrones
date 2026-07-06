@@ -1,0 +1,86 @@
+{
+  "unit": "Unidad 7 — Contraste: artículo determinado / indeterminado",
+  "blocks": [
+    {
+      "title": "Новое, первое упоминание → un/una",
+      "mode": "cloze",
+      "cards": [
+        { "front": "Tengo ___ perro.", "back": "un", "note": "впервые упоминаю → un", "translation": "У меня есть собака.", "uuid": "3b8b9add-5525-4741-ab39-298385e4f45f" },
+        { "front": "Tengo ___ loro.", "back": "un", "note": "впервые → un", "translation": "У меня есть попугай.", "uuid": "70e804de-cbcb-4475-aad6-2b005e4cbc84" },
+        { "front": "Estoy leyendo ___ libro sobre una cantante.", "back": "un", "note": "новое → un", "translation": "Я читаю книгу об одной певице.", "uuid": "14b9bc06-b2f4-4967-ba80-6ef30de02c22" },
+        { "front": "He visto ___ película preciosa.", "back": "una", "note": "новое → una", "translation": "Я посмотрел прекрасный фильм.", "uuid": "499c77fb-36d0-4fcf-a6ec-06f5efbb7cbb" },
+        { "front": "Es ___ cuadro precioso.", "back": "un", "note": "новое → un", "translation": "Это прекрасная картина.", "uuid": "a15e2874-e94e-4e85-80da-7950465180af" }
+      ]
+    },
+    {
+      "title": "Один из класса / группы → un/una",
+      "mode": "cloze",
+      "cards": [
+        { "front": "Un hijo de Andrés es médico. (Andrés tiene tres hijos)", "back": "Un", "note": "один из многих → un", "translation": "Один из сыновей Андреса — врач.", "uuid": "98e275fe-5eaa-4ae3-9e10-c0da6cf2a055" },
+        { "front": "Tucumán es ___ ciudad de Argentina.", "back": "una", "note": "одна из многих → una", "translation": "Тукуман — (один из) городов Аргентины.", "uuid": "10e609c6-53e9-44f1-a9ef-e7ab39c6e2d1" },
+        { "front": "Chihuahua es ___ ciudad de México.", "back": "una", "note": "одна из многих → una", "translation": "Чиуауа — город Мексики.", "uuid": "6648d38d-e8ef-4ac1-97ad-5f9f9ae648fa" },
+        { "front": "He visto ___ película de terror.", "back": "una", "note": "одна из класса → una", "translation": "Я посмотрел фильм ужасов.", "uuid": "29b8da0b-80da-4f19-b4dc-232b6c40ba05" },
+        { "front": "Soy enfermero y trabajo en ___ hospital.", "back": "un", "note": "один из многих → un", "translation": "Я медбрат и работаю в больнице.", "uuid": "40562473-94bd-4c99-9fff-80e1b5c7c473" },
+        { "front": "Carmen trabaja en ___ hotel.", "back": "un", "note": "один из многих → un", "translation": "Кармен работает в отеле.", "uuid": "499207c8-d052-4c2c-9e1b-b1b2e0caf2af" },
+        { "front": "Paco es ___ nombre español.", "back": "un", "note": "один из класса → un", "translation": "Пако — испанское имя.", "uuid": "2887c8d0-961c-4f69-9651-9c57f23a77c4" },
+        { "front": "El personaje principal era ___ detective.", "back": "un", "note": "один из класса → un", "translation": "Главный герой был детективом.", "uuid": "d76fcabb-18e6-43e8-9b3c-a01499789e94" },
+        { "front": "¿Es ___ televisión portátil?", "back": "una", "note": "один из класса → una", "translation": "Это портативный телевизор?", "uuid": "219bb902-645e-431c-9b1c-8602423c4c47" },
+        { "front": "El Sol es ___ estrella.", "back": "una", "note": "одна из многих звёзд → una", "translation": "Солнце — звезда.", "uuid": "4b6eb4de-3766-449a-bd3a-e3c154cf57e7" }
+      ]
+    },
+    {
+      "title": "Количество / заказ (=1 или несколько) → un/una/unos/unas",
+      "mode": "cloze",
+      "cards": [
+        { "front": "___ melón, por favor.", "back": "Un", "note": "заказ, = один → un", "translation": "Одну дыню, пожалуйста.", "uuid": "a734f377-ab2b-4123-99e5-4648482b652b" },
+        { "front": "___ piña, por favor.", "back": "Una", "note": "заказ, = одна → una", "translation": "Один ананас, пожалуйста.", "uuid": "fc9993c7-9293-429b-8a9b-c5096e7be127" },
+        { "front": "Necesito alquilar ___ coche.", "back": "un", "note": "= одна (любая) → un", "translation": "Мне нужно арендовать машину.", "uuid": "cd70d37e-4478-4fa0-a9ad-a9e7b4f4f879" },
+        { "front": "Me han regalado ___ bombones.", "back": "unos", "note": "= несколько → unos", "translation": "Мне подарили конфеты.", "uuid": "d9ae92ec-789a-4c8d-a3d1-6266ecf3c328" },
+        { "front": "Me he comprado ___ vaqueros.", "back": "unos", "note": "= (пара) → unos", "translation": "Я купил себе джинсы.", "uuid": "f4b70ada-d2f6-4b30-bd38-028c0a0b9260" },
+        { "front": "Te he comprado ___ margaritas.", "back": "unas", "note": "= несколько → unas", "translation": "Я купил тебе ромашки.", "uuid": "093c7081-40e5-4a63-a1c6-283af75de35f" },
+        { "front": "Quiero comprarme ___ pantalones cortos.", "back": "unos", "note": "= (пара) → unos", "translation": "Хочу купить себе шорты.", "uuid": "aaa10e55-4afd-4eaa-9b65-1532240504af" }
+      ]
+    },
+    {
+      "title": "Второе упоминание (уже названное) → el/la",
+      "mode": "cloze",
+      "cards": [
+        { "front": "Tengo un perro. ___ perro se llama Trotski.", "back": "El", "note": "уже упомянут → el", "translation": "У меня есть собака. Собаку зовут Троцкий.", "uuid": "68a7314f-2355-4e55-9ef1-2d168dc8e2f7" },
+        { "front": "He visto una película. ___ película es una comedia.", "back": "La", "note": "уже упомянут → la", "translation": "Я посмотрел фильм. Фильм — комедия.", "uuid": "17d2357a-244a-47d6-882b-643de7c8dfb4" },
+        { "front": "...un médico que se enamora de un paciente. ___ médico no sabe qué hacer.", "back": "El", "note": "уже упомянут → el", "translation": "…врач, который влюбляется в пациента. Врач не знает, что делать.", "uuid": "521eb66e-f9e5-4695-9db5-f6e918f516c6" },
+        { "front": "Se ve a un hombre y una mujer. ___ hombre está leyendo.", "back": "El", "note": "уже упомянут → el", "translation": "Видно мужчину и женщину. Мужчина читает.", "uuid": "6e4c7807-bdc9-423d-8ffd-04bfeca6ae04" },
+        { "front": "Hay pájaros. ___ pájaros tienen las alas extendidas.", "back": "Los", "note": "уже упомянуты → los", "translation": "Есть птицы. Птицы с раскрытыми крыльями.", "uuid": "2a3c50a2-860f-495a-8848-7fd25a7e33a2" }
+      ]
+    },
+    {
+      "title": "Единственное / конкретное в ситуации → el/la",
+      "mode": "cloze",
+      "cards": [
+        { "front": "La hija de Rosa es escritora. (Rosa tiene una hija)", "back": "La", "note": "единственная → la", "translation": "Дочь Розы — писательница.", "uuid": "c01832cf-c6a3-47c5-8c1e-199475e8bab1" },
+        { "front": "Buenos Aires es ___ capital de Argentina.", "back": "la", "note": "единственная → la", "translation": "Буэнос-Айрес — столица Аргентины.", "uuid": "4f25a3f2-afb8-4d7b-9b37-254b26766ee6" },
+        { "front": "¿Quién es ___ primer ministro?", "back": "el", "note": "единственный → el", "translation": "Кто премьер-министр?", "uuid": "ea754d89-4f3b-46a6-b97f-9f2e3bbc5e6d" },
+        { "front": "___ novia de Arturo es brasileña.", "back": "La", "note": "единственная → la", "translation": "Девушка Артуро — бразильянка.", "uuid": "66bbb554-5f6a-4896-b599-bcea6819a586" },
+        { "front": "Necesito arreglar ___ coche. (es mi coche)", "back": "el", "note": "конкретный → el", "translation": "Мне нужно починить машину.", "uuid": "0bf81373-2fe5-4f0f-9da9-754e9c0b08d9" },
+        { "front": "¿Dónde está Carlos? — En ___ cocina.", "back": "la", "note": "конкретная (этого дома) → la", "translation": "Где Карлос? — На кухне.", "uuid": "096d51cb-3c91-4ea3-9b03-d0e960d1ac45" },
+        { "front": "Vivo en ___ centro de Lima.", "back": "el", "note": "конкретный → el", "translation": "Я живу в центре Лимы.", "uuid": "e7a3bd4d-7658-444b-839c-6cc53ba332e3" },
+        { "front": "___ moto de Pedro es italiana.", "back": "La", "note": "конкретная → la", "translation": "Мотоцикл Педро — итальянский.", "uuid": "31aff6a3-7d0b-4eeb-a9eb-e3e2b7d6bfcd" },
+        { "front": "Estoy leyendo un libro sobre ___ rey Juan Carlos.", "back": "el", "note": "конкретный человек → el", "translation": "Я читаю книгу о короле Хуане Карлосе.", "uuid": "544913bb-126d-4372-b447-a4285c1d29d9" },
+        { "front": "___ Sol es una estrella.", "back": "El", "note": "единственный → el", "translation": "Солнце — звезда.", "uuid": "f5032d75-9bac-4dd4-b8ea-22fbe8851fa2" },
+        { "front": "___ Luna gira alrededor de la Tierra.", "back": "La", "note": "единственная → la", "translation": "Луна вращается вокруг Земли.", "uuid": "42747776-a7ab-4827-a0d5-650aec415dfc" },
+        { "front": "La Luna gira alrededor de ___ Tierra.", "back": "la", "note": "единственная → la", "translation": "Луна вращается вокруг Земли.", "uuid": "4fdad95e-b9b0-4164-bb51-91a5fc89d9bc" }
+      ]
+    },
+    {
+      "title": "gustar/encantar и общий смысл → el/la/los/las",
+      "mode": "cloze",
+      "cards": [
+        { "front": "Me encanta ___ melón.", "back": "el", "note": "нравится вообще → el", "translation": "Я обожаю дыню.", "uuid": "efa4a679-2b90-465a-96d1-ddd6ed562b1a" },
+        { "front": "No me gusta ___ chocolate.", "back": "el", "note": "нравится/не нравится вообще → el", "translation": "Мне не нравится шоколад.", "uuid": "d966b9f0-cfa0-45f7-980b-b786c2047a7f" },
+        { "front": "¿Te gustan ___ peras?", "back": "las", "note": "нравится вообще → las", "translation": "Тебе нравятся груши?", "uuid": "0720a2e5-0023-4a97-830a-7a3da8d020ec" },
+        { "front": "Me encantan ___ cuadros de Dalí.", "back": "los", "note": "нравится → los", "translation": "Я обожаю картины Дали.", "uuid": "7d762a59-0182-4761-85d4-95228f2d27b2" },
+        { "front": "Me encanta ___ agua.", "back": "el", "note": "нравится вообще + ловушка el agua", "translation": "Я обожаю воду.", "uuid": "9c217a7d-82c8-4e60-be1d-ef1ad2148bc3" },
+        { "front": "___ piña es mi fruta preferida.", "back": "La", "note": "общий смысл, подлежащее → la", "translation": "Ананас — мой любимый фрукт.", "uuid": "334c50b2-ef90-4319-aa56-1baad6d459c3" }
+      ]
+    }
+  ]
+}
