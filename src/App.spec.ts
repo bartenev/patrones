@@ -3,8 +3,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import type { Deck, QueueItem } from "./types"
 import * as patrones from "./lib/patrones"
 import { recordMistake } from "./lib/mistakes"
-import { getLessonProgress } from "./lib/progress"
-import { closePatronesDb, deletePatronesDb, resetPatronesDbCache } from "./lib/idb"
+import { clearAllProgress, getLessonProgress, initProgressStore, recordProgress } from "./lib/progress"
+import { closePatronesDb, resetPatronesDbCache } from "./lib/idb"
 
 const { mockDecks, loadDecksFromFolderMock } = vi.hoisted(() => {
   const decks: Deck[] = [
@@ -82,8 +82,11 @@ async function setTimer(wrapper: VueWrapper, seconds: string) {
 }
 
 describe("App", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     wrappers = []
+    resetPatronesDbCache()
+    await initProgressStore()
+    await clearAllProgress()
     loadDecksFromFolderMock.mockClear()
     loadDecksFromFolderMock.mockImplementation(() => ({
       decks: structuredClone(mockDecks),
@@ -107,7 +110,6 @@ describe("App", () => {
     wrappers = []
     vi.restoreAllMocks()
     vi.unstubAllGlobals()
-    void closePatronesDb().then(() => deletePatronesDb()).then(() => resetPatronesDbCache())
   })
 
   it("renders setup with loaded units", async () => {
@@ -204,12 +206,11 @@ describe("App", () => {
     await wrapper.find(".deck input").trigger("click")
   })
 
-  it("shows six order modes", async () => {
+  it("shows seven order modes", async () => {
     const wrapper = await mountApp()
     await openModeTab(wrapper)
-    expect(wrapper.findAll(".order-select option")).toHaveLength(6)
-    expect(wrapper.text()).toContain("1 — всё по порядку")
-    expect(wrapper.text()).toContain("юниты по очереди")
+    expect(wrapper.findAll(".order-select option")).toHaveLength(7)
+    expect(wrapper.text()).toContain("7 — слабые")
   })
 
   it("shows error when folder has no decks", async () => {
@@ -427,6 +428,45 @@ describe("App", () => {
     } finally {
       vi.useRealTimers()
     }
+  })
+
+  it("disables start in weak mode when no difficult cards", async () => {
+    const wrapper = await mountApp()
+    await setOrder(wrapper, "weak")
+    await flushPromises()
+    expect(wrapper.text()).toContain("Нет сложных карточек")
+    expect(wrapper.get(".start").attributes("disabled")).toBeDefined()
+  })
+
+  it("runs weak mode for cards with high error rate", async () => {
+    const item = {
+      deck: "Unit B",
+      lessonId: "unit-b.json",
+      front: "hola",
+      back: "привет",
+      translation: "",
+      note: "",
+      section: "",
+      mode: "vocab",
+      uuid: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb"
+    }
+    await recordProgress(item, "fwd", "missed")
+    await recordProgress(item, "fwd", "missed")
+
+    const wrapper = await mountApp()
+    await setOrder(wrapper, "weak")
+    await flushPromises()
+    await vi.waitUntil(() => {
+      const disabled = wrapper.get(".start").attributes("disabled")
+      return disabled === undefined && wrapper.text().includes("Сложные → 1 пар")
+    }, { timeout: 3000 })
+    await wrapper.get(".start").trigger("click")
+    await flushPromises()
+    expect(wrapper.text()).toContain("hola")
+    await wrapper.get(".reveal").trigger("click")
+    await wrapper.get(".knew").trigger("click")
+    await flushPromises()
+    expect(wrapper.text()).toContain("¡Listo!")
   })
 
   it("disables start in mistakes mode when bank is empty", async () => {

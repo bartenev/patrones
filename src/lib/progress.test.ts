@@ -9,7 +9,14 @@ import {
   getLessonProgress,
   initProgressStore,
   recordProgress,
-  recordProgressSafe
+  recordProgressSafe,
+  buildWeakQueue,
+  countWeakCards,
+  itemDirWeakness,
+  pickWeakCandidates,
+  weakBatchCount,
+  WEAK_MIN_ATTEMPTS,
+  WEAK_WEAKNESS_THRESHOLD
 } from "./progress"
 import type { QueueItem } from "../types"
 
@@ -89,5 +96,63 @@ describe("progress store (indexedDB)", () => {
     recordProgressSafe({ ...sample, lessonId: "" }, "fwd", "knew")
     await Promise.resolve()
     spy.mockRestore()
+  })
+
+  it("picks weak cards by direction and threshold", async () => {
+    await recordProgress(sample, "fwd", "missed")
+    await recordProgress(sample, "fwd", "missed")
+
+    const lessons = new Map([[sample.lessonId, (await getLessonProgress(sample.lessonId))!]])
+    const weakness = itemDirWeakness(sample, "fwd", lessons)
+    expect(weakness).not.toBeNull()
+    expect(weakness!).toBeGreaterThanOrEqual(WEAK_WEAKNESS_THRESHOLD)
+
+    const picked = pickWeakCandidates([sample], "fwd", lessons)
+    expect(picked).toHaveLength(1)
+    expect(weakBatchCount(15)).toBe(10)
+  })
+
+  it("builds weak queue from indexed progress", async () => {
+    const deck = {
+      name: "Unit 1",
+      fileName: sample.lessonId,
+      on: true,
+      blocks: [{
+        title: "Lex",
+        mode: "vocab",
+        on: true,
+        cards: [{
+          front: sample.front,
+          back: sample.back,
+          translation: "",
+          note: "",
+          uuid: sample.uuid!
+        }]
+      }]
+    }
+
+    await recordProgress(sample, "fwd", "missed")
+    await recordProgress(sample, "fwd", "missed")
+
+    const queue = await buildWeakQueue([deck], ["vocab"], "fwd")
+    expect(queue).toHaveLength(1)
+    expect(queue[0].front).toBe("hola")
+    expect(await countWeakCards([deck], ["vocab"], "fwd")).toBe(1)
+  })
+
+  it("ignores cards below attempt minimum", () => {
+    const lessons = new Map<string, import("../types").LessonProgress>()
+    lessons.set(sample.lessonId, {
+      lessonId: sample.lessonId,
+      updatedAt: 1,
+      cards: {
+        [sample.uuid!]: {
+          fwd: { correct: 0, wrong: 1, streak: -1, lastSeenAt: 1 },
+          rev: emptyDirStats()
+        }
+      }
+    })
+    expect(itemDirWeakness(sample, "fwd", lessons)).toBeNull()
+    expect(WEAK_MIN_ATTEMPTS).toBe(2)
   })
 })

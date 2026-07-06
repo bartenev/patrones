@@ -133,6 +133,16 @@ function blockToItems(deck: Deck, block: Block): QueueItem[] {
   }))
 }
 
+export function collectQueueItems(selectedDecks: Deck[], filter: CardMode[]): QueueItem[] {
+  const out: QueueItem[] = []
+  selectedDecks.forEach((d) => {
+    selectedBlocks(d, filter).forEach((bl) => {
+      out.push(...blockToItems(d, bl))
+    })
+  })
+  return out
+}
+
 export function buildQueue(
   selectedDecks: Deck[],
   order: OrderMode,

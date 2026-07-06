@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from "vue"
+import { computed, onMounted, onUnmounted, ref, watch } from "vue"
 import {
   blockCount,
   filteredDeckCount,
@@ -20,6 +20,7 @@ const props = defineProps<{
   decks: Deck[]
   loadErr: string
   storedMistakeCount: number
+  storedWeakCount: number
   isMistakesMode: boolean
   startDisabled: boolean
   startLabel: string
@@ -34,6 +35,7 @@ const modeFilter = defineModel<CardMode[]>("modeFilter", { required: true })
 
 const emit = defineEmits<{
   start: []
+  refreshWeak: []
 }>()
 
 const blocksPickerDeck = ref<Deck | null>(null)
@@ -80,6 +82,11 @@ const orderOptions: { value: OrderMode; title: string; desc: string }[] = [
     value: "review",
     title: "6 — ревью",
     desc: "по одной случайной карточке из каждого блока выбранных юнитов. Быстрая проверка."
+  },
+  {
+    value: "weak",
+    title: "7 — слабые",
+    desc: "до 10 карточек с высокой долей ошибок в выбранном направлении. Берутся из прогресса IndexedDB."
   }
 ]
 
@@ -109,9 +116,12 @@ function isModeSelected(mode: CardMode) {
   return modeFilter.value.includes(mode)
 }
 
-function orderOptionTitle(value: OrderMode, title: string, mistakeCount: number) {
+function orderOptionTitle(value: OrderMode, title: string, mistakeCount: number, weakCount: number) {
   if (value === "mistakes") {
     return `5 — только ошибки (${mistakeCount})`
+  }
+  if (value === "weak") {
+    return `7 — слабые (${weakCount})`
   }
   return title
 }
@@ -195,6 +205,10 @@ function onKeydown(e: KeyboardEvent) {
 
 onMounted(() => {
   document.addEventListener("keydown", onKeydown)
+})
+
+watch([order, dirMode, modeFilter, () => props.decks.map((d) => `${d.fileName}:${d.on}`).join()], () => {
+  emit("refreshWeak")
 })
 
 onUnmounted(() => {
@@ -302,7 +316,7 @@ onUnmounted(() => {
               :key="opt.value"
               :value="opt.value"
             >
-              {{ orderOptionTitle(opt.value, opt.title, storedMistakeCount) }}
+              {{ orderOptionTitle(opt.value, opt.title, storedMistakeCount, storedWeakCount) }}
             </option>
           </select>
           <p class="order-desc">{{ selectedOrderOption.desc }}</p>

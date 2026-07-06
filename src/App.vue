@@ -13,7 +13,7 @@ import {
   removeMistake
 } from "./lib/mistakes"
 import { dequeue } from "./lib/queue"
-import { recordProgressSafe } from "./lib/progress"
+import { recordProgressSafe, buildWeakQueue, countWeakCards, weakBatchCount } from "./lib/progress"
 import { ALL_CARD_MODES } from "./types"
 import type { AppView, CardMode, Deck, DirMode, OrderMode, QueueItem, TimerSec } from "./types"
 
@@ -39,6 +39,7 @@ const timerFill = ref("0%")
 const timerTransition = ref("none")
 const timerPaused = ref(false)
 const storedMistakeCount = ref(0)
+const storedWeakCount = ref(0)
 
 let timerId: ReturnType<typeof setTimeout> | null = null
 let timerRunId = 0
@@ -69,10 +70,13 @@ const totalSelected = computed(() =>
 const selectedReviewCount = computed(() => reviewCount(selectedDecks.value, modeFilter.value))
 const isMistakesMode = computed(() => order.value === "mistakes")
 const isReviewMode = computed(() => order.value === "review")
+const isWeakMode = computed(() => order.value === "weak")
 const mistakesSessionCount = computed(() => mistakesBatchCount(storedMistakeCount.value))
+const weakSessionCount = computed(() => weakBatchCount(storedWeakCount.value))
 const startDisabled = computed(() => {
   if (isMistakesMode.value) return storedMistakeCount.value === 0
   if (!modeFilter.value.length) return true
+  if (isWeakMode.value) return storedWeakCount.value === 0 || totalSelected.value === 0
   if (isReviewMode.value) return selectedReviewCount.value === 0
   return totalSelected.value === 0
 })
@@ -83,6 +87,13 @@ const startLabel = computed(() => {
     if (!total) return "Нет сохранённых ошибок"
     if (total === batch) return `Повторить ошибки → ${total} пар`
     return `Повторить ошибки → ${batch} из ${total} пар`
+  }
+  if (isWeakMode.value) {
+    const total = storedWeakCount.value
+    const batch = weakSessionCount.value
+    if (!total) return "Нет сложных карточек"
+    if (total === batch) return `Сложные → ${total} пар`
+    return `Сложные → ${batch} из ${total} пар`
   }
   if (isReviewMode.value) {
     return selectedReviewCount.value
@@ -208,6 +219,18 @@ function refreshMistakeCount() {
   storedMistakeCount.value = getMistakeCount()
 }
 
+async function refreshWeakCount() {
+  if (!selectedDecks.value.length || !modeFilter.value.length) {
+    storedWeakCount.value = 0
+    return
+  }
+  storedWeakCount.value = await countWeakCards(
+    selectedDecks.value,
+    modeFilter.value,
+    dirMode.value
+  )
+}
+
 function pickVoice() {
   if (typeof speechSynthesis === "undefined") return
   const vs = speechSynthesis.getVoices()
@@ -273,10 +296,16 @@ function startAnswerTimer() {
 }
 
 function startCards() {
+  void startCardsAsync()
+}
+
+async function startCardsAsync() {
   clearTimer()
   queue.value = isMistakesMode.value
     ? buildMistakesQueue()
-    : buildQueue(selectedDecks.value, order.value, modeFilter.value)
+    : isWeakMode.value
+      ? await buildWeakQueue(selectedDecks.value, modeFilter.value, dirMode.value)
+      : buildQueue(selectedDecks.value, order.value, modeFilter.value)
   total.value = queue.value.length
   missed.value = 0
   missesRequeued.value = 0
@@ -315,17 +344,20 @@ function rate(knew: boolean) {
     removeMistake(cur.value, effectiveDirMode())
     refreshMistakeCount()
   }
+  void refreshWeakCount()
   next()
 }
 
 function finish() {
   clearTimer()
   view.value = "done"
+  void refreshWeakCount()
 }
 
 function quitDrill() {
   clearTimer()
   view.value = "setup"
+  void refreshWeakCount()
 }
 
 function toggleTheme() {
@@ -405,10 +437,12 @@ onUnmounted(() => {
       :decks="decks"
       :load-err="loadErr"
       :stored-mistake-count="storedMistakeCount"
+      :stored-weak-count="storedWeakCount"
       :is-mistakes-mode="isMistakesMode"
       :start-disabled="startDisabled"
       :start-label="startLabel"
       @start="startCards"
+      @refresh-weak="refreshWeakCount"
     />
 
     <DrillView
