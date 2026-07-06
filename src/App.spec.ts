@@ -919,7 +919,7 @@ describe("App", () => {
     expect(wrapper.text()).toContain("Начать прогон → 2 пар")
   })
 
-  it("clears unit title when queue item has no deck", async () => {
+  it("hides secbar when queue item has no deck", async () => {
     vi.spyOn(patrones, "buildQueue").mockReturnValueOnce([
       {
         front: "solo",
@@ -933,7 +933,6 @@ describe("App", () => {
     ])
     const wrapper = await mountApp()
     await startDrill(wrapper)
-    expect(wrapper.find(".secbar").text()).toContain("S")
-    expect(wrapper.find(".secbar").text()).not.toContain("Unit")
+    expect(wrapper.find(".secbar").exists()).toBe(false)
   })
 })

@@ -105,7 +105,7 @@ const startLabel = computed(() => {
     : "Выбери хотя бы один юнит"
 })
 
-const showSecbar = computed(() => Boolean(curUnit.value || cur.value?.section))
+const showSecbar = computed(() => Boolean(curUnit.value))
 const fillWidth = computed(() => {
   const denom = total.value + missesRequeued.value
   const done = denom - (queue.value.length + 1)
@@ -450,7 +450,6 @@ onUnmounted(() => {
       :left-count="leftCount"
       :missed="missed"
       :cur-unit="curUnit"
-      :cur-section="cur?.section || ''"
       :show-secbar="showSecbar"
       :card-side="cardSide"
       :card-prompt="cardPrompt"
