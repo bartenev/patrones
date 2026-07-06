@@ -352,7 +352,9 @@ function rate(knew: boolean) {
   clearTimer()
   const item = cur.value
   const dir = effectiveDirMode()
-  recordProgressSafe(item, dir, knew ? "knew" : "missed")
+  if (!isMistakesMode.value || !knew) {
+    recordProgressSafe(item, dir, knew ? "knew" : "missed")
+  }
   if (!knew) {
     missed.value++
     missesRequeued.value++
