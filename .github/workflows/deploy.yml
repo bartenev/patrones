@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -25,13 +25,15 @@ jobs:
           node-version: 22
           cache: npm
 
+      - uses: actions/configure-pages@v5
+
       - run: npm ci
 
       - run: npm run build
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: dist
 
