@@ -20,7 +20,7 @@ export function mistakeKey(uuid: string, dirMode: DirMode): string {
 }
 
 export function cardKey(item: MistakeRef): string {
-  return mistakeKey(item.uuid!, item.dirMode)
+  return mistakeKey(item.uuid!, normalizeDirMode(item.dirMode ?? "fwd"))
 }
 
 export function canStoreMistake(item: Pick<QueueItem, "uuid">): boolean {
