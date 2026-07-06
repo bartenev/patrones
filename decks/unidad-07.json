@@ -9,7 +9,8 @@
         { "front": "Tengo ___ loro.", "back": "un", "note": "впервые → un", "translation": "У меня есть попугай.", "uuid": "70e804de-cbcb-4475-aad6-2b005e4cbc84" },
         { "front": "Estoy leyendo ___ libro sobre una cantante.", "back": "un", "note": "новое → un", "translation": "Я читаю книгу об одной певице.", "uuid": "14b9bc06-b2f4-4967-ba80-6ef30de02c22" },
         { "front": "He visto ___ película preciosa.", "back": "una", "note": "новое → una", "translation": "Я посмотрел прекрасный фильм.", "uuid": "499c77fb-36d0-4fcf-a6ec-06f5efbb7cbb" },
-        { "front": "Es ___ cuadro precioso.", "back": "un", "note": "новое → un", "translation": "Это прекрасная картина.", "uuid": "a15e2874-e94e-4e85-80da-7950465180af" }
+        { "front": "Es ___ cuadro precioso.", "back": "un", "note": "новое → un", "translation": "Это прекрасная картина.", "uuid": "a15e2874-e94e-4e85-80da-7950465180af" },
+        { "front": "El médico se enamora de ___ paciente. (впервые)", "back": "una", "note": "впервые упоминаю → una", "translation": "Врач влюбляется в пациентку.", "uuid": "d97617fb-1ac4-44f1-b999-1151d3a57e13" }
       ]
     },
     {
@@ -49,7 +50,8 @@
         { "front": "He visto una película. ___ película es una comedia.", "back": "La", "note": "уже упомянут → la", "translation": "Я посмотрел фильм. Фильм — комедия.", "uuid": "17d2357a-244a-47d6-882b-643de7c8dfb4" },
         { "front": "...un médico que se enamora de un paciente. ___ médico no sabe qué hacer.", "back": "El", "note": "уже упомянут → el", "translation": "…врач, который влюбляется в пациента. Врач не знает, что делать.", "uuid": "521eb66e-f9e5-4695-9db5-f6e918f516c6" },
         { "front": "Se ve a un hombre y una mujer. ___ hombre está leyendo.", "back": "El", "note": "уже упомянут → el", "translation": "Видно мужчину и женщину. Мужчина читает.", "uuid": "6e4c7807-bdc9-423d-8ffd-04bfeca6ae04" },
-        { "front": "Hay pájaros. ___ pájaros tienen las alas extendidas.", "back": "Los", "note": "уже упомянуты → los", "translation": "Есть птицы. Птицы с раскрытыми крыльями.", "uuid": "2a3c50a2-860f-495a-8848-7fd25a7e33a2" }
+        { "front": "Hay pájaros. ___ pájaros tienen las alas extendidas.", "back": "Los", "note": "уже упомянуты → los", "translation": "Есть птицы. Птицы с раскрытыми крыльями.", "uuid": "2a3c50a2-860f-495a-8848-7fd25a7e33a2" },
+        { "front": "...se enamora de una paciente. El médico no sabe cómo decírselo a ___ paciente.", "back": "la", "note": "уже упомянута → la (a la, ж.р., без слияния)", "translation": "…влюбляется в пациентку. Врач не знает, как сказать об этом пациентке.", "uuid": "1bf8807d-a592-44d3-b233-5c4a3f635675" }
       ]
     },
     {
