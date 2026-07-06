@@ -4,15 +4,12 @@ import vue from "@vitejs/plugin-vue"
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "")
-  const host = env.DEV_HOST || true
-  const port = Number(env.DEV_PORT) || 5173
 
   return {
     base: env.VITE_BASE_PATH || "/",
     plugins: [vue()],
     server: {
-      host,
-      port,
+      port: 5173,
       strictPort: true,
       open: true
     },

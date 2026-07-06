@@ -17,13 +17,6 @@ npm test           # unit-тесты (vitest)
 npm run test:coverage
 ```
 
-Для доступа с телефона в локальной сети скопируй `.env.example` → `.env` и укажи IP машины:
-
-```env
-DEV_HOST=192.168.0.116
-DEV_PORT=5173
-```
-
 ---
 
 ## Экраны
@@ -203,7 +196,9 @@ patrones/
 
 ## Деплой
 
-GitHub Actions (`.github/workflows/deploy.yml`): при пуше в `main` — сборка и публикация на **GitHub Pages** с `VITE_BASE_PATH=/<repo>/`.
+Публичная версия для браузера (в т.ч. с телефона) — **GitHub Pages**.
+
+GitHub Actions (`.github/workflows/deploy.yml`): при пуше в `main` — сборка и публикация на GitHub Pages с `VITE_BASE_PATH=/<repo>/`.
 
 ---
 
