@@ -7,7 +7,7 @@ import {
   selectedDeckCount,
   visibleDecks
 } from "../lib/patrones"
-import type { Block, CardMode, Deck, DirMode, OrderMode, TimerSec } from "../types"
+import type { Block, BackupExportMode, CardMode, Deck, DirMode, OrderMode, TimerSec } from "../types"
 
 const modeFilterOptions: { value: CardMode; label: string }[] = [
   { value: "transform", label: "transform" },
@@ -36,10 +36,18 @@ const modeFilter = defineModel<CardMode[]>("modeFilter", { required: true })
 const emit = defineEmits<{
   start: []
   refreshWeak: []
+  exportBackup: [mode: BackupExportMode]
 }>()
 
 const blocksPickerDeck = ref<Deck | null>(null)
 const setupTab = ref<"content" | "mode">("content")
+const backupExportMode = ref<BackupExportMode>("download")
+
+const backupActionLabel = computed(() =>
+  backupExportMode.value === "clipboard"
+    ? "Скопировать в буфер"
+    : "Скачать резервную копию"
+)
 
 const filteredDecks = computed(() => visibleDecks(props.decks, modeFilter.value))
 
@@ -361,6 +369,24 @@ onUnmounted(() => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="data-block">
+        <h3>Данные</h3>
+        <p class="data-hint">Прогресс и банк ошибок из IndexedDB</p>
+        <div class="backup-radio" role="radiogroup" aria-label="Способ экспорта">
+          <label class="backup-radio__item">
+            <input v-model="backupExportMode" type="radio" value="download">
+            <span>Скачать файл</span>
+          </label>
+          <label class="backup-radio__item">
+            <input v-model="backupExportMode" type="radio" value="clipboard">
+            <span>Скопировать в буфер</span>
+          </label>
+        </div>
+        <button class="file-btn" type="button" @click="emit('exportBackup', backupExportMode)">
+          {{ backupActionLabel }}
+        </button>
       </div>
 
       <div class="setup-bar">

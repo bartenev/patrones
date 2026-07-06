@@ -14,8 +14,9 @@ import {
 } from "./lib/mistakes"
 import { dequeue } from "./lib/queue"
 import { recordProgressSafe, buildWeakQueue, countWeakCards, weakBatchCount } from "./lib/progress"
+import { copyPatronesBackupToClipboard, downloadPatronesBackup } from "./lib/backup"
 import { ALL_CARD_MODES } from "./types"
-import type { AppView, CardMode, Deck, DirMode, OrderMode, QueueItem, TimerSec } from "./types"
+import type { AppView, BackupExportMode, CardMode, Deck, DirMode, OrderMode, QueueItem, TimerSec } from "./types"
 
 const decks = ref<Deck[]>([])
 const loadErr = ref("")
@@ -363,6 +364,11 @@ function toggleTheme() {
   document.documentElement.setAttribute("data-theme", isDark.value ? "dark" : "light")
 }
 
+function exportBackup(mode: BackupExportMode) {
+  const action = mode === "clipboard" ? copyPatronesBackupToClipboard : downloadPatronesBackup
+  void action().catch(() => {})
+}
+
 function onKeydown(e: KeyboardEvent) {
   if (view.value !== "drill") return
   if (e.code === "Space" || e.code === "Enter") {
@@ -442,6 +448,7 @@ onUnmounted(() => {
       :start-label="startLabel"
       @start="startCards"
       @refresh-weak="refreshWeakCount"
+      @export-backup="exportBackup"
     />
 
     <DrillView

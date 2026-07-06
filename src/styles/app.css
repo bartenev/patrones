@@ -473,6 +473,47 @@ li.deck .ct {
   line-height: 1.5;
 }
 
+.data-block {
+  margin: 22px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.data-block h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+}
+
+.data-hint {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.backup-radio {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.backup-radio__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.backup-radio__item input {
+  margin: 0;
+  accent-color: var(--azulejo);
+}
+
+.data-block .file-btn {
+  width: 100%;
+}
+
 .setup-bar {
   position: fixed;
   bottom: 0;

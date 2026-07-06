@@ -121,3 +121,14 @@ export interface LoadDecksResult {
   decks: Deck[]
   bad: string[]
 }
+
+export interface PatronesBackup {
+  format: "patrones-backup"
+  version: 1
+  exportedAt: number
+  dbVersion: number
+  lessons: LessonProgress[]
+  mistakes: StoredMistake[]
+}
+
+export type BackupExportMode = "download" | "clipboard"
