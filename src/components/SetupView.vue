@@ -19,9 +19,9 @@ const modeFilterOptions: { value: CardMode; label: string }[] = [
 const props = defineProps<{
   decks: Deck[]
   loadErr: string
-  storedMistakeCount: number
   storedWeakCount: number
-  isMistakesMode: boolean
+  mistakesStartDisabled: boolean
+  mistakesStartLabel: string
   startDisabled: boolean
   startLabel: string
 }>()
@@ -37,6 +37,7 @@ const backupExportMode = defineModel<BackupExportMode>("backupExportMode", { req
 
 const emit = defineEmits<{
   start: []
+  startMistakes: []
   refreshWeak: []
   exportBackup: [mode: BackupExportMode]
 }>()
@@ -83,18 +84,13 @@ const orderOptions: { value: OrderMode; title: string; desc: string }[] = [
     desc: "все карточки из выбранных юнитов в один случайный поток. Экзамен."
   },
   {
-    value: "mistakes",
-    title: "5 — только ошибки",
-    desc: "до 10 карточек за раз из банка. Ошибся — снова в очередь; знал — убирается из банка."
-  },
-  {
     value: "review",
-    title: "6 — ревью",
+    title: "5 — ревью",
     desc: "по одной случайной карточке из каждого блока выбранных юнитов. Быстрая проверка."
   },
   {
     value: "weak",
-    title: "7 — слабые",
+    title: "6 — слабые",
     desc: "до 10 карточек с высокой долей ошибок в выбранном направлении. Берутся из прогресса IndexedDB."
   }
 ]
@@ -125,12 +121,9 @@ function isModeSelected(mode: CardMode) {
   return modeFilter.value.includes(mode)
 }
 
-function orderOptionTitle(value: OrderMode, title: string, mistakeCount: number, weakCount: number) {
-  if (value === "mistakes") {
-    return `5 — только ошибки (${mistakeCount})`
-  }
+function orderOptionTitle(value: OrderMode, title: string, weakCount: number) {
   if (value === "weak") {
-    return `7 — слабые (${weakCount})`
+    return `6 — слабые (${weakCount})`
   }
   return title
 }
@@ -262,7 +255,7 @@ onUnmounted(() => {
       </div>
 
       <div v-show="setupTab === 'content'" class="setup-pane" role="tabpanel">
-        <div v-if="!isMistakesMode" class="mode-filter">
+        <div class="mode-filter">
           <h3>Тип карточек</h3>
           <div class="seg mode-seg">
             <button
@@ -330,10 +323,10 @@ onUnmounted(() => {
           </ul>
         </div>
 
-        <p v-else-if="!isMistakesMode && !modeFilter.length" class="err mode-empty">
+        <p v-else-if="!modeFilter.length" class="err mode-empty">
           Выбери хотя бы один тип карточек.
         </p>
-        <p v-else-if="!isMistakesMode" class="err mode-empty">
+        <p v-else class="err mode-empty">
           Нет юнитов с выбранными типами карточек.
         </p>
       </div>
@@ -347,7 +340,7 @@ onUnmounted(() => {
               :key="opt.value"
               :value="opt.value"
             >
-              {{ orderOptionTitle(opt.value, opt.title, storedMistakeCount, storedWeakCount) }}
+              {{ orderOptionTitle(opt.value, opt.title, storedWeakCount) }}
             </option>
           </select>
           <p class="order-desc">{{ selectedOrderOption.desc }}</p>
@@ -364,7 +357,6 @@ onUnmounted(() => {
                   :key="opt.value"
                   type="button"
                   :class="{ on: dirMode === opt.value }"
-                  :disabled="isMistakesMode"
                   @click="dirMode = opt.value"
                 >
                   {{ opt.label }}
@@ -379,7 +371,7 @@ onUnmounted(() => {
 
             <label class="opt-row opt-toggle">
               <span class="opt-label">Повторять ошибки</span>
-              <input v-model="requeue" type="checkbox" :disabled="isMistakesMode">
+              <input v-model="requeue" type="checkbox">
             </label>
 
             <div class="opt-row">
@@ -414,6 +406,14 @@ onUnmounted(() => {
 
       <div class="setup-bar">
         <div class="setup-bar-inner">
+          <button
+            class="mistakes-start"
+            type="button"
+            :disabled="mistakesStartDisabled"
+            @click="emit('startMistakes')"
+          >
+            {{ mistakesStartLabel }}
+          </button>
           <button class="start" type="button" :disabled="startDisabled" @click="emit('start')">
             {{ startLabel }}
           </button>

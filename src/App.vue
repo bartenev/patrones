@@ -61,6 +61,7 @@ const timerTransition = ref("none")
 const timerPaused = ref(false)
 const storedMistakeCount = ref(0)
 const storedWeakCount = ref(0)
+const sessionMistakesMode = ref(false)
 
 let timerId: ReturnType<typeof setTimeout> | null = null
 let timerRunId = 0
@@ -89,26 +90,26 @@ const totalSelected = computed(() =>
   selectedDecks.value.reduce((s, d) => s + selectedDeckCount(d, modeFilter.value), 0)
 )
 const selectedReviewCount = computed(() => reviewCount(selectedDecks.value, modeFilter.value))
-const isMistakesMode = computed(() => order.value === "mistakes")
+const isMistakesMode = computed(() => sessionMistakesMode.value)
 const isReviewMode = computed(() => order.value === "review")
 const isWeakMode = computed(() => order.value === "weak")
 const mistakesSessionCount = computed(() => mistakesBatchCount(storedMistakeCount.value))
 const weakSessionCount = computed(() => weakBatchCount(storedWeakCount.value))
 const startDisabled = computed(() => {
-  if (isMistakesMode.value) return storedMistakeCount.value === 0
   if (!modeFilter.value.length) return true
   if (isWeakMode.value) return storedWeakCount.value === 0 || totalSelected.value === 0
   if (isReviewMode.value) return selectedReviewCount.value === 0
   return totalSelected.value === 0
 })
+const mistakesStartDisabled = computed(() => storedMistakeCount.value === 0)
+const mistakesStartLabel = computed(() => {
+  const total = storedMistakeCount.value
+  const batch = mistakesSessionCount.value
+  if (!total) return "Нет сохранённых ошибок"
+  if (total === batch) return `Поработать с ошибками → ${total} пар`
+  return `Поработать с ошибками → ${batch} из ${total} пар`
+})
 const startLabel = computed(() => {
-  if (isMistakesMode.value) {
-    const total = storedMistakeCount.value
-    const batch = mistakesSessionCount.value
-    if (!total) return "Нет сохранённых ошибок"
-    if (total === batch) return `Повторить ошибки → ${total} пар`
-    return `Повторить ошибки → ${batch} из ${total} пар`
-  }
   if (isWeakMode.value) {
     const total = storedWeakCount.value
     const batch = weakSessionCount.value
@@ -317,12 +318,17 @@ function startAnswerTimer() {
 }
 
 function startCards() {
-  void startCardsAsync()
+  void startCardsAsync(false)
 }
 
-async function startCardsAsync() {
+function startMistakes() {
+  void startCardsAsync(true)
+}
+
+async function startCardsAsync(mistakes: boolean) {
   clearTimer()
-  queue.value = isMistakesMode.value
+  sessionMistakesMode.value = mistakes
+  queue.value = mistakes
     ? await buildMistakesQueue()
     : isWeakMode.value
       ? await buildWeakQueue(selectedDecks.value, modeFilter.value, dirMode.value)
@@ -371,12 +377,14 @@ function rate(knew: boolean) {
 
 function finish() {
   clearTimer()
+  sessionMistakesMode.value = false
   view.value = "done"
   void refreshWeakCount()
 }
 
 function quitDrill() {
   clearTimer()
+  sessionMistakesMode.value = false
   view.value = "setup"
   void refreshWeakCount()
 }
@@ -501,12 +509,13 @@ onUnmounted(() => {
       v-model:backup-export-mode="backupExportMode"
       :decks="decks"
       :load-err="loadErr"
-      :stored-mistake-count="storedMistakeCount"
       :stored-weak-count="storedWeakCount"
-      :is-mistakes-mode="isMistakesMode"
+      :mistakes-start-disabled="mistakesStartDisabled"
+      :mistakes-start-label="mistakesStartLabel"
       :start-disabled="startDisabled"
       :start-label="startLabel"
       @start="startCards"
+      @start-mistakes="startMistakes"
       @refresh-weak="refreshWeakCount"
       @export-backup="exportBackup"
     />

@@ -67,6 +67,11 @@ async function startDrill(wrapper: VueWrapper) {
   await flushPromises()
 }
 
+async function startMistakesDrill(wrapper: VueWrapper) {
+  await wrapper.get(".mistakes-start").trigger("click")
+  await flushPromises()
+}
+
 async function openModeTab(wrapper: VueWrapper) {
   await wrapper.findAll(".setup-tabs button")[1].trigger("click")
   await flushPromises()
@@ -218,11 +223,11 @@ describe("App", () => {
     await wrapper.find(".deck input").trigger("click")
   })
 
-  it("shows seven order modes", async () => {
+  it("shows six order modes", async () => {
     const wrapper = await mountApp()
     await openModeTab(wrapper)
-    expect(wrapper.findAll(".order-select option")).toHaveLength(7)
-    expect(wrapper.text()).toContain("7 — слабые")
+    expect(wrapper.findAll(".order-select option")).toHaveLength(6)
+    expect(wrapper.text()).toContain("6 — слабые")
   })
 
   it("shows error when folder has no decks", async () => {
@@ -480,13 +485,11 @@ describe("App", () => {
     expect(wrapper.text()).toContain("¡Listo!")
   })
 
-  it("disables start in mistakes mode when bank is empty", async () => {
+  it("disables mistakes button when bank is empty", async () => {
     const wrapper = await mountApp()
-    await setOrder(wrapper, "mistakes")
     await flushPromises()
-    expect(wrapper.text()).toContain("5 — только ошибки (0)")
     expect(wrapper.text()).toContain("Нет сохранённых ошибок")
-    expect(wrapper.get(".start").attributes("disabled")).toBeDefined()
+    expect(wrapper.get(".mistakes-start").attributes("disabled")).toBeDefined()
   })
 
   it("ignores second reveal", async () => {
@@ -627,7 +630,7 @@ describe("App", () => {
     await wrapper.get(".missed").trigger("click")
     await flushPromises()
     await vi.waitUntil(async () => (await loadMistakes()).length === 1)
-    await vi.waitUntil(() => wrapper.text().includes("5 — только ошибки (1)"), { timeout: 3000 })
+    await vi.waitUntil(() => wrapper.text().includes("Поработать с ошибками → 1 пар"), { timeout: 3000 })
     expect((await loadMistakes())[0].front).toBe("hola")
   })
 
@@ -644,12 +647,9 @@ describe("App", () => {
       uuid: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb"
     }, "fwd")
 
+
     const wrapper = await mountApp()
-    await setOrder(wrapper, "mistakes")
-    await flushPromises()
-    expect(wrapper.text()).toContain("Повторить ошибки → 1 пар")
-    await wrapper.get(".start").trigger("click")
-    await flushPromises()
+    await startMistakesDrill(wrapper)
     expect(wrapper.text()).toContain("hola")
     await wrapper.get(".reveal").trigger("click")
     await wrapper.get(".knew").trigger("click")
@@ -672,9 +672,7 @@ describe("App", () => {
     }, "fwd")
 
     const wrapper = await mountApp()
-    await setOrder(wrapper, "mistakes")
-    await wrapper.get(".start").trigger("click")
-    await flushPromises()
+    await startMistakesDrill(wrapper)
     await wrapper.get(".reveal").trigger("click")
     await wrapper.get(".missed").trigger("click")
     await flushPromises()
@@ -700,7 +698,7 @@ describe("App", () => {
     await vi.waitUntil(async () => (await loadMistakes()).length === 2)
     await vi.waitUntil(async () => {
       await flushPromises()
-      return wrapper.text().includes("5 — только ошибки (2)")
+      return wrapper.text().includes("Поработать с ошибками → 2 пар")
     }, { timeout: 3000 })
     const stored = await loadMistakes()
     expect(stored.map((item) => item.dirMode).sort()).toEqual(["fwd", "rev"])
@@ -792,9 +790,7 @@ describe("App", () => {
     }, "rev")
 
     const wrapper = await mountApp()
-    await setOrder(wrapper, "mistakes")
-    await wrapper.get(".start").trigger("click")
-    await flushPromises()
+    await startMistakesDrill(wrapper)
     expect(wrapper.text()).toContain("español")
     expect(wrapper.text()).toContain("привет")
   })
@@ -822,9 +818,8 @@ describe("App", () => {
       }, "fwd")
     }
     const wrapper = await mountApp()
-    await setOrder(wrapper, "mistakes")
     await flushPromises()
-    expect(wrapper.text()).toContain("Повторить ошибки → 10 из 11 пар")
+    expect(wrapper.text()).toContain("Поработать с ошибками → 10 из 11 пар")
   })
 
   it("shows partial weak batch label", async () => {

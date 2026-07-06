@@ -20,7 +20,6 @@ const ORDER_MODES: OrderMode[] = [
   "shuffleCards",
   "shuffleBlocks",
   "shuffleAll",
-  "mistakes",
   "review",
   "weak"
 ]
@@ -83,7 +82,9 @@ export function normalizePatronesSettings(raw: unknown): PatronesSettings | null
   const value = raw as Partial<PatronesSettings>
   if (value.id !== SETTINGS_ID || value.version !== SETTINGS_DOC_VERSION) return null
   if (typeof value.isDark !== "boolean") return null
-  if (!ORDER_MODES.includes(value.order as OrderMode)) return null
+
+  const order = (value.order as string) === "mistakes" ? "straight" : value.order
+  if (!ORDER_MODES.includes(order as OrderMode)) return null
   if (value.dirMode !== "fwd" && value.dirMode !== "rev") return null
   if (typeof value.requeue !== "boolean" || typeof value.autospeak !== "boolean") return null
   if (!TIMER_VALUES.includes(value.timerSec as TimerSec)) return null
@@ -105,7 +106,7 @@ export function normalizePatronesSettings(raw: unknown): PatronesSettings | null
     version: SETTINGS_DOC_VERSION,
     updatedAt: typeof value.updatedAt === "number" ? value.updatedAt : 0,
     isDark: value.isDark,
-    order: value.order as OrderMode,
+    order: order as OrderMode,
     dirMode: value.dirMode,
     requeue: value.requeue,
     autospeak: value.autospeak,

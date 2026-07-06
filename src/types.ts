@@ -85,7 +85,6 @@ export type OrderMode =
   | "shuffleCards"
   | "shuffleBlocks"
   | "shuffleAll"
-  | "mistakes"
   | "review"
   | "weak"
 
