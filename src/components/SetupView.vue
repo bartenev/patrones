@@ -472,7 +472,7 @@ onUnmounted(() => {
             </button>
           </div>
 
-          <p class="summary-text">{{ summaryDeck.summary }}</p>
+          <div class="summary-text" v-html="summaryDeck.summary" />
 
           <button class="file-btn blocks-done" type="button" @click="closeSummary">
             Готово

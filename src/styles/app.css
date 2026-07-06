@@ -347,7 +347,49 @@ li.deck.mastery-solid { border-left: 3px solid var(--good); }
   margin: 0 0 14px;
   font-size: 14px;
   line-height: 1.55;
-  color: var(--text);
+  color: var(--ink);
+}
+
+.summary-text :first-child {
+  margin-top: 0;
+}
+
+.summary-text :last-child {
+  margin-bottom: 0;
+}
+
+.summary-text h4 {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.summary-text p {
+  margin: 0 0 10px;
+}
+
+.summary-text ul {
+  margin: 0 0 10px;
+  padding-left: 1.2em;
+}
+
+.summary-text li {
+  margin: 0 0 6px;
+}
+
+.summary-text li:last-child {
+  margin-bottom: 0;
+}
+
+.summary-text em {
+  font-style: italic;
+  color: var(--muted);
+}
+
+.summary-text b,
+.summary-text strong {
+  font-weight: 700;
 }
 
 .blocks-overlay {
