@@ -13,6 +13,7 @@ import {
   removeMistake
 } from "./lib/mistakes"
 import { dequeue } from "./lib/queue"
+import { recordProgressSafe } from "./lib/progress"
 import { ALL_CARD_MODES } from "./types"
 import type { AppView, CardMode, Deck, DirMode, OrderMode, QueueItem, TimerSec } from "./types"
 
@@ -299,6 +300,9 @@ function reveal() {
 function rate(knew: boolean) {
   if (!revealed.value || !cur.value) return
   clearTimer()
+  const item = cur.value
+  const dir = effectiveDirMode()
+  recordProgressSafe(item, dir, knew ? "knew" : "missed")
   if (!knew) {
     missed.value++
     missesRequeued.value++

@@ -5,81 +5,81 @@
       "title": "После ser/hacerse: профессия/религия/нация/идеология → ∅",
       "mode": "cloze",
       "cards": [
-        { "front": "Soy ___ estudiante.", "back": "∅", "note": "профессия после ser → ∅", "translation": "Я студент." },
-        { "front": "Chantal es ___ francesa.", "back": "∅", "note": "национальность → ∅", "translation": "Шанталь — француженка." },
-        { "front": "Es ___ abogada.", "back": "∅", "note": "профессия → ∅", "translation": "Она адвокат." },
-        { "front": "Lenin y Stalin eran ___ comunistas.", "back": "∅", "note": "идеология → ∅", "translation": "Ленин и Сталин были коммунистами." },
-        { "front": "Alberto se ha hecho ___ budista.", "back": "∅", "note": "религия после hacerse → ∅", "translation": "Альберто стал буддистом." },
-        { "front": "Tomás se ha hecho ___ musulmán.", "back": "∅", "note": "религия → ∅", "translation": "Томас стал мусульманином." },
-        { "front": "Los tíos de Andrea son ___ protestantes.", "back": "∅", "note": "религия → ∅", "translation": "Дядя и тётя Андреа — протестанты." },
-        { "front": "Alberto y Lola son ___ socialistas.", "back": "∅", "note": "идеология → ∅", "translation": "Альберто и Лола — социалисты." },
-        { "front": "No, soy ___ vegetariano.", "back": "∅", "note": "после ser → ∅", "translation": "Нет, я вегетарианец." },
-        { "front": "Ernesto es ___ músico.", "back": "∅", "note": "профессия → ∅", "translation": "Эрнесто — музыкант." },
-        { "front": "Carolina es ___ vendedora.", "back": "∅", "note": "профессия → ∅", "translation": "Каролина — продавщица." },
-        { "front": "La hermana de Rosa es ___ profesora de español.", "back": "∅", "note": "профессия → ∅", "translation": "Сестра Розы — преподавательница испанского." },
-        { "front": "Almodóvar es ___ director de cine.", "back": "∅", "note": "профессия → ∅", "translation": "Альмодовар — кинорежиссёр." },
-        { "front": "Vargas Llosa es ___ peruano.", "back": "∅", "note": "национальность → ∅", "translation": "Варгас Льоса — перуанец." }
+        { "front": "Soy ___ estudiante.", "back": "∅", "note": "профессия после ser → ∅", "translation": "Я студент.", "uuid": "9b9438a4-bbd1-42eb-8186-ec0f689249c2" },
+        { "front": "Chantal es ___ francesa.", "back": "∅", "note": "национальность → ∅", "translation": "Шанталь — француженка.", "uuid": "91013c51-394b-4b2d-8c59-6c811471b892" },
+        { "front": "Es ___ abogada.", "back": "∅", "note": "профессия → ∅", "translation": "Она адвокат.", "uuid": "c16dbbcc-dca5-48f5-8213-226415a8e041" },
+        { "front": "Lenin y Stalin eran ___ comunistas.", "back": "∅", "note": "идеология → ∅", "translation": "Ленин и Сталин были коммунистами.", "uuid": "de951c37-dc98-44c6-adc4-c698e6b6106c" },
+        { "front": "Alberto se ha hecho ___ budista.", "back": "∅", "note": "религия после hacerse → ∅", "translation": "Альберто стал буддистом.", "uuid": "25fac328-4f1b-4dec-bd9d-1bb8d1c4e3b1" },
+        { "front": "Tomás se ha hecho ___ musulmán.", "back": "∅", "note": "религия → ∅", "translation": "Томас стал мусульманином.", "uuid": "54d55a32-dbc5-4d30-83e3-ca398d74ee96" },
+        { "front": "Los tíos de Andrea son ___ protestantes.", "back": "∅", "note": "религия → ∅", "translation": "Дядя и тётя Андреа — протестанты.", "uuid": "3d7f5a9e-7961-4fb5-a1d4-20d4fa4cbc8c" },
+        { "front": "Alberto y Lola son ___ socialistas.", "back": "∅", "note": "идеология → ∅", "translation": "Альберто и Лола — социалисты.", "uuid": "a42c4e4c-5cc2-4c61-aade-6448b65f8da6" },
+        { "front": "No, soy ___ vegetariano.", "back": "∅", "note": "после ser → ∅", "translation": "Нет, я вегетарианец.", "uuid": "16b89e6b-3cf5-40de-b849-eacab9f296bb" },
+        { "front": "Ernesto es ___ músico.", "back": "∅", "note": "профессия → ∅", "translation": "Эрнесто — музыкант.", "uuid": "5c528ce2-7f40-4b36-b918-baee886830eb" },
+        { "front": "Carolina es ___ vendedora.", "back": "∅", "note": "профессия → ∅", "translation": "Каролина — продавщица.", "uuid": "ba52ac56-6df2-4067-9119-094861e50947" },
+        { "front": "La hermana de Rosa es ___ profesora de español.", "back": "∅", "note": "профессия → ∅", "translation": "Сестра Розы — преподавательница испанского.", "uuid": "4f1a9ef1-9084-47f2-a2f5-340e9e4e977f" },
+        { "front": "Almodóvar es ___ director de cine.", "back": "∅", "note": "профессия → ∅", "translation": "Альмодовар — кинорежиссёр.", "uuid": "2da5b269-d5f4-4358-ba7b-cf3114b1c492" },
+        { "front": "Vargas Llosa es ___ peruano.", "back": "∅", "note": "национальность → ∅", "translation": "Варгас Льоса — перуанец.", "uuid": "e6b04857-6b87-4a66-a3e5-e491df3bf0e2" }
       ]
     },
     {
       "title": "Прямое дополнение = класс вещей (не конкретный предмет) → ∅",
       "mode": "cloze",
       "cards": [
-        { "front": "Lola colecciona ___ sellos.", "back": "∅", "note": "вещи вообще → ∅", "translation": "Лола коллекционирует марки." },
-        { "front": "Escribe ___ novelas.", "back": "∅", "note": "класс → ∅", "translation": "Он пишет романы." },
-        { "front": "Están buscando ___ piso.", "back": "∅", "note": "не конкретный → ∅", "translation": "Они ищут квартиру." },
-        { "front": "¿Tienes ___ teléfono?", "back": "∅", "note": "вообще → ∅", "translation": "У тебя есть телефон?" },
-        { "front": "No tengo ___ coche.", "back": "∅", "note": "вообще → ∅", "translation": "У меня нет машины." },
-        { "front": "Siempre bebemos ___ agua en las comidas.", "back": "∅", "note": "неисчисляемое → ∅", "translation": "Мы всегда пьём воду за едой." },
-        { "front": "Ernesto no come ___ carne.", "back": "∅", "note": "класс → ∅", "translation": "Эрнесто не ест мясо." },
-        { "front": "¿Hay ___ pan?", "back": "∅", "note": "вообще → ∅", "translation": "Хлеб есть?" },
-        { "front": "Tomás canta ___ flamenco.", "back": "∅", "note": "вообще → ∅", "translation": "Томас поёт фламенко." },
-        { "front": "Antonio vende ___ coches.", "back": "∅", "note": "класс → ∅", "translation": "Антонио продаёт машины." },
-        { "front": "Necesito ___ gafas.", "back": "∅", "note": "вообще → ∅", "translation": "Мне нужны очки." },
-        { "front": "¿Tienes ___ hermanos?", "back": "∅", "note": "вообще → ∅", "translation": "У тебя есть братья/сёстры?" },
-        { "front": "Escribe ___ canciones.", "back": "∅", "note": "класс → ∅", "translation": "Он пишет песни." },
-        { "front": "Vende ___ enciclopedias.", "back": "∅", "note": "класс → ∅", "translation": "Она продаёт энциклопедии." },
-        { "front": "¿Comes ___ carne?", "back": "∅", "note": "класс → ∅", "translation": "Ты ешь мясо?" },
-        { "front": "¿Quieres ___ queso?", "back": "∅", "note": "вещество вообще → ∅", "translation": "Хочешь сыра?" },
-        { "front": "No tomo ___ azúcar.", "back": "∅", "note": "неисчисляемое → ∅", "translation": "Я не пью с сахаром / не ем сахар." },
-        { "front": "¿Necesitas ___ dinero?", "back": "∅", "note": "абстрактное/неисчисл. → ∅", "translation": "Тебе нужны деньги?" }
+        { "front": "Lola colecciona ___ sellos.", "back": "∅", "note": "вещи вообще → ∅", "translation": "Лола коллекционирует марки.", "uuid": "086f1c12-b64f-4e07-8f28-ab071da7840a" },
+        { "front": "Escribe ___ novelas.", "back": "∅", "note": "класс → ∅", "translation": "Он пишет романы.", "uuid": "dc5853de-c2c1-485c-a977-8e6d72a513ab" },
+        { "front": "Están buscando ___ piso.", "back": "∅", "note": "не конкретный → ∅", "translation": "Они ищут квартиру.", "uuid": "7bd2b7fc-9e4d-4468-852a-f76fcddc835f" },
+        { "front": "¿Tienes ___ teléfono?", "back": "∅", "note": "вообще → ∅", "translation": "У тебя есть телефон?", "uuid": "302fd169-870a-48ae-8f24-5d7f3ddef28a" },
+        { "front": "No tengo ___ coche.", "back": "∅", "note": "вообще → ∅", "translation": "У меня нет машины.", "uuid": "f096c973-e9ce-4b10-83af-cffd2f9e5da2" },
+        { "front": "Siempre bebemos ___ agua en las comidas.", "back": "∅", "note": "неисчисляемое → ∅", "translation": "Мы всегда пьём воду за едой.", "uuid": "3160b03b-5f97-44a6-9daa-d01f3fb036d8" },
+        { "front": "Ernesto no come ___ carne.", "back": "∅", "note": "класс → ∅", "translation": "Эрнесто не ест мясо.", "uuid": "1a32f04f-29b7-4377-9a36-594804bd3213" },
+        { "front": "¿Hay ___ pan?", "back": "∅", "note": "вообще → ∅", "translation": "Хлеб есть?", "uuid": "2a738702-7cf3-48db-bd5d-250545b45d6c" },
+        { "front": "Tomás canta ___ flamenco.", "back": "∅", "note": "вообще → ∅", "translation": "Томас поёт фламенко.", "uuid": "ad840d52-25ba-45f9-817b-75ae05567d41" },
+        { "front": "Antonio vende ___ coches.", "back": "∅", "note": "класс → ∅", "translation": "Антонио продаёт машины.", "uuid": "d9e77101-2008-49bd-8eb1-548cad7c75c8" },
+        { "front": "Necesito ___ gafas.", "back": "∅", "note": "вообще → ∅", "translation": "Мне нужны очки.", "uuid": "3c3c54b6-2ba7-4f43-9463-c108584872e2" },
+        { "front": "¿Tienes ___ hermanos?", "back": "∅", "note": "вообще → ∅", "translation": "У тебя есть братья/сёстры?", "uuid": "b5924137-6fb8-4a77-b614-fd359a26808b" },
+        { "front": "Escribe ___ canciones.", "back": "∅", "note": "класс → ∅", "translation": "Он пишет песни.", "uuid": "02ac0aae-adfb-4007-96f2-31223420aaba" },
+        { "front": "Vende ___ enciclopedias.", "back": "∅", "note": "класс → ∅", "translation": "Она продаёт энциклопедии.", "uuid": "4994806f-5845-492a-b5aa-1f4b9ebb1197" },
+        { "front": "¿Comes ___ carne?", "back": "∅", "note": "класс → ∅", "translation": "Ты ешь мясо?", "uuid": "fbfc43fb-f217-450f-b6fd-ba2d0d6ed305" },
+        { "front": "¿Quieres ___ queso?", "back": "∅", "note": "вещество вообще → ∅", "translation": "Хочешь сыра?", "uuid": "5b1e6c26-214c-4050-b0a6-1e3a7bcf558b" },
+        { "front": "No tomo ___ azúcar.", "back": "∅", "note": "неисчисляемое → ∅", "translation": "Я не пью с сахаром / не ем сахар.", "uuid": "4ac593cf-24ba-4513-ab4b-dc4349ce520a" },
+        { "front": "¿Necesitas ___ dinero?", "back": "∅", "note": "абстрактное/неисчисл. → ∅", "translation": "Тебе нужны деньги?", "uuid": "7b6c31b5-2d91-439f-a9c0-278a1b7186b7" }
       ]
     },
     {
       "title": "PERO: есть прилагательное → артикль возвращается",
       "mode": "cloze",
       "cards": [
-        { "front": "Chantal es ___ francesa muy simpática.", "back": "una", "note": "+ прилаг. → una", "translation": "Шанталь — очень милая француженка." },
-        { "front": "Es ___ médico extraordinario.", "back": "un", "note": "+ прилаг. → un", "translation": "Он выдающийся врач." },
-        { "front": "Es ___ profesora muy seria.", "back": "una", "note": "+ прилаг. → una", "translation": "Она очень серьёзная преподавательница." },
-        { "front": "Es ___ actriz muy famosa.", "back": "una", "note": "+ прилаг. → una", "translation": "Она очень известная актриса." },
-        { "front": "Tengo ___ sellos muy raros.", "back": "unos", "note": "+ прилаг. → unos", "translation": "У меня есть очень редкие марки." },
-        { "front": "Aquí hacen ___ pan buenísimo.", "back": "un", "note": "+ прилаг. → un", "translation": "Здесь пекут отличный хлеб." },
-        { "front": "Necesito ___ gafas especiales.", "back": "unas", "note": "+ прилаг. → unas", "translation": "Мне нужны специальные очки." },
-        { "front": "Hoy lleva ___ corbata muy original.", "back": "una", "note": "+ прилаг. → una", "translation": "Сегодня на нём очень оригинальный галстук." },
-        { "front": "No, es ___ queso muy fuerte.", "back": "un", "note": "+ прилаг. → un", "translation": "Нет, это очень острый сыр." }
+        { "front": "Chantal es ___ francesa muy simpática.", "back": "una", "note": "+ прилаг. → una", "translation": "Шанталь — очень милая француженка.", "uuid": "bd0d766f-5bdb-4f5d-96f6-90b6005d4b86" },
+        { "front": "Es ___ médico extraordinario.", "back": "un", "note": "+ прилаг. → un", "translation": "Он выдающийся врач.", "uuid": "087f7868-ea0f-4bbe-a64f-cc7ebce9e872" },
+        { "front": "Es ___ profesora muy seria.", "back": "una", "note": "+ прилаг. → una", "translation": "Она очень серьёзная преподавательница.", "uuid": "f2547ecc-b1c7-47bc-9f77-52120283ceb8" },
+        { "front": "Es ___ actriz muy famosa.", "back": "una", "note": "+ прилаг. → una", "translation": "Она очень известная актриса.", "uuid": "c3e3819d-4533-4d9c-bef4-96c5a54be5e6" },
+        { "front": "Tengo ___ sellos muy raros.", "back": "unos", "note": "+ прилаг. → unos", "translation": "У меня есть очень редкие марки.", "uuid": "526198bd-98d1-46d4-a84b-78e3da539b1a" },
+        { "front": "Aquí hacen ___ pan buenísimo.", "back": "un", "note": "+ прилаг. → un", "translation": "Здесь пекут отличный хлеб.", "uuid": "92175880-85da-4be6-a342-cb7e2ffc6099" },
+        { "front": "Necesito ___ gafas especiales.", "back": "unas", "note": "+ прилаг. → unas", "translation": "Мне нужны специальные очки.", "uuid": "4ffd16f6-fe1a-4725-a695-f342dd6636df" },
+        { "front": "Hoy lleva ___ corbata muy original.", "back": "una", "note": "+ прилаг. → una", "translation": "Сегодня на нём очень оригинальный галстук.", "uuid": "39cec151-10ff-48b3-86bd-8040dd576d82" },
+        { "front": "No, es ___ queso muy fuerte.", "back": "un", "note": "+ прилаг. → un", "translation": "Нет, это очень острый сыр.", "uuid": "b6f42ff2-cd44-4a19-867f-1b7193f7855e" }
       ]
     },
     {
       "title": "PERO: идентификация по профессии (¿Quién es?) → артикль",
       "mode": "cloze",
       "cards": [
-        { "front": "¿Quiénes son las Hijas del Sol? — Son ___ cantantes.", "back": "unas", "note": "идентификация → unas", "translation": "Кто такие «Дочери Солнца»? — Они певицы." },
-        { "front": "¿Quién es Almodóvar? — Es ___ director de cine.", "back": "un", "note": "идентификация → un", "translation": "Кто такой Альмодовар? — Он кинорежиссёр." },
-        { "front": "¿Quién es Luis Miguel? — Es ___ cantante.", "back": "un", "note": "идентификация → un", "translation": "Кто такой Луис Мигель? — Он певец." },
-        { "front": "¿Quién es Vargas Llosa? — Es ___ escritor.", "back": "un", "note": "идентификация → un", "translation": "Кто такой Варгас Льоса? — Он писатель." }
+        { "front": "¿Quiénes son las Hijas del Sol? — Son ___ cantantes.", "back": "unas", "note": "идентификация → unas", "translation": "Кто такие «Дочери Солнца»? — Они певицы.", "uuid": "1e5bc939-dacc-4b00-b634-1e343597229f" },
+        { "front": "¿Quién es Almodóvar? — Es ___ director de cine.", "back": "un", "note": "идентификация → un", "translation": "Кто такой Альмодовар? — Он кинорежиссёр.", "uuid": "2ef59b3c-ebe7-4e15-b53a-4ede45b5ecd6" },
+        { "front": "¿Quién es Luis Miguel? — Es ___ cantante.", "back": "un", "note": "идентификация → un", "translation": "Кто такой Луис Мигель? — Он певец.", "uuid": "16f54445-c489-4450-a767-1ceaab603177" },
+        { "front": "¿Quién es Vargas Llosa? — Es ___ escritor.", "back": "un", "note": "идентификация → un", "translation": "Кто такой Варгас Льоса? — Он писатель.", "uuid": "880c8bc6-21c8-4a66-849d-4a470bfce9fa" }
       ]
     },
     {
       "title": "PERO: количество (=1 или несколько) → артикль",
       "mode": "cloze",
       "cards": [
-        { "front": "La novia ha publicado ___ novela.", "back": "una", "note": "= одна → una", "translation": "Невеста опубликовала (один) роман." },
-        { "front": "Me han regalado ___ sellos.", "back": "unos", "note": "= несколько → unos", "translation": "Мне подарили несколько марок." },
-        { "front": "Hoy ha vendido ___ coche.", "back": "un", "note": "= один → un", "translation": "Сегодня он продал (одну) машину." },
-        { "front": "Tengo ___ hermana.", "back": "una", "note": "= одна → una", "translation": "У меня есть (одна) сестра." },
-        { "front": "Alberto tiene ___ apartamento en Benidorm.", "back": "un", "note": "= один → un", "translation": "У Альберто есть квартира в Бенидорме." },
-        { "front": "Solo ___ taza al día.", "back": "una", "note": "= одна → una", "translation": "Только одна чашка в день." }
+        { "front": "La novia ha publicado ___ novela.", "back": "una", "note": "= одна → una", "translation": "Невеста опубликовала (один) роман.", "uuid": "2491d3f6-699f-4c44-968f-9b224928a120" },
+        { "front": "Me han regalado ___ sellos.", "back": "unos", "note": "= несколько → unos", "translation": "Мне подарили несколько марок.", "uuid": "1b88d244-1d83-4eda-9ee7-aa6ae7eb812d" },
+        { "front": "Hoy ha vendido ___ coche.", "back": "un", "note": "= один → un", "translation": "Сегодня он продал (одну) машину.", "uuid": "9a03fc3a-7cf3-448d-8e73-66b072430934" },
+        { "front": "Tengo ___ hermana.", "back": "una", "note": "= одна → una", "translation": "У меня есть (одна) сестра.", "uuid": "47d9651a-57b8-44d3-b765-36604e262bca" },
+        { "front": "Alberto tiene ___ apartamento en Benidorm.", "back": "un", "note": "= один → un", "translation": "У Альберто есть квартира в Бенидорме.", "uuid": "ff0c669f-faa1-40ea-9252-00cf6f91d45f" },
+        { "front": "Solo ___ taza al día.", "back": "una", "note": "= одна → una", "translation": "Только одна чашка в день.", "uuid": "aad1ebaa-8c85-462e-a96c-05e46d676d51" }
       ]
     }
   ]

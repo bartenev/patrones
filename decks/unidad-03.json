@@ -5,105 +5,105 @@
       "title": "Гласная (-a/-e/-i/-o/-u) → +s",
       "mode": "transform",
       "cards": [
-        { "front": "casa", "back": "casas", "translation": "дом" },
-        { "front": "libro", "back": "libros", "translation": "книга" },
-        { "front": "niño", "back": "niños", "translation": "ребёнок" },
-        { "front": "gato", "back": "gatos", "translation": "кот" },
-        { "front": "mesa", "back": "mesas", "translation": "стол" },
-        { "front": "clase", "back": "clases", "translation": "класс / урок" },
-        { "front": "banana", "back": "bananas", "translation": "банан" },
-        { "front": "hermana", "back": "hermanas", "translation": "сестра" },
-        { "front": "día", "back": "días", "note": "м.р. на -a, плюрал обычный +s", "translation": "день" },
-        { "front": "foto", "back": "fotos", "translation": "фото" }
+        { "front": "casa", "back": "casas", "translation": "дом", "uuid": "db3ab718-fb72-4c98-befe-7a77a89115a7" },
+        { "front": "libro", "back": "libros", "translation": "книга", "uuid": "6691ebc7-38e7-4ae5-ab0e-d01b007c15b7" },
+        { "front": "niño", "back": "niños", "translation": "ребёнок", "uuid": "80cecce9-bf88-4039-8a96-6016e213924f" },
+        { "front": "gato", "back": "gatos", "translation": "кот", "uuid": "a980101a-453f-46ac-99c5-8641a2e530ed" },
+        { "front": "mesa", "back": "mesas", "translation": "стол", "uuid": "cb815c74-d425-47d6-be27-ecde48e58af2" },
+        { "front": "clase", "back": "clases", "translation": "класс / урок", "uuid": "a22085f0-4cf1-4a1b-9a7c-199fe42684de" },
+        { "front": "banana", "back": "bananas", "translation": "банан", "uuid": "1ca5b33b-75fd-4143-84b7-a6be06798356" },
+        { "front": "hermana", "back": "hermanas", "translation": "сестра", "uuid": "756b60d1-2b87-4df3-a50a-26cd3574d319" },
+        { "front": "día", "back": "días", "note": "м.р. на -a, плюрал обычный +s", "translation": "день", "uuid": "2cd1ded7-6f85-4b81-82f0-a4233749b400" },
+        { "front": "foto", "back": "fotos", "translation": "фото", "uuid": "3fb217ab-c673-47a8-a79e-0e7c80911ced" }
       ]
     },
     {
       "title": "Ударная гласная (-á/-é/-ó/-ú) → +s",
       "mode": "transform",
       "cards": [
-        { "front": "café", "back": "cafés", "translation": "кофе / кафе" },
-        { "front": "menú", "back": "menús", "translation": "меню" },
-        { "front": "mamá", "back": "mamás", "translation": "мама" },
-        { "front": "papá", "back": "papás", "translation": "папа" }
+        { "front": "café", "back": "cafés", "translation": "кофе / кафе", "uuid": "f5b3e640-4b32-47ec-8259-5f5d5b0c61e1" },
+        { "front": "menú", "back": "menús", "translation": "меню", "uuid": "b240d300-5abe-449a-b734-3499053266c5" },
+        { "front": "mamá", "back": "mamás", "translation": "мама", "uuid": "33745514-ea29-445c-95ff-d329e0e79b6e" },
+        { "front": "papá", "back": "papás", "translation": "папа", "uuid": "50d3a134-5d77-42f0-bdb3-9c5e6b3a3aeb" }
       ]
     },
     {
       "title": "Согласная → +es",
       "mode": "transform",
       "cards": [
-        { "front": "reloj", "back": "relojes", "translation": "часы (наручные)" },
-        { "front": "mes", "back": "meses", "translation": "месяц" },
-        { "front": "frijol", "back": "frijoles", "translation": "фасоль" },
-        { "front": "mujer", "back": "mujeres", "translation": "женщина" },
-        { "front": "hotel", "back": "hoteles", "translation": "отель" },
-        { "front": "universidad", "back": "universidades", "note": "-dad + es", "translation": "университет" },
-        { "front": "postal", "back": "postales", "translation": "открытка" }
+        { "front": "reloj", "back": "relojes", "translation": "часы (наручные)", "uuid": "92ad62fa-f0d4-40f8-93e3-3b62969127bd" },
+        { "front": "mes", "back": "meses", "translation": "месяц", "uuid": "b7525448-ac00-43c5-b1bb-ac9b3d882aa2" },
+        { "front": "frijol", "back": "frijoles", "translation": "фасоль", "uuid": "17174009-09d3-465c-9739-7fbcab1a85e0" },
+        { "front": "mujer", "back": "mujeres", "translation": "женщина", "uuid": "c00c2b4e-394e-4f64-873a-193d6ad8f046" },
+        { "front": "hotel", "back": "hoteles", "translation": "отель", "uuid": "2e3d64b9-8937-4dae-9720-fea2bff31f9a" },
+        { "front": "universidad", "back": "universidades", "note": "-dad + es", "translation": "университет", "uuid": "9f966ed7-54b0-497a-b833-b5315797225d" },
+        { "front": "postal", "back": "postales", "translation": "открытка", "uuid": "b5210856-f029-4b17-a44e-cdf5cb347a6f" }
       ]
     },
     {
       "title": "Ударные -í / -y → +es",
       "mode": "transform",
       "cards": [
-        { "front": "rubí", "back": "rubíes", "translation": "рубин" },
-        { "front": "ley", "back": "leyes", "translation": "закон" }
+        { "front": "rubí", "back": "rubíes", "translation": "рубин", "uuid": "6f8e769c-d513-4520-81bc-02449c97c0b0" },
+        { "front": "ley", "back": "leyes", "translation": "закон", "uuid": "514c7e75-f466-4874-b64e-fd78dafab93c" }
       ]
     },
     {
       "title": "-z → -ces",
       "mode": "transform",
       "cards": [
-        { "front": "actriz", "back": "actrices", "translation": "актриса" },
-        { "front": "pez", "back": "peces", "translation": "рыба" },
-        { "front": "luz", "back": "luces", "translation": "свет" },
-        { "front": "lápiz", "back": "lápices", "translation": "карандаш" }
+        { "front": "actriz", "back": "actrices", "translation": "актриса", "uuid": "916ffddf-6e52-4643-9be9-b027d56ae840" },
+        { "front": "pez", "back": "peces", "translation": "рыба", "uuid": "68675d87-be13-476f-830b-32acae160f6b" },
+        { "front": "luz", "back": "luces", "translation": "свет", "uuid": "a587e0d3-b2fb-4f23-a48e-97a168156510" },
+        { "front": "lápiz", "back": "lápices", "translation": "карандаш", "uuid": "9f5485eb-1bb6-43bc-a268-1c217014184e" }
       ]
     },
     {
       "title": "Ловушки: при +es уходит тильда",
       "mode": "transform",
       "cards": [
-        { "front": "autobús", "back": "autobuses", "note": "тильда уходит", "translation": "автобус" },
-        { "front": "televisión", "back": "televisiones", "note": "тильда уходит", "translation": "телевидение" },
-        { "front": "habitación", "back": "habitaciones", "note": "тильда уходит", "translation": "комната" },
-        { "front": "expresión", "back": "expresiones", "note": "тильда уходит", "translation": "выражение" },
-        { "front": "león", "back": "leones", "note": "тильда уходит (león→leones)", "translation": "лев" },
-        { "front": "pantalón", "back": "pantalones", "note": "тильда уходит", "translation": "брюки (ед. форма)" }
+        { "front": "autobús", "back": "autobuses", "note": "тильда уходит", "translation": "автобус", "uuid": "cb3c1464-1429-4dd7-b4ac-d2f0c980ecad" },
+        { "front": "televisión", "back": "televisiones", "note": "тильда уходит", "translation": "телевидение", "uuid": "820d5308-79df-4d14-89e6-a0ad33f4affa" },
+        { "front": "habitación", "back": "habitaciones", "note": "тильда уходит", "translation": "комната", "uuid": "6b8652c3-a2d9-46f5-8757-32263e8b4ee9" },
+        { "front": "expresión", "back": "expresiones", "note": "тильда уходит", "translation": "выражение", "uuid": "2fc9de0e-0454-46e8-bc4b-b0d1dc4d0a6a" },
+        { "front": "león", "back": "leones", "note": "тильда уходит (león→leones)", "translation": "лев", "uuid": "be224f58-7012-44fd-a161-02f6ab92eabb" },
+        { "front": "pantalón", "back": "pantalones", "note": "тильда уходит", "translation": "брюки (ед. форма)", "uuid": "35ad064f-1d76-4b09-97b3-49e6a56cffe2" }
       ]
     },
     {
       "title": "Не меняются: -as/-es/-is/-os/-us (2+ слога)",
       "mode": "transform",
       "cards": [
-        { "front": "el lunes", "back": "los lunes", "note": "не меняется", "translation": "понедельник" },
-        { "front": "el jueves", "back": "los jueves", "note": "не меняется", "translation": "четверг" },
-        { "front": "el paraguas", "back": "los paraguas", "note": "не меняется", "translation": "зонт" },
-        { "front": "el cumpleaños", "back": "los cumpleaños", "note": "не меняется", "translation": "день рождения" }
+        { "front": "el lunes", "back": "los lunes", "note": "не меняется", "translation": "понедельник", "uuid": "4ab2e297-2e8f-4bf3-9f12-5433424b54bd" },
+        { "front": "el jueves", "back": "los jueves", "note": "не меняется", "translation": "четверг", "uuid": "0d337220-059a-4b1b-a156-ddab16d458c9" },
+        { "front": "el paraguas", "back": "los paraguas", "note": "не меняется", "translation": "зонт", "uuid": "0a6c1d80-6498-494e-a151-89a5a5348bfb" },
+        { "front": "el cumpleaños", "back": "los cumpleaños", "note": "не меняется", "translation": "день рождения", "uuid": "6133bdf6-b8ff-4683-85d6-80042e1fd161" }
       ]
     },
     {
       "title": "Только во множественном (форма не меняется)",
       "mode": "vocab",
       "cards": [
-        { "front": "ножницы", "back": "las tijeras", "note": "tijeras и в ед., и во мн." },
-        { "front": "очки", "back": "las gafas" },
-        { "front": "брюки", "back": "los pantalones" },
-        { "front": "джинсы", "back": "los vaqueros" }
+        { "front": "ножницы", "back": "las tijeras", "note": "tijeras и в ед., и во мн.", "uuid": "75b15e79-c789-4799-9b70-105ea48854e7" },
+        { "front": "очки", "back": "las gafas", "uuid": "44cf2970-31e2-432a-b8eb-515adcbd67f2" },
+        { "front": "брюки", "back": "los pantalones", "uuid": "50d13495-1b64-49cb-87a9-60a08e4e5aeb" },
+        { "front": "джинсы", "back": "los vaqueros", "uuid": "848fa5f6-8feb-4722-ae23-2fde99b5ff0b" }
       ]
     },
     {
       "title": "Мужской + женский = мужской плюрал",
       "mode": "transform",
       "cards": [
-        { "front": "padre + madre", "back": "los padres", "translation": "родители" },
-        { "front": "hijo + hija", "back": "los hijos", "translation": "дети" },
-        { "front": "rey + reina", "back": "los reyes", "translation": "король и королева / монархи" },
-        { "front": "abuelo + abuela", "back": "los abuelos", "translation": "дедушка и бабушка" },
-        { "front": "amigo + amiga", "back": "los amigos", "translation": "друзья" },
-        { "front": "hermano + hermana", "back": "los hermanos", "translation": "брат и сестра" },
-        { "front": "tío + tía", "back": "los tíos", "translation": "дядя и тётя" },
-        { "front": "bailarín + bailarina", "back": "los bailarines", "translation": "танцоры" },
-        { "front": "profesor + profesora", "back": "los profesores", "translation": "преподаватели" },
-        { "front": "alumno + alumna", "back": "los alumnos", "translation": "ученики" }
+        { "front": "padre + madre", "back": "los padres", "translation": "родители", "uuid": "35a99107-6771-447a-84d5-66a81d7c07e0" },
+        { "front": "hijo + hija", "back": "los hijos", "translation": "дети", "uuid": "30243218-e3bf-49a0-b380-a894b4a0084f" },
+        { "front": "rey + reina", "back": "los reyes", "translation": "король и королева / монархи", "uuid": "cdfc5430-1042-47ad-993c-812db26ea306" },
+        { "front": "abuelo + abuela", "back": "los abuelos", "translation": "дедушка и бабушка", "uuid": "408fda3a-7787-4a58-8252-dcb9fa305957" },
+        { "front": "amigo + amiga", "back": "los amigos", "translation": "друзья", "uuid": "bdbba161-c9da-46dc-8b51-ab9cb791eb89" },
+        { "front": "hermano + hermana", "back": "los hermanos", "translation": "брат и сестра", "uuid": "642403c3-ece9-451b-bab7-28871c672027" },
+        { "front": "tío + tía", "back": "los tíos", "translation": "дядя и тётя", "uuid": "d622020c-ed5e-4b31-a638-25c25ce7f6ee" },
+        { "front": "bailarín + bailarina", "back": "los bailarines", "translation": "танцоры", "uuid": "a265f65b-55dc-4c4b-ba17-285377375189" },
+        { "front": "profesor + profesora", "back": "los profesores", "translation": "преподаватели", "uuid": "34098c5a-8040-4de0-9c68-de21478deb0a" },
+        { "front": "alumno + alumna", "back": "los alumnos", "translation": "ученики", "uuid": "b221afbc-3f67-4f39-8bab-5100963cdd79" }
       ]
     }
   ]

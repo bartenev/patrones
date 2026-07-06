@@ -3,6 +3,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import type { Deck, QueueItem } from "./types"
 import * as patrones from "./lib/patrones"
 import { recordMistake } from "./lib/mistakes"
+import { getLessonProgress } from "./lib/progress"
+import { closePatronesDb, deletePatronesDb, resetPatronesDbCache } from "./lib/idb"
 
 const { mockDecks, loadDecksFromFolderMock } = vi.hoisted(() => {
   const decks: Deck[] = [
@@ -14,7 +16,7 @@ const { mockDecks, loadDecksFromFolderMock } = vi.hoisted(() => {
         title: "Блок",
         mode: "transform",
         on: true,
-        cards: [{ front: "el niño", back: "la niña", translation: "", note: "" }]
+        cards: [{ front: "el niño", back: "la niña", translation: "", note: "", uuid: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa" }]
       }]
     },
     {
@@ -25,7 +27,7 @@ const { mockDecks, loadDecksFromFolderMock } = vi.hoisted(() => {
         title: "Блок",
         mode: "vocab",
         on: true,
-        cards: [{ front: "hola", back: "привет", translation: "", note: "" }]
+        cards: [{ front: "hola", back: "привет", translation: "", note: "", uuid: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb" }]
       }]
     }
   ]
@@ -105,6 +107,7 @@ describe("App", () => {
     wrappers = []
     vi.restoreAllMocks()
     vi.unstubAllGlobals()
+    void closePatronesDb().then(() => deletePatronesDb()).then(() => resetPatronesDbCache())
   })
 
   it("renders setup with loaded units", async () => {
@@ -224,12 +227,23 @@ describe("App", () => {
     expect(wrapper.text()).toContain("broken.json")
   })
 
+  it("stores card progress in indexedDB on rating", async () => {
+    const wrapper = await mountApp()
+    await startDrill(wrapper)
+    await wrapper.get(".reveal").trigger("click")
+    await wrapper.get(".knew").trigger("click")
+    await vi.waitUntil(async () => {
+      const lesson = await getLessonProgress("unit-b.json")
+      return lesson?.cards["bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb"]?.fwd.correct === 1
+    })
+  })
+
   it("returns to setup from done screen", async () => {
     const wrapper = await mountApp()
     await startDrill(wrapper)
     await wrapper.get(".reveal").trigger("click")
     await wrapper.get(".knew").trigger("click")
-    await wrapper.get(".ghost").trigger("click")
+    await wrapper.get(".done .ghost").trigger("click")
     await flushPromises()
     expect(wrapper.find(".decks-scroll").exists()).toBe(true)
   })

@@ -7,6 +7,7 @@ export interface Card {
   back: string
   translation: string
   note: string
+  uuid?: string
 }
 
 export interface CardObject {
@@ -14,6 +15,7 @@ export interface CardObject {
   back?: string
   translation?: string
   note?: string
+  uuid?: string
 }
 
 export type CardRaw = CardObject
@@ -50,9 +52,30 @@ export interface Deck {
 
 export interface QueueItem extends Card {
   deck: string
+  lessonId: string
   section: string
   mode: string
   dirMode?: DirMode
+}
+
+export type ProgressResult = "knew" | "missed"
+
+export interface CardDirStats {
+  correct: number
+  wrong: number
+  streak: number
+  lastSeenAt: number
+}
+
+export interface CardProgressStats {
+  fwd: CardDirStats
+  rev: CardDirStats
+}
+
+export interface LessonProgress {
+  lessonId: string
+  updatedAt: number
+  cards: Record<string, CardProgressStats>
 }
 
 export type OrderMode =

@@ -16,6 +16,7 @@ import type { QueueItem } from "../types"
 
 const sample: QueueItem = {
   deck: "Unit",
+  lessonId: "unit.json",
   front: "hola",
   back: "привет",
   translation: "приветствие",

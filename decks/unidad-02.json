@@ -5,141 +5,141 @@
       "title": "-o → мужской род (по правилу)",
       "mode": "vocab",
       "cards": [
-        { "front": "книга", "back": "el libro" },
-        { "front": "телефон", "back": "el teléfono" },
-        { "front": "стакан", "back": "el vaso" },
-        { "front": "рука (от плеча)", "back": "el brazo", "note": "brazo = рука целиком" },
-        { "front": "музей", "back": "el museo" },
-        { "front": "тетрадь", "back": "el cuaderno" },
-        { "front": "минута", "back": "el minuto" },
-        { "front": "словарь", "back": "el diccionario" },
-        { "front": "театр", "back": "el teatro" }
+        { "front": "книга", "back": "el libro", "uuid": "c8409df1-7865-44d8-bc81-92494ebaacc1" },
+        { "front": "телефон", "back": "el teléfono", "uuid": "5c7dd266-46ea-4141-b87d-5b59f2838570" },
+        { "front": "стакан", "back": "el vaso", "uuid": "ae798a4c-0a2b-42be-bf75-a1291388b8b5" },
+        { "front": "рука (от плеча)", "back": "el brazo", "note": "brazo = рука целиком", "uuid": "dc4b5e1d-8bfc-46d3-ac5d-ce4522ffe44a" },
+        { "front": "музей", "back": "el museo", "uuid": "5982a20e-0051-4d74-8ee3-36e32d3cfce5" },
+        { "front": "тетрадь", "back": "el cuaderno", "uuid": "1e0656ea-5d51-4744-9077-82aaf85e1edb" },
+        { "front": "минута", "back": "el minuto", "uuid": "d4ab2c5a-f559-4cee-b72a-c26349bdc74b" },
+        { "front": "словарь", "back": "el diccionario", "uuid": "1dbead8b-0619-400f-bdae-e51d349ced46" },
+        { "front": "театр", "back": "el teatro", "uuid": "c61ca419-f4dd-4bbb-a655-21baba74f55b" }
       ]
     },
     {
       "title": "-a → женский род (по правилу)",
       "mode": "vocab",
       "cards": [
-        { "front": "дом", "back": "la casa" },
-        { "front": "стул", "back": "la silla" },
-        { "front": "стол", "back": "la mesa" },
-        { "front": "коробка", "back": "la caja" },
-        { "front": "тортилья / омлет", "back": "la tortilla" },
-        { "front": "лицо", "back": "la cara" },
-        { "front": "лампа", "back": "la lámpara" },
-        { "front": "страница", "back": "la página" },
-        { "front": "окно", "back": "la ventana" },
-        { "front": "кровать", "back": "la cama" },
-        { "front": "бабочка", "back": "la mariposa" }
+        { "front": "дом", "back": "la casa", "uuid": "bf4c5d19-c13d-4163-8c64-1b3d19b311fc" },
+        { "front": "стул", "back": "la silla", "uuid": "6fc91cdd-56c2-41a2-a0b0-7b9fc248e75a" },
+        { "front": "стол", "back": "la mesa", "uuid": "5c51e160-b2fc-4943-aedb-3935b9405eb7" },
+        { "front": "коробка", "back": "la caja", "uuid": "e7424b92-440a-481e-92dd-0e43c7e73c75" },
+        { "front": "тортилья / омлет", "back": "la tortilla", "uuid": "15918da8-e8ff-46e2-9fa9-ea5a6e0b98ba" },
+        { "front": "лицо", "back": "la cara", "uuid": "68f28975-6a48-488d-a097-326992dbd09d" },
+        { "front": "лампа", "back": "la lámpara", "uuid": "31dc892e-7961-46de-9b1a-7419b0112f88" },
+        { "front": "страница", "back": "la página", "uuid": "30e0e93b-8525-4285-8394-4c5f730d6dc9" },
+        { "front": "окно", "back": "la ventana", "uuid": "d1683646-8f33-4c21-b954-853618c3e159" },
+        { "front": "кровать", "back": "la cama", "uuid": "075f2b0a-7998-4d0c-ba90-6abcb98049d6" },
+        { "front": "бабочка", "back": "la mariposa", "uuid": "4c86c8c8-119a-4ecb-bffa-9acc86319c34" }
       ]
     },
     {
       "title": "Ловушка: -o, но ЖЕНСКИЙ род",
       "mode": "vocab",
       "cards": [
-        { "front": "рука (кисть)", "back": "la mano", "note": "-o, но ж.р." },
-        { "front": "фото", "back": "la foto", "note": "-o, но ж.р. (от fotografía)" },
-        { "front": "мотоцикл", "back": "la moto", "note": "-o, но ж.р. (от motocicleta)" },
-        { "front": "радио", "back": "la radio", "note": "-o, но ж.р." }
+        { "front": "рука (кисть)", "back": "la mano", "note": "-o, но ж.р.", "uuid": "d390fcdd-820f-4f6a-9899-0c6526c661a3" },
+        { "front": "фото", "back": "la foto", "note": "-o, но ж.р. (от fotografía)", "uuid": "97510c9e-c283-409c-b422-486f47c6ccf9" },
+        { "front": "мотоцикл", "back": "la moto", "note": "-o, но ж.р. (от motocicleta)", "uuid": "9c987eec-7cab-4edc-8676-d2b9f9b07d49" },
+        { "front": "радио", "back": "la radio", "note": "-o, но ж.р.", "uuid": "a5d5833f-68b7-4fe1-ba0f-e819592d493f" }
       ]
     },
     {
       "title": "Ловушка: -a, но МУЖСКОЙ род (греч. -ma и др.)",
       "mode": "vocab",
       "cards": [
-        { "front": "день", "back": "el día", "note": "-a, но м.р." },
-        { "front": "язык (речь)", "back": "el idioma", "note": "-ma, но м.р." },
-        { "front": "карта", "back": "el mapa", "note": "-a, но м.р." },
-        { "front": "проблема", "back": "el problema", "note": "-ma, но м.р." },
-        { "front": "пижама", "back": "el pijama", "note": "-a, но м.р." },
-        { "front": "планета", "back": "el planeta", "note": "-a, но м.р." },
-        { "front": "горилла", "back": "el gorila", "note": "-a, но м.р." }
+        { "front": "день", "back": "el día", "note": "-a, но м.р.", "uuid": "f98aba0d-1e24-410b-a8b9-ee29e9ed694e" },
+        { "front": "язык (речь)", "back": "el idioma", "note": "-ma, но м.р.", "uuid": "cc3dd45f-652c-4472-bb0d-baa47525b46c" },
+        { "front": "карта", "back": "el mapa", "note": "-a, но м.р.", "uuid": "6de8ac61-e3c2-4b48-b8ed-36a498141e17" },
+        { "front": "проблема", "back": "el problema", "note": "-ma, но м.р.", "uuid": "5622406e-6d2a-4a6d-bfae-17eb1b9f905d" },
+        { "front": "пижама", "back": "el pijama", "note": "-a, но м.р.", "uuid": "b431fba6-96ec-4005-a29c-b742f25d6076" },
+        { "front": "планета", "back": "el planeta", "note": "-a, но м.р.", "uuid": "21f0a259-38e6-41e2-9a94-a1e5e88e56c8" },
+        { "front": "горилла", "back": "el gorila", "note": "-a, но м.р.", "uuid": "ca3b1267-d05b-4723-925a-931ebbe57469" }
       ]
     },
     {
       "title": "Окончание = женский род: -ción/-sión/-dad/-tad",
       "mode": "vocab",
       "cards": [
-        { "front": "песня", "back": "la canción", "note": "-ción → ж.р." },
-        { "front": "комната", "back": "la habitación", "note": "-ción → ж.р." },
-        { "front": "внимание", "back": "la atención", "note": "-ción → ж.р." },
-        { "front": "телевидение", "back": "la televisión", "note": "-sión → ж.р." },
-        { "front": "выражение", "back": "la expresión", "note": "-sión → ж.р." },
-        { "front": "город", "back": "la ciudad", "note": "-dad → ж.р." },
-        { "front": "университет", "back": "la universidad", "note": "-dad → ж.р." },
-        { "front": "свобода", "back": "la libertad", "note": "-tad → ж.р." }
+        { "front": "песня", "back": "la canción", "note": "-ción → ж.р.", "uuid": "a75fde87-3387-45d6-96f4-90e269880872" },
+        { "front": "комната", "back": "la habitación", "note": "-ción → ж.р.", "uuid": "c0cac208-6237-4a36-a692-5b6721bac6d7" },
+        { "front": "внимание", "back": "la atención", "note": "-ción → ж.р.", "uuid": "f4385a6c-58c9-40fb-affb-a0ea8f339632" },
+        { "front": "телевидение", "back": "la televisión", "note": "-sión → ж.р.", "uuid": "28a0b7cd-13c4-483e-85d0-3824059a5a5b" },
+        { "front": "выражение", "back": "la expresión", "note": "-sión → ж.р.", "uuid": "870bd28f-0db0-4f34-9b0b-ff40cb86ab33" },
+        { "front": "город", "back": "la ciudad", "note": "-dad → ж.р.", "uuid": "533c43fe-e8e9-4b92-813d-7a336edefde0" },
+        { "front": "университет", "back": "la universidad", "note": "-dad → ж.р.", "uuid": "35f68a53-b692-4497-ba2e-457f1a6f8ff3" },
+        { "front": "свобода", "back": "la libertad", "note": "-tad → ж.р.", "uuid": "916c8986-3746-41cb-9997-07b78fb2530e" }
       ]
     },
     {
       "title": "Дни недели и составные → мужской род",
       "mode": "vocab",
       "cards": [
-        { "front": "понедельник", "back": "el lunes", "note": "день недели → м.р." },
-        { "front": "пятница", "back": "el viernes", "note": "день недели → м.р." },
-        { "front": "зонт", "back": "el paraguas", "note": "составное → м.р." },
-        { "front": "день рождения", "back": "el cumpleaños", "note": "составное → м.р." }
+        { "front": "понедельник", "back": "el lunes", "note": "день недели → м.р.", "uuid": "906e683f-9c81-4c3e-b697-a245398a09d0" },
+        { "front": "пятница", "back": "el viernes", "note": "день недели → м.р.", "uuid": "f961018d-7c76-448e-9405-e295e63c7ccd" },
+        { "front": "зонт", "back": "el paraguas", "note": "составное → м.р.", "uuid": "8366be96-a558-4e91-b5d8-463487b389dc" },
+        { "front": "день рождения", "back": "el cumpleaños", "note": "составное → м.р.", "uuid": "73b89c3f-b31a-4a8c-9ab9-080a0e9da7ab" }
       ]
     },
     {
       "title": "Согласная, но ЖЕНСКИЙ род",
       "mode": "vocab",
       "cards": [
-        { "front": "соль", "back": "la sal", "note": "согласная, но ж.р." },
-        { "front": "цветок", "back": "la flor", "note": "согласная, но ж.р." },
-        { "front": "свет", "back": "la luz", "note": "согласная, но ж.р." },
-        { "front": "нос", "back": "la nariz", "note": "согласная, но ж.р." }
+        { "front": "соль", "back": "la sal", "note": "согласная, но ж.р.", "uuid": "5f94a952-f94d-489f-9b2d-296d2f29a170" },
+        { "front": "цветок", "back": "la flor", "note": "согласная, но ж.р.", "uuid": "5e732e77-bda5-4b0c-9451-d5b551960536" },
+        { "front": "свет", "back": "la luz", "note": "согласная, но ж.р.", "uuid": "1616468a-fd68-4b5a-9a27-d1d3cd4e67b9" },
+        { "front": "нос", "back": "la nariz", "note": "согласная, но ж.р.", "uuid": "a2777b43-9294-44cd-93db-d2ecc77c53df" }
       ]
     },
     {
       "title": "-e / согласная → мужской род (запомнить)",
       "mode": "vocab",
       "cards": [
-        { "front": "ресторан", "back": "el restaurante" },
-        { "front": "машина (авто)", "back": "el coche", "note": "Испания" },
-        { "front": "отель", "back": "el hotel" },
-        { "front": "карандаш", "back": "el lápiz" },
-        { "front": "хлеб", "back": "el pan" },
-        { "front": "дерево", "back": "el árbol" },
-        { "front": "больница", "back": "el hospital" },
-        { "front": "вилка", "back": "el tenedor" },
-        { "front": "поезд", "back": "el tren" },
-        { "front": "кино / кинотеатр", "back": "el cine" }
+        { "front": "ресторан", "back": "el restaurante", "uuid": "75705eb6-75dc-4936-a0ca-2b2ff12afe4b" },
+        { "front": "машина (авто)", "back": "el coche", "note": "Испания", "uuid": "3d14e5b4-a8c1-43bf-801c-843947ed251f" },
+        { "front": "отель", "back": "el hotel", "uuid": "2f223000-6490-4a94-b692-d64a46be3322" },
+        { "front": "карандаш", "back": "el lápiz", "uuid": "e81bc1ec-2022-425d-8e5a-e2fb685e3baa" },
+        { "front": "хлеб", "back": "el pan", "uuid": "b7b3f009-ab48-4501-807b-db61bf1fbcf3" },
+        { "front": "дерево", "back": "el árbol", "uuid": "75997cdc-5e0f-4783-8839-fb49266c5f60" },
+        { "front": "больница", "back": "el hospital", "uuid": "b9e80d37-6bdf-4e6e-963a-82d910d6e907" },
+        { "front": "вилка", "back": "el tenedor", "uuid": "79e02129-3cd9-48fa-838e-925123f084a4" },
+        { "front": "поезд", "back": "el tren", "uuid": "54de24d0-5c72-4958-bb5a-7236b10c4153" },
+        { "front": "кино / кинотеатр", "back": "el cine", "uuid": "846092d1-b7ae-415c-99f7-36118f3da708" }
       ]
     },
     {
       "title": "-e → женский род (запомнить)",
       "mode": "vocab",
       "cards": [
-        { "front": "молоко", "back": "la leche" },
-        { "front": "класс / урок", "back": "la clase" },
-        { "front": "ночь", "back": "la noche", "note": "-e, но ж.р." },
-        { "front": "ключ", "back": "la llave", "note": "-e, но ж.р." }
+        { "front": "молоко", "back": "la leche", "uuid": "c1cfcd1d-634f-4d8a-9373-813337338eed" },
+        { "front": "класс / урок", "back": "la clase", "uuid": "aa2aeb96-0086-4860-bb4f-8dfc9bf22d18" },
+        { "front": "ночь", "back": "la noche", "note": "-e, но ж.р.", "uuid": "49bf1489-3ddc-42fe-b9fe-95366e7cd497" },
+        { "front": "ключ", "back": "la llave", "note": "-e, но ж.р.", "uuid": "b9f1945c-f92e-4c65-93a4-11665b719a83" }
       ]
     },
     {
       "title": "Животные: пара мужской → женский",
       "mode": "transform",
       "cards": [
-        { "front": "el gato", "back": "la gata", "translation": "кот / кошка" },
-        { "front": "el perro", "back": "la perra", "translation": "пёс / собака" },
-        { "front": "el león", "back": "la leona", "translation": "лев / львица" },
-        { "front": "el caballo", "back": "la yegua", "note": "разные слова", "translation": "конь / кобыла" },
-        { "front": "el toro", "back": "la vaca", "note": "разные слова", "translation": "бык / корова" },
-        { "front": "el gallo", "back": "la gallina", "translation": "петух / курица" }
+        { "front": "el gato", "back": "la gata", "translation": "кот / кошка", "uuid": "acf13dbe-41a0-4dee-9845-f21540e5077d" },
+        { "front": "el perro", "back": "la perra", "translation": "пёс / собака", "uuid": "e45b9707-498e-4ce9-a998-b626f3d8c6f2" },
+        { "front": "el león", "back": "la leona", "translation": "лев / львица", "uuid": "62667528-7aa7-4718-b695-4d1450fc982c" },
+        { "front": "el caballo", "back": "la yegua", "note": "разные слова", "translation": "конь / кобыла", "uuid": "7338c5e0-3a1f-46fd-a3c5-b20f0b676f5c" },
+        { "front": "el toro", "back": "la vaca", "note": "разные слова", "translation": "бык / корова", "uuid": "9bc5318b-2052-4565-bb31-cc715a83257d" },
+        { "front": "el gallo", "back": "la gallina", "translation": "петух / курица", "uuid": "edba56e9-27db-4f7f-a584-5cd7d2abe813" }
       ]
     },
     {
       "title": "Животные фиксированного рода (запомнить артикль)",
       "mode": "vocab",
       "cards": [
-        { "front": "рыба", "back": "el pez", "note": "только м.р." },
-        { "front": "птица", "back": "el pájaro", "note": "только м.р." },
-        { "front": "мышь", "back": "el ratón", "note": "только м.р." },
-        { "front": "кролик", "back": "el conejo", "note": "только м.р." },
-        { "front": "жираф", "back": "la jirafa", "note": "только ж.р." },
-        { "front": "змея", "back": "la serpiente", "note": "только ж.р." },
-        { "front": "лягушка", "back": "la rana", "note": "только ж.р." },
-        { "front": "сардина", "back": "la sardina", "note": "только ж.р." }
+        { "front": "рыба", "back": "el pez", "note": "только м.р.", "uuid": "d4f0ae38-4794-4c6f-b88f-cfd76cebc719" },
+        { "front": "птица", "back": "el pájaro", "note": "только м.р.", "uuid": "4b6cc6c8-cbcd-4fcf-a5fc-81b9d7c0f65a" },
+        { "front": "мышь", "back": "el ratón", "note": "только м.р.", "uuid": "b2023ef9-df76-442d-8399-6c4d6e1bef50" },
+        { "front": "кролик", "back": "el conejo", "note": "только м.р.", "uuid": "012a66fa-83df-45ba-b547-d321827e48a5" },
+        { "front": "жираф", "back": "la jirafa", "note": "только ж.р.", "uuid": "98808f98-7319-4c59-b3ac-e1ef5e330737" },
+        { "front": "змея", "back": "la serpiente", "note": "только ж.р.", "uuid": "59171a77-b909-46e2-8fe3-275e080c2723" },
+        { "front": "лягушка", "back": "la rana", "note": "только ж.р.", "uuid": "4122ffba-c08a-4166-a5a7-4ecad0e9aec6" },
+        { "front": "сардина", "back": "la sardina", "note": "только ж.р.", "uuid": "ff8a994c-50cb-472d-a518-daf022a020a2" }
       ]
     }
   ]

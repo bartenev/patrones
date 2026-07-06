@@ -5,87 +5,87 @@
       "title": "Регулярные: -o, -e → -a",
       "mode": "transform",
       "cards": [
-        { "front": "el niño", "back": "la niña", "translation": "ребёнок / мальчик" },
-        { "front": "el cocinero", "back": "la cocinera", "translation": "повар" },
-        { "front": "el camarero", "back": "la camarera", "translation": "официант" },
-        { "front": "el dependiente", "back": "la dependienta", "translation": "продавец" },
-        { "front": "el amigo", "back": "la amiga", "translation": "друг / подруга" }
+        { "front": "el niño", "back": "la niña", "translation": "ребёнок / мальчик", "uuid": "acfccaae-51b3-4705-9ac6-0cf2959967a7" },
+        { "front": "el cocinero", "back": "la cocinera", "translation": "повар", "uuid": "9037b22b-bb75-47d2-a85e-69bbb2596d2b" },
+        { "front": "el camarero", "back": "la camarera", "translation": "официант", "uuid": "8acbd5bd-aa42-4f5f-8843-244d8bdf7f5f" },
+        { "front": "el dependiente", "back": "la dependienta", "translation": "продавец", "uuid": "4df702cf-2214-4282-a3b1-dd07ee8564fd" },
+        { "front": "el amigo", "back": "la amiga", "translation": "друг / подруга", "uuid": "1b8527ed-27f2-4f18-ba72-1ba6f070a88e" }
       ]
     },
     {
       "title": "Регулярные: -согласная → +a",
       "mode": "transform",
       "cards": [
-        { "front": "el profesor", "back": "la profesora", "translation": "преподаватель" },
-        { "front": "el director", "back": "la directora", "translation": "директор" },
-        { "front": "el doctor", "back": "la doctora", "translation": "врач" },
-        { "front": "el señor", "back": "la señora", "translation": "господин" },
-        { "front": "el escritor", "back": "la escritora", "translation": "писатель" },
-        { "front": "el pintor", "back": "la pintora", "translation": "художник" },
-        { "front": "el marqués", "back": "la marquesa", "translation": "маркиз / маркиза" },
-        { "front": "el bailarín", "back": "la bailarina", "note": "теряет графическое ударение: bailarín → bailarina", "translation": "танцор" }
+        { "front": "el profesor", "back": "la profesora", "translation": "преподаватель", "uuid": "82451b0e-b892-4d25-a717-3ae253c65c1f" },
+        { "front": "el director", "back": "la directora", "translation": "директор", "uuid": "38822be5-f362-49d1-a757-1284a12ede2c" },
+        { "front": "el doctor", "back": "la doctora", "translation": "врач", "uuid": "8d2d3f14-08fa-455f-9b59-83515eb61b0d" },
+        { "front": "el señor", "back": "la señora", "translation": "господин", "uuid": "d00dfd4d-5257-406f-80ca-9834a8b553f4" },
+        { "front": "el escritor", "back": "la escritora", "translation": "писатель", "uuid": "b13fe056-ad6c-4589-ba71-6e1c4fa011da" },
+        { "front": "el pintor", "back": "la pintora", "translation": "художник", "uuid": "bd54d57d-cac8-47d6-b91f-1192edecaa57" },
+        { "front": "el marqués", "back": "la marquesa", "translation": "маркиз / маркиза", "uuid": "3858330c-2559-4145-8606-c1cfae8d855a" },
+        { "front": "el bailarín", "back": "la bailarina", "note": "теряет графическое ударение: bailarín → bailarina", "translation": "танцор", "uuid": "eb669728-c741-487f-bb03-e909ba24f879" }
       ]
     },
     {
       "title": "Не меняются по правилу: -ista / -ante (общий род)",
       "mode": "transform",
       "cards": [
-        { "front": "el estudiante", "back": "la estudiante", "note": "-ante не меняется", "translation": "студент" },
-        { "front": "el cantante", "back": "la cantante", "note": "-ante не меняется", "translation": "певец / певица" },
-        { "front": "el pianista", "back": "la pianista", "note": "-ista не меняется", "translation": "пианист" },
-        { "front": "el taxista", "back": "la taxista", "note": "-ista не меняется", "translation": "таксист" },
-        { "front": "el periodista", "back": "la periodista", "note": "-ista не меняется", "translation": "журналист" },
-        { "front": "el turista", "back": "la turista", "note": "-ista не меняется", "translation": "турист" }
+        { "front": "el estudiante", "back": "la estudiante", "note": "-ante не меняется", "translation": "студент", "uuid": "283f82dd-3f6d-40c7-96e6-27db25be647c" },
+        { "front": "el cantante", "back": "la cantante", "note": "-ante не меняется", "translation": "певец / певица", "uuid": "449c7697-977b-4f30-994b-1486e4d43830" },
+        { "front": "el pianista", "back": "la pianista", "note": "-ista не меняется", "translation": "пианист", "uuid": "02920a9c-a0f2-4a2c-815e-25290b2b4044" },
+        { "front": "el taxista", "back": "la taxista", "note": "-ista не меняется", "translation": "таксист", "uuid": "208ffc2c-36a4-4c61-8344-e49f87b29d74" },
+        { "front": "el periodista", "back": "la periodista", "note": "-ista не меняется", "translation": "журналист", "uuid": "473b75a6-4616-490d-8cdf-74bc809dcc61" },
+        { "front": "el turista", "back": "la turista", "note": "-ista не меняется", "translation": "турист", "uuid": "1ec69de8-2f51-4f67-b28f-5c8f47f2cf45" }
       ]
     },
     {
       "title": "Исключения: по окончанию должны меняться, но НЕ меняются",
       "mode": "transform",
       "cards": [
-        { "front": "el piloto", "back": "la piloto", "note": "-o, но не меняется", "translation": "пилот" },
-        { "front": "el paciente", "back": "la paciente", "note": "-e, но не меняется", "translation": "пациент" },
-        { "front": "el modelo", "back": "la modelo", "note": "-o, но не меняется", "translation": "модель" },
-        { "front": "el joven", "back": "la joven", "note": "согласная, но не меняется (ср. profesor→profesora)", "translation": "юноша / молодой человек" }
+        { "front": "el piloto", "back": "la piloto", "note": "-o, но не меняется", "translation": "пилот", "uuid": "a9217039-3b01-460d-8258-1ecda2d0e250" },
+        { "front": "el paciente", "back": "la paciente", "note": "-e, но не меняется", "translation": "пациент", "uuid": "876e3349-b8ab-4560-8d03-4e93f6601e38" },
+        { "front": "el modelo", "back": "la modelo", "note": "-o, но не меняется", "translation": "модель", "uuid": "b39e1fa7-49ce-4abe-beab-8fd08445e11e" },
+        { "front": "el joven", "back": "la joven", "note": "согласная, но не меняется (ср. profesor→profesora)", "translation": "юноша / молодой человек", "uuid": "86a8ba82-586f-4c62-989d-392bded4579a" }
       ]
     },
     {
       "title": "Две формы женского рода (обе допустимы)",
       "mode": "transform",
       "cards": [
-        { "front": "el médico", "back": "la médica / la médico", "note": "две формы ж.р.", "translation": "врач" },
-        { "front": "el jefe", "back": "la jefa / la jefe", "note": "две формы ж.р.", "translation": "начальник" }
+        { "front": "el médico", "back": "la médica / la médico", "note": "две формы ж.р.", "translation": "врач", "uuid": "9b81937a-7e07-4a53-b05b-3cabc5001681" },
+        { "front": "el jefe", "back": "la jefa / la jefe", "note": "две формы ж.р.", "translation": "начальник", "uuid": "3ad5819b-1221-435b-97ff-919365c7b6ef" }
       ]
     },
     {
       "title": "Особые формы (непредсказуемые)",
       "mode": "transform",
       "cards": [
-        { "front": "el actor", "back": "la actriz", "translation": "актёр" },
-        { "front": "el rey", "back": "la reina", "translation": "король" },
-        { "front": "el alcalde", "back": "la alcaldesa", "translation": "мэр" }
+        { "front": "el actor", "back": "la actriz", "translation": "актёр", "uuid": "4af5072e-ce18-482a-9265-6563573b6bc9" },
+        { "front": "el rey", "back": "la reina", "translation": "король", "uuid": "f2886948-9939-4730-9187-f0c57faa935e" },
+        { "front": "el alcalde", "back": "la alcaldesa", "translation": "мэр", "uuid": "e1944cf9-9921-4aa7-9648-4edd9b431396" }
       ]
     },
     {
       "title": "Семья",
       "mode": "transform",
       "cards": [
-        { "front": "el hijo", "back": "la hija", "translation": "сын / дочь" },
-        { "front": "el hermano", "back": "la hermana", "translation": "брат / сестра" },
-        { "front": "el tío", "back": "la tía", "translation": "дядя / тётя" },
-        { "front": "el abuelo", "back": "la abuela", "translation": "дедушка / бабушка" }
+        { "front": "el hijo", "back": "la hija", "translation": "сын / дочь", "uuid": "72cb842f-5d23-48d3-b77f-6467871d2183" },
+        { "front": "el hermano", "back": "la hermana", "translation": "брат / сестра", "uuid": "bd3239ab-bc1a-463e-8cb9-7e4a0f8766ec" },
+        { "front": "el tío", "back": "la tía", "translation": "дядя / тётя", "uuid": "759aa8c3-0971-4312-93fc-ec15d222786d" },
+        { "front": "el abuelo", "back": "la abuela", "translation": "дедушка / бабушка", "uuid": "2cc32d75-c24d-4e00-82a5-ae48312450f2" }
       ]
     },
     {
       "title": "Разные слова (лексика)",
       "mode": "vocab",
       "cards": [
-        { "front": "муж / супруг", "back": "el marido", "note": "ж.р. → la mujer" },
-        { "front": "жена", "back": "la mujer" },
-        { "front": "мужчина", "back": "el hombre", "note": "ж.р. → la mujer (та же, что «жена»)" },
-        { "front": "отец", "back": "el padre", "note": "ж.р. → la madre" },
-        { "front": "мать", "back": "la madre" },
-        { "front": "папа", "back": "el papá", "note": "ж.р. → la mamá" },
-        { "front": "мама", "back": "la mamá" }
+        { "front": "муж / супруг", "back": "el marido", "note": "ж.р. → la mujer", "uuid": "f3fa1442-4ceb-493c-a8cc-e33b5546ed2f" },
+        { "front": "жена", "back": "la mujer", "uuid": "44108ea4-d173-44de-9a0b-d7453444336a" },
+        { "front": "мужчина", "back": "el hombre", "note": "ж.р. → la mujer (та же, что «жена»)", "uuid": "9405b6fa-f8a3-4f09-a7b6-202569da4b47" },
+        { "front": "отец", "back": "el padre", "note": "ж.р. → la madre", "uuid": "d704bb31-157a-42be-ae55-193a7de70d47" },
+        { "front": "мать", "back": "la madre", "uuid": "9b8aed7a-1870-4145-b2c0-c3ef43fc4360" },
+        { "front": "папа", "back": "el papá", "note": "ж.р. → la mamá", "uuid": "71759e0f-ea15-42a0-9f88-084bd8b9292c" },
+        { "front": "мама", "back": "la mamá", "uuid": "4943d687-698f-4b7c-a3e3-8f4b2fb4586f" }
       ]
     }
   ]

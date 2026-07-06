@@ -44,7 +44,8 @@ export function normalizeCard(c: CardRaw): Card | null {
     front,
     back,
     translation: (c.translation || "").trim(),
-    note: (c.note || "").trim()
+    note: (c.note || "").trim(),
+    ...(c.uuid ? { uuid: c.uuid.trim() } : {})
   }
 }
 
@@ -126,6 +127,7 @@ function blockToItems(deck: Deck, block: Block): QueueItem[] {
   return block.cards.map((c) => ({
     ...c,
     deck: deck.name,
+    lessonId: deck.fileName,
     section: block.title || "",
     mode: block.mode || "auto"
   }))

@@ -5,112 +5,112 @@
       "title": "el + сущ. (м.р., ед.)",
       "mode": "vocab",
       "cards": [
-        { "front": "машина (авто)", "back": "el coche" },
-        { "front": "врач", "back": "el médico" },
-        { "front": "пёс / собака", "back": "el perro" },
-        { "front": "преподаватель", "back": "el profesor" },
-        { "front": "табак", "back": "el tabaco" },
-        { "front": "центр", "back": "el centro" },
-        { "front": "сад", "back": "el jardín" },
-        { "front": "словарь", "back": "el diccionario" }
+        { "front": "машина (авто)", "back": "el coche", "uuid": "65f593c4-aefd-4f3e-90e9-ad1e2fb336e7" },
+        { "front": "врач", "back": "el médico", "uuid": "745af141-5f3d-448e-b87b-91fadf84eac4" },
+        { "front": "пёс / собака", "back": "el perro", "uuid": "d37adaee-dedd-4438-968b-c93f2e372287" },
+        { "front": "преподаватель", "back": "el profesor", "uuid": "7116064d-c1ea-482a-a343-7a6d15b8359a" },
+        { "front": "табак", "back": "el tabaco", "uuid": "dd934193-9a9d-4fbe-9e1e-370d22c39cfc" },
+        { "front": "центр", "back": "el centro", "uuid": "ed987201-e2d6-470a-98a1-7a0900687647" },
+        { "front": "сад", "back": "el jardín", "uuid": "0df80dbb-5218-44f7-b030-cb60c3994db6" },
+        { "front": "словарь", "back": "el diccionario", "uuid": "4b614bf0-d337-437b-991d-f073c6f7c7c1" }
       ]
     },
     {
       "title": "la + сущ. (ж.р., ед.)",
       "mode": "vocab",
       "cards": [
-        { "front": "дом", "back": "la casa" },
-        { "front": "комната", "back": "la habitación" },
-        { "front": "сестра", "back": "la hermana" },
-        { "front": "дверь", "back": "la puerta" },
-        { "front": "кухня", "back": "la cocina" },
-        { "front": "окно", "back": "la ventana" },
-        { "front": "столица", "back": "la capital", "note": "la capital = столица (el capital = капитал)" }
+        { "front": "дом", "back": "la casa", "uuid": "8e8d65f8-c520-4d7c-9671-8023d1224826" },
+        { "front": "комната", "back": "la habitación", "uuid": "9c65f7e7-7c6e-441a-9c03-38b35e42b8f4" },
+        { "front": "сестра", "back": "la hermana", "uuid": "87e2874e-8c90-4d49-be2f-783a0ab1ffc0" },
+        { "front": "дверь", "back": "la puerta", "uuid": "27b722c2-4691-4307-8ffd-8d32ae9ed596" },
+        { "front": "кухня", "back": "la cocina", "uuid": "b4851747-760d-46b7-bbd0-ff690985a77c" },
+        { "front": "окно", "back": "la ventana", "uuid": "4b9d784b-8541-42c1-9f8a-b9bf7768e238" },
+        { "front": "столица", "back": "la capital", "note": "la capital = столица (el capital = капитал)", "uuid": "b23c327a-50a0-4230-9c54-652c5104d72b" }
       ]
     },
     {
       "title": "los + сущ. (м.р., мн.)",
       "mode": "vocab",
       "cards": [
-        { "front": "брюки", "back": "los pantalones" },
-        { "front": "карандаши", "back": "los lápices" },
-        { "front": "ученики", "back": "los alumnos" },
-        { "front": "родители", "back": "los padres" },
-        { "front": "чилийцы", "back": "los chilenos" }
+        { "front": "брюки", "back": "los pantalones", "uuid": "e80c5f2a-aab9-49cb-a264-a0bed8eded36" },
+        { "front": "карандаши", "back": "los lápices", "uuid": "7e22ee09-b051-4bf1-81f1-804e4bcfb052" },
+        { "front": "ученики", "back": "los alumnos", "uuid": "d835505b-30d0-455d-a23e-7c988bbb4f08" },
+        { "front": "родители", "back": "los padres", "uuid": "1ec2cfb8-90e2-44b7-a364-8a1406189252" },
+        { "front": "чилийцы", "back": "los chilenos", "uuid": "b2505072-f065-4146-a280-c8d09f4f1d76" }
       ]
     },
     {
       "title": "las + сущ. (ж.р., мн.)",
       "mode": "vocab",
       "cards": [
-        { "front": "апельсины", "back": "las naranjas" },
-        { "front": "стулья", "back": "las sillas" },
-        { "front": "ножницы", "back": "las tijeras" },
-        { "front": "розы", "back": "las rosas" }
+        { "front": "апельсины", "back": "las naranjas", "uuid": "324027d4-2298-471a-96f7-1f4d5a76b302" },
+        { "front": "стулья", "back": "las sillas", "uuid": "4ee6616d-3ded-476e-beae-e6970d5afe02" },
+        { "front": "ножницы", "back": "las tijeras", "uuid": "de1dcbea-b5d5-40b0-967e-3866de47749e" },
+        { "front": "розы", "back": "las rosas", "uuid": "2881bd21-8113-412e-937d-dbbe1f44b953" }
       ]
     },
     {
       "title": "Семья с артиклем",
       "mode": "vocab",
       "cards": [
-        { "front": "отец", "back": "el padre" },
-        { "front": "мать", "back": "la madre" },
-        { "front": "муж", "back": "el marido" },
-        { "front": "дядя", "back": "el tío" },
-        { "front": "тётя", "back": "la tía" },
-        { "front": "братья (и сёстры)", "back": "los hermanos" },
-        { "front": "сестра", "back": "la hermana" },
-        { "front": "дочери", "back": "las hijas" }
+        { "front": "отец", "back": "el padre", "uuid": "66d1ca08-8a73-4ddd-a2cc-3cda3c0ced8c" },
+        { "front": "мать", "back": "la madre", "uuid": "d11f421e-9eb2-4626-a35e-65ee30c96106" },
+        { "front": "муж", "back": "el marido", "uuid": "bb319295-90ba-4b4a-ba5d-60d5bdf96900" },
+        { "front": "дядя", "back": "el tío", "uuid": "e0060b07-32cd-45eb-945c-400e0eaa74c7" },
+        { "front": "тётя", "back": "la tía", "uuid": "47ea1a1d-2440-4def-b6d5-36b6b334cc69" },
+        { "front": "братья (и сёстры)", "back": "los hermanos", "uuid": "973fca70-b181-4e37-a8a6-70097e4dfb27" },
+        { "front": "сестра", "back": "la hermana", "uuid": "378bb759-0bf5-4cc0-b608-53a9d2ccc8bd" },
+        { "front": "дочери", "back": "las hijas", "uuid": "9cb9ab84-37f9-4aa8-92a1-4f6e4b757899" }
       ]
     },
     {
       "title": "Ловушка a-/ha-: ж.р. в ед. → el",
       "mode": "vocab",
       "cards": [
-        { "front": "аудитория (ед.)", "back": "el aula", "note": "ж.р.! но el (ударная á-)" },
-        { "front": "вода (ед.)", "back": "el agua", "note": "ж.р.! но el (ударная á-)" },
-        { "front": "топор (ед.)", "back": "el hacha", "note": "ж.р.! но el (ударная ha-)" },
-        { "front": "орёл (ед.)", "back": "el águila", "note": "ж.р.! но el (ударная á-)" }
+        { "front": "аудитория (ед.)", "back": "el aula", "note": "ж.р.! но el (ударная á-)", "uuid": "0ddaeebc-3b23-41e5-b0f0-4cfcf15319e6" },
+        { "front": "вода (ед.)", "back": "el agua", "note": "ж.р.! но el (ударная á-)", "uuid": "7df438c9-3f76-447a-af59-e937a2445682" },
+        { "front": "топор (ед.)", "back": "el hacha", "note": "ж.р.! но el (ударная ha-)", "uuid": "3dc5213b-1aa2-4489-961a-999428530efb" },
+        { "front": "орёл (ед.)", "back": "el águila", "note": "ж.р.! но el (ударная á-)", "uuid": "998c6864-8e68-46b7-a6d9-56bdde63ddd9" }
       ]
     },
     {
       "title": "Ловушка a-/ha-: во мн. → las, с прилаг. → la",
       "mode": "vocab",
       "cards": [
-        { "front": "аудитории (мн.)", "back": "las aulas", "note": "во мн. род виден → las" },
-        { "front": "топоры (мн.)", "back": "las hachas", "note": "во мн. → las" },
-        { "front": "орлы (мн.)", "back": "las águilas", "note": "во мн. → las" },
-        { "front": "другая аудитория", "back": "la otra aula", "note": "прилаг. между → la" }
+        { "front": "аудитории (мн.)", "back": "las aulas", "note": "во мн. род виден → las", "uuid": "51e4831d-ae7b-4193-9d43-45286ea121f0" },
+        { "front": "топоры (мн.)", "back": "las hachas", "note": "во мн. → las", "uuid": "18c8d797-9024-47e8-9bb7-8e0c28e4b868" },
+        { "front": "орлы (мн.)", "back": "las águilas", "note": "во мн. → las", "uuid": "96344ef0-5756-4d3e-8878-649a03b0f504" },
+        { "front": "другая аудитория", "back": "la otra aula", "note": "прилаг. между → la", "uuid": "f7883445-ed57-4403-a961-2363e2c7d7fa" }
       ]
     },
     {
       "title": "Слияния: a + el = al, de + el = del",
       "mode": "cloze",
       "cards": [
-        { "front": "Juego a ___ fútbol.", "back": "al", "note": "a + el = al", "translation": "Я играю в футбол." },
-        { "front": "El hijo de ___ profesor está en mi clase.", "back": "del", "note": "de + el = del", "translation": "Сын преподавателя в моём классе." },
-        { "front": "Quiero ver a ___ director.", "back": "al", "note": "a + el = al", "translation": "Я хочу увидеть директора." },
-        { "front": "Queremos ver a ___ jefe de estudios.", "back": "al", "note": "a + el = al", "translation": "Мы хотим увидеть завуча." },
-        { "front": "Vivimos cerca de ___ centro.", "back": "del", "note": "de + el = del", "translation": "Мы живём рядом с центром." },
-        { "front": "Ese coche es de ___ padre de Mónica.", "back": "del", "note": "de + el = del", "translation": "Эта машина — отца Моники." },
-        { "front": "Tenéis que ir a ___ aula 15.", "back": "al", "note": "a + el = al (el aula)", "translation": "Вам нужно идти в аудиторию 15." },
-        { "front": "Cierra la puerta de ___ jardín.", "back": "del", "note": "de + el = del", "translation": "Закрой дверь сада." }
+        { "front": "Juego a ___ fútbol.", "back": "al", "note": "a + el = al", "translation": "Я играю в футбол.", "uuid": "f88273d8-9969-481b-9845-a83c1c25a5df" },
+        { "front": "El hijo de ___ profesor está en mi clase.", "back": "del", "note": "de + el = del", "translation": "Сын преподавателя в моём классе.", "uuid": "85ba9616-975f-48e8-9eb1-a9ab528ddd15" },
+        { "front": "Quiero ver a ___ director.", "back": "al", "note": "a + el = al", "translation": "Я хочу увидеть директора.", "uuid": "f4832369-8de5-465b-aeff-93f1ad5a647b" },
+        { "front": "Queremos ver a ___ jefe de estudios.", "back": "al", "note": "a + el = al", "translation": "Мы хотим увидеть завуча.", "uuid": "d360a9d0-9d6a-4c62-a4a5-c7e1e8da60e0" },
+        { "front": "Vivimos cerca de ___ centro.", "back": "del", "note": "de + el = del", "translation": "Мы живём рядом с центром.", "uuid": "4faef4d6-dd7d-4856-937b-be32e988957e" },
+        { "front": "Ese coche es de ___ padre de Mónica.", "back": "del", "note": "de + el = del", "translation": "Эта машина — отца Моники.", "uuid": "1e37e0a0-5fc5-4823-a6dd-384fc35c7bcc" },
+        { "front": "Tenéis que ir a ___ aula 15.", "back": "al", "note": "a + el = al (el aula)", "translation": "Вам нужно идти в аудиторию 15.", "uuid": "dd27c625-f81e-4dc3-8c1e-d23be43f3045" },
+        { "front": "Cierra la puerta de ___ jardín.", "back": "del", "note": "de + el = del", "translation": "Закрой дверь сада.", "uuid": "511f4c6b-09f8-4ec5-ab13-ba98130133c3" }
       ]
     },
     {
       "title": "Употребление: единственное/конкретное/обобщённое → артикль",
       "mode": "cloze",
       "cards": [
-        { "front": "___ madre de Antonio es policía.", "back": "La", "note": "единственная → артикль", "translation": "Мать Антонио — полицейская." },
-        { "front": "Buenos Aires es ___ capital de Argentina.", "back": "la", "note": "единственная → артикль", "translation": "Буэнос-Айрес — столица Аргентины." },
-        { "front": "¿Quién es ___ presidente de Brasil?", "back": "el", "note": "единственный → артикль", "translation": "Кто президент Бразилии?" },
-        { "front": "Enciende ___ luz, por favor.", "back": "la", "note": "конкретная (этой комнаты) → артикль", "translation": "Включи свет, пожалуйста." },
-        { "front": "Luis está en ___ cocina.", "back": "la", "note": "конкретная (этого дома) → артикль", "translation": "Луис на кухне." },
-        { "front": "___ tabaco es malo para la salud.", "back": "El", "note": "обобщение (весь табак) → артикль", "translation": "Табак вреден для здоровья." },
-        { "front": "___ chilenos hablan español.", "back": "Los", "note": "обобщение (все чилийцы) → артикль", "translation": "Чилийцы говорят по-испански." },
-        { "front": "___ águilas son aves.", "back": "Las", "note": "обобщение → артикль", "translation": "Орлы — птицы." },
-        { "front": "Me gustan ___ naranjas.", "back": "las", "note": "обобщение → артикль", "translation": "Мне нравятся апельсины." },
-        { "front": "___ agua es mi bebida preferida.", "back": "El", "note": "обобщение + ловушка el agua", "translation": "Вода — мой любимый напиток." }
+        { "front": "___ madre de Antonio es policía.", "back": "La", "note": "единственная → артикль", "translation": "Мать Антонио — полицейская.", "uuid": "410044df-cc95-493b-8a0f-ae5d4175aa48" },
+        { "front": "Buenos Aires es ___ capital de Argentina.", "back": "la", "note": "единственная → артикль", "translation": "Буэнос-Айрес — столица Аргентины.", "uuid": "e4e943d6-c5db-4e31-bcd1-5a6ed412eb95" },
+        { "front": "¿Quién es ___ presidente de Brasil?", "back": "el", "note": "единственный → артикль", "translation": "Кто президент Бразилии?", "uuid": "7c21c0a3-d29c-47bd-b83f-794567a265e6" },
+        { "front": "Enciende ___ luz, por favor.", "back": "la", "note": "конкретная (этой комнаты) → артикль", "translation": "Включи свет, пожалуйста.", "uuid": "b1185269-0b53-4e34-9f05-07ad60285418" },
+        { "front": "Luis está en ___ cocina.", "back": "la", "note": "конкретная (этого дома) → артикль", "translation": "Луис на кухне.", "uuid": "42be732a-246b-49e6-81cc-6e6767b2ac92" },
+        { "front": "___ tabaco es malo para la salud.", "back": "El", "note": "обобщение (весь табак) → артикль", "translation": "Табак вреден для здоровья.", "uuid": "eed6034e-b6d4-416f-9b21-79ecb9d7cef1" },
+        { "front": "___ chilenos hablan español.", "back": "Los", "note": "обобщение (все чилийцы) → артикль", "translation": "Чилийцы говорят по-испански.", "uuid": "c812739b-c623-4733-9ef6-1bafa55bb030" },
+        { "front": "___ águilas son aves.", "back": "Las", "note": "обобщение → артикль", "translation": "Орлы — птицы.", "uuid": "137da3e1-c992-4e22-b37f-2c1aaf44038b" },
+        { "front": "Me gustan ___ naranjas.", "back": "las", "note": "обобщение → артикль", "translation": "Мне нравятся апельсины.", "uuid": "787954d6-2235-49a7-b920-32df17ab92db" },
+        { "front": "___ agua es mi bebida preferida.", "back": "El", "note": "обобщение + ловушка el agua", "translation": "Вода — мой любимый напиток.", "uuid": "a5aafba7-4a9f-4929-ab77-04e11e697170" }
       ]
     }
   ]

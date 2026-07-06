@@ -5,104 +5,104 @@
       "title": "un + сущ. (м.р., ед.) — по правилу",
       "mode": "vocab",
       "cards": [
-        { "front": "часы (наручные)", "back": "un reloj" },
-        { "front": "зонт", "back": "un paraguas" },
-        { "front": "карандаш", "back": "un lápiz" },
-        { "front": "официант", "back": "un camarero" },
-        { "front": "кинотеатр", "back": "un cine" },
-        { "front": "дыня", "back": "un melón" },
-        { "front": "река", "back": "un río" },
-        { "front": "вид спорта", "back": "un deporte" }
+        { "front": "часы (наручные)", "back": "un reloj", "uuid": "246275c5-d689-4365-b651-cec843f089d8" },
+        { "front": "зонт", "back": "un paraguas", "uuid": "9dcd4a3a-c6bb-45b3-81fd-3cccd45dae3d" },
+        { "front": "карандаш", "back": "un lápiz", "uuid": "30c83bf2-d81e-4fee-aebb-ddd56b739ae0" },
+        { "front": "официант", "back": "un camarero", "uuid": "3f345c55-2a4e-4572-a087-2724901f107c" },
+        { "front": "кинотеатр", "back": "un cine", "uuid": "f7f0a558-4e03-41cd-9c7a-767a55c1a418" },
+        { "front": "дыня", "back": "un melón", "uuid": "56b525f6-ee35-4fc6-945c-a3952e085336" },
+        { "front": "река", "back": "un río", "uuid": "e41f2f66-ee44-48c8-846a-dcc18370a775" },
+        { "front": "вид спорта", "back": "un deporte", "uuid": "7cccc175-0e9f-4540-809e-e329016dee43" }
       ]
     },
     {
       "title": "una + сущ. (ж.р., ед.) — по правилу",
       "mode": "vocab",
       "cards": [
-        { "front": "комната", "back": "una habitación" },
-        { "front": "девушка", "back": "una chica" },
-        { "front": "преподавательница", "back": "una profesora" },
-        { "front": "город", "back": "una ciudad" },
-        { "front": "билет / вход", "back": "una entrada" },
-        { "front": "роза", "back": "una rosa" },
-        { "front": "фрукт", "back": "una fruta" },
-        { "front": "дочь", "back": "una hija" },
-        { "front": "писательница", "back": "una escritora" },
-        { "front": "художница", "back": "una pintora" }
+        { "front": "комната", "back": "una habitación", "uuid": "b02f015c-bb97-4372-9354-0d6fd2ca00cd" },
+        { "front": "девушка", "back": "una chica", "uuid": "e121e32d-9d01-4c71-b2d4-c6514a714f22" },
+        { "front": "преподавательница", "back": "una profesora", "uuid": "db9fba1e-cc10-4fd7-b95f-8a24e3a79548" },
+        { "front": "город", "back": "una ciudad", "uuid": "ecef52fe-1574-4698-8fd6-27b155bb5037" },
+        { "front": "билет / вход", "back": "una entrada", "uuid": "adf11aa6-54bc-4965-8f51-f51a6264d69d" },
+        { "front": "роза", "back": "una rosa", "uuid": "f46dc62d-918f-4592-90bf-d4d60022096f" },
+        { "front": "фрукт", "back": "una fruta", "uuid": "efe8c1a7-2b83-4f29-9510-48f405f6b21b" },
+        { "front": "дочь", "back": "una hija", "uuid": "2eedada8-1773-419c-9643-66177c35a064" },
+        { "front": "писательница", "back": "una escritora", "uuid": "851929c5-eec6-4f08-be7e-fd332428a673" },
+        { "front": "художница", "back": "una pintora", "uuid": "6d5d62ec-c53d-4e8b-8b7f-9a833a470757" }
       ]
     },
     {
       "title": "Ловушка рода: артикль вопреки окончанию",
       "mode": "vocab",
       "cards": [
-        { "front": "футболист", "back": "un futbolista", "note": "-ista, но мужчина → un" },
-        { "front": "цветок", "back": "una flor", "note": "согласная, но ж.р. → una" },
-        { "front": "карта", "back": "un mapa", "note": "-a, но м.р. → un" },
-        { "front": "радио", "back": "una radio", "note": "-o, но ж.р. → una" },
-        { "front": "змея", "back": "una serpiente", "note": "-e, ж.р. → una" }
+        { "front": "футболист", "back": "un futbolista", "note": "-ista, но мужчина → un", "uuid": "c2cb577e-a6ed-4153-ae45-dbe328a30b69" },
+        { "front": "цветок", "back": "una flor", "note": "согласная, но ж.р. → una", "uuid": "72fd656f-212e-41de-8e27-fb34c3902cda" },
+        { "front": "карта", "back": "un mapa", "note": "-a, но м.р. → un", "uuid": "9942f115-c9da-4b9d-ae7b-deccc4fcc429" },
+        { "front": "радио", "back": "una radio", "note": "-o, но ж.р. → una", "uuid": "36a62cce-d75b-4bc5-b151-3b4ad80ef105" },
+        { "front": "змея", "back": "una serpiente", "note": "-e, ж.р. → una", "uuid": "b14f2739-dc69-4841-822f-92dcef1019a3" }
       ]
     },
     {
       "title": "unos + сущ. (м.р., мн.)",
       "mode": "vocab",
       "cards": [
-        { "front": "часы (неск.)", "back": "unos relojes" },
-        { "front": "ученики", "back": "unos alumnos" },
-        { "front": "книги", "back": "unos libros" },
-        { "front": "ботинки", "back": "unos zapatos" }
+        { "front": "часы (неск.)", "back": "unos relojes", "uuid": "ddd7a907-ec5f-4c26-939e-22a905739523" },
+        { "front": "ученики", "back": "unos alumnos", "uuid": "50be3d25-b220-47dc-a006-a92fc8f56059" },
+        { "front": "книги", "back": "unos libros", "uuid": "316b8f2e-a02b-4404-83b4-ec355686cffd" },
+        { "front": "ботинки", "back": "unos zapatos", "uuid": "c1f16456-b711-4c9d-a158-9348a40d4241" }
       ]
     },
     {
       "title": "unas + сущ. (ж.р., мн.)",
       "mode": "vocab",
       "cards": [
-        { "front": "стулья", "back": "unas sillas" },
-        { "front": "аудитории", "back": "unas aulas", "note": "во мн. → unas" },
-        { "front": "цветы", "back": "unas flores" }
+        { "front": "стулья", "back": "unas sillas", "uuid": "f5ba26b8-f8a6-4b64-8ab6-1e5f31734abb" },
+        { "front": "аудитории", "back": "unas aulas", "note": "во мн. → unas", "uuid": "92b6eb70-9979-479a-9a1a-b0b2275d23d5" },
+        { "front": "цветы", "back": "unas flores", "uuid": "5cf2c445-ee19-4d5f-bd32-1df3868541f8" }
       ]
     },
     {
       "title": "Pluralia tantum: форма только мн. (= 1 предмет)",
       "mode": "vocab",
       "cards": [
-        { "front": "брюки", "back": "unos pantalones", "note": "форма только мн." },
-        { "front": "джинсы", "back": "unos vaqueros", "note": "форма только мн." },
-        { "front": "ножницы", "back": "unas tijeras", "note": "форма только мн." },
-        { "front": "очки", "back": "unas gafas", "note": "форма только мн." }
+        { "front": "брюки", "back": "unos pantalones", "note": "форма только мн.", "uuid": "96079179-ac18-4d65-b898-2f033470a78f" },
+        { "front": "джинсы", "back": "unos vaqueros", "note": "форма только мн.", "uuid": "06fe0b49-b3d9-4d58-92c0-8de7c77fab3f" },
+        { "front": "ножницы", "back": "unas tijeras", "note": "форма только мн.", "uuid": "b90628ce-f3b4-4699-b7b3-65be51fbd660" },
+        { "front": "очки", "back": "unas gafas", "note": "форма только мн.", "uuid": "e6a83bbe-16f7-41fb-b9a6-80c7a4345bef" }
       ]
     },
     {
       "title": "Ловушка a-/ha-: ж.р. в ед. → un",
       "mode": "vocab",
       "cards": [
-        { "front": "орёл (ед.)", "back": "un águila", "note": "ж.р.! но un (ударная á-)" },
-        { "front": "аудитория (ед.)", "back": "un aula", "note": "ж.р.! но un (ударная á-)" },
-        { "front": "топор (ед.)", "back": "un hacha", "note": "ж.р.! но un (ударная ha-)" }
+        { "front": "орёл (ед.)", "back": "un águila", "note": "ж.р.! но un (ударная á-)", "uuid": "cd027c5e-5c77-440b-a426-0c6a2d3901d6" },
+        { "front": "аудитория (ед.)", "back": "un aula", "note": "ж.р.! но un (ударная á-)", "uuid": "a6b7ac77-fb98-4f7a-8f56-23a910742f5e" },
+        { "front": "топор (ед.)", "back": "un hacha", "note": "ж.р.! но un (ударная ha-)", "uuid": "88ff639d-85fe-4aea-bf1e-f5f994912346" }
       ]
     },
     {
       "title": "Ловушка a-/ha-: во мн. → unas, с прилаг. → una",
       "mode": "vocab",
       "cards": [
-        { "front": "орлы (мн.)", "back": "unas águilas", "note": "во мн. род виден → unas" },
-        { "front": "хорошая аудитория", "back": "una buena aula", "note": "прилаг. между → una" },
-        { "front": "маленький топор", "back": "una pequeña hacha", "note": "прилаг. между → una" }
+        { "front": "орлы (мн.)", "back": "unas águilas", "note": "во мн. род виден → unas", "uuid": "13b542ee-209b-4d40-9394-e348b9f2a0be" },
+        { "front": "хорошая аудитория", "back": "una buena aula", "note": "прилаг. между → una", "uuid": "5145bf4b-9dee-4cf2-8445-4dd6d530f6c1" },
+        { "front": "маленький топор", "back": "una pequeña hacha", "note": "прилаг. между → una", "uuid": "110bc2e3-e68c-47d0-bea6-8bd77b6b97c3" }
       ]
     },
     {
       "title": "¿Qué es? / ¿Quién es? — целая фраза",
       "mode": "phrase",
       "cards": [
-        { "front": "¿Qué es el balonmano?", "back": "Es un deporte.", "translation": "вид спорта" },
-        { "front": "¿Qué es Sevilla?", "back": "Es una ciudad.", "translation": "город" },
-        { "front": "¿Qué es Colombia?", "back": "Es un país.", "note": "país → м.р.", "translation": "страна" },
-        { "front": "¿Qué es una rosa?", "back": "Es una flor.", "translation": "цветок" },
-        { "front": "¿Qué es el mango?", "back": "Es una fruta.", "translation": "фрукт" },
-        { "front": "¿Quién es Ronaldo?", "back": "Es un futbolista.", "translation": "футболист" },
-        { "front": "¿Quién es Isabel Allende?", "back": "Es una escritora.", "translation": "писательница" },
-        { "front": "¿Quién es Frida Kahlo?", "back": "Es una pintora.", "translation": "художница" },
-        { "front": "¿Quién es Amenábar?", "back": "Es un director de cine.", "translation": "кинорежиссёр" },
-        { "front": "¿Quién es Stephen Hawking?", "back": "Es un científico.", "translation": "учёный" }
+        { "front": "¿Qué es el balonmano?", "back": "Es un deporte.", "translation": "вид спорта", "uuid": "f7c179f9-b60c-4f64-8b48-49280eb19fac" },
+        { "front": "¿Qué es Sevilla?", "back": "Es una ciudad.", "translation": "город", "uuid": "d083ce70-bfd9-4142-95f3-ba78703216c7" },
+        { "front": "¿Qué es Colombia?", "back": "Es un país.", "note": "país → м.р.", "translation": "страна", "uuid": "38b2e466-fb20-432b-a3c4-d14a6342d31a" },
+        { "front": "¿Qué es una rosa?", "back": "Es una flor.", "translation": "цветок", "uuid": "13b2f79e-b484-41a4-999c-ecdefb792ec1" },
+        { "front": "¿Qué es el mango?", "back": "Es una fruta.", "translation": "фрукт", "uuid": "a865cdae-77dc-45b8-85c3-cdf45069846c" },
+        { "front": "¿Quién es Ronaldo?", "back": "Es un futbolista.", "translation": "футболист", "uuid": "bdb32a8f-df63-4932-a9fe-271cb8626504" },
+        { "front": "¿Quién es Isabel Allende?", "back": "Es una escritora.", "translation": "писательница", "uuid": "0494156c-6c7f-447c-a291-10f64ed033e9" },
+        { "front": "¿Quién es Frida Kahlo?", "back": "Es una pintora.", "translation": "художница", "uuid": "9b19abff-c299-4604-8315-ba2ff1557a97" },
+        { "front": "¿Quién es Amenábar?", "back": "Es un director de cine.", "translation": "кинорежиссёр", "uuid": "3da79c0d-b687-40ae-93e5-b316fb434f3b" },
+        { "front": "¿Quién es Stephen Hawking?", "back": "Es un científico.", "translation": "учёный", "uuid": "68ad70cc-84dc-47ad-ac0d-89f487404e5a" }
       ]
     }
   ]
