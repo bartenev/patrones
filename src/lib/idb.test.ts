@@ -10,7 +10,8 @@ import {
   LESSONS_STORE,
   MISTAKES_STORE,
   openPatronesDb,
-  resetPatronesDbCache
+  resetPatronesDbCache,
+  SETTINGS_STORE
 } from "./idb"
 import type { LessonProgress } from "../types"
 
@@ -61,6 +62,12 @@ describe("idb", () => {
     expect(await idbGetAll(MISTAKES_STORE)).toHaveLength(1)
     await idbDelete(MISTAKES_STORE, "m1")
     expect(await idbGetAll(MISTAKES_STORE)).toEqual([])
+  })
+
+  it("puts and gets settings documents", async () => {
+    const settings = { id: "ui", version: 1, updatedAt: 1, isDark: true }
+    await idbPut(SETTINGS_STORE, settings)
+    expect(await idbGet(SETTINGS_STORE, "ui")).toEqual(settings)
   })
 
   it("rejects when db open fails", async () => {

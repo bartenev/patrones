@@ -2,10 +2,11 @@ import { flushPromises, mount, VueWrapper } from "@vue/test-utils"
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 import type { Deck, QueueItem } from "./types"
 import * as patrones from "./lib/patrones"
-import { clearMistakes, initMistakesStore, loadMistakes, recordMistake } from "./lib/mistakes"
+import { clearMistakes, initMistakesStore, loadMistakes, recordMistake, buildMistakesQueue } from "./lib/mistakes"
 import { clearAllProgress, getLessonProgress, initProgressStore, recordProgress } from "./lib/progress"
 import { clearPatronesSettings } from "./lib/settings"
 import { closePatronesDb, resetPatronesDbCache } from "./lib/idb"
+import * as backup from "./lib/backup"
 
 const { mockDecks, loadDecksFromFolderMock } = vi.hoisted(() => {
   const decks: Deck[] = [
@@ -55,7 +56,24 @@ async function mountApp() {
   const wrapper = mount(App)
   wrappers.push(wrapper)
   await flushPromises()
+  await vi.waitUntil(() => wrapper.find(".decks-scroll").exists() || wrapper.text().includes("нет .json"), {
+    timeout: 3000
+  })
   return wrapper
+}
+
+async function waitForDrill(wrapper: VueWrapper) {
+  await vi.waitUntil(() => {
+    const card = wrapper.find(".card")
+    if (!card.exists() || !card.isVisible()) return false
+    const timer = wrapper.find(".card-timer")
+    if (timer.exists() && timer.isVisible()) return true
+    return wrapper.find(".reveal").isVisible()
+  }, { timeout: 3000 })
+}
+
+function visiblePrompt(wrapper: VueWrapper) {
+  return wrapper.findAll(".prompt").find((node) => node.isVisible())?.text() ?? ""
 }
 
 async function startDrill(wrapper: VueWrapper) {
@@ -65,10 +83,14 @@ async function startDrill(wrapper: VueWrapper) {
   }
   await wrapper.get(".start").trigger("click")
   await flushPromises()
+  await waitForDrill(wrapper)
 }
 
 async function startMistakesDrill(wrapper: VueWrapper) {
+  await vi.waitUntil(() => wrapper.get(".mistakes-start").attributes("disabled") === undefined, { timeout: 3000 })
   await wrapper.get(".mistakes-start").trigger("click")
+  await flushPromises()
+  await waitForDrill(wrapper)
   await flushPromises()
 }
 
@@ -222,6 +244,45 @@ describe("App", () => {
   it("handles deck toggle click", async () => {
     const wrapper = await mountApp()
     await wrapper.find(".deck-toggle").trigger("click")
+    expect(wrapper.find(".deck.on").exists()).toBe(true)
+  })
+
+  it("persists settings in indexedDB", async () => {
+    vi.useFakeTimers()
+    try {
+      const wrapper = await mountApp()
+      await wrapper.get('[title="Тема"]').trigger("click")
+      await vi.advanceTimersByTimeAsync(300)
+      await flushPromises()
+      wrapper.unmount()
+      wrappers = []
+
+      const next = await mountApp()
+      expect(document.documentElement.getAttribute("data-theme")).toBe("light")
+      expect(next.text()).toContain("☾ Тема")
+    } finally {
+      vi.useRealTimers()
+      await flushPromises()
+    }
+  })
+
+  it("exports backup json from mode tab", async () => {
+    const spy = vi.spyOn(backup, "downloadPatronesBackup").mockResolvedValue({
+      format: "patrones-backup",
+      version: 1,
+      exportedAt: 1,
+      dbVersion: 3,
+      lessons: [],
+      mistakes: []
+    })
+
+    const wrapper = await mountApp()
+    await openModeTab(wrapper)
+    await wrapper.get(".data-block .file-btn").trigger("click")
+    await flushPromises()
+    expect(wrapper.text()).toContain("Экспорт JSON")
+    expect(spy).toHaveBeenCalled()
+    spy.mockRestore()
   })
 
   it("shows six order modes", async () => {
@@ -648,10 +709,12 @@ describe("App", () => {
       uuid: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb"
     }, "fwd")
 
+    expect(await buildMistakesQueue()).toHaveLength(1)
 
     const wrapper = await mountApp()
+    await vi.waitUntil(() => wrapper.get(".mistakes-start").attributes("disabled") === undefined, { timeout: 3000 })
     await startMistakesDrill(wrapper)
-    expect(wrapper.text()).toContain("hola")
+    await vi.waitUntil(() => visiblePrompt(wrapper).includes("hola"), { timeout: 3000 })
     await wrapper.get(".reveal").trigger("click")
     await wrapper.get(".knew").trigger("click")
     await flushPromises()
@@ -674,10 +737,11 @@ describe("App", () => {
 
     const wrapper = await mountApp()
     await startMistakesDrill(wrapper)
+    await vi.waitUntil(() => visiblePrompt(wrapper).includes("hola"), { timeout: 3000 })
     await wrapper.get(".reveal").trigger("click")
     await wrapper.get(".missed").trigger("click")
     await flushPromises()
-    expect(wrapper.text()).toContain("hola")
+    await vi.waitUntil(() => visiblePrompt(wrapper).includes("hola"), { timeout: 3000 })
     await wrapper.get(".reveal").trigger("click")
     await wrapper.get(".knew").trigger("click")
     await flushPromises()
@@ -792,8 +856,9 @@ describe("App", () => {
 
     const wrapper = await mountApp()
     await startMistakesDrill(wrapper)
-    expect(wrapper.text()).toContain("español")
-    expect(wrapper.text()).toContain("привет")
+    await vi.waitUntil(() => visiblePrompt(wrapper).includes("привет"), { timeout: 3000 })
+    expect(wrapper.findAll(".side").find((node) => node.isVisible())?.text()).toContain("español")
+    expect(visiblePrompt(wrapper)).toContain("привет")
   })
 
   it("shows review label when no units selected", async () => {
