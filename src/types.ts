@@ -88,6 +88,9 @@ export type OrderMode =
   | "weak"
 
 export interface StoredMistake {
+  id: string
+  uuid: string
+  lessonId: string
   deck: string
   front: string
   back: string

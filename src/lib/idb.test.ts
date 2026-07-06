@@ -3,9 +3,12 @@ import {
   closePatronesDb,
   deletePatronesDb,
   idbClear,
+  idbDelete,
   idbGet,
+  idbGetAll,
   idbPut,
   LESSONS_STORE,
+  MISTAKES_STORE,
   openPatronesDb,
   resetPatronesDbCache
 } from "./idb"
@@ -51,6 +54,13 @@ describe("idb", () => {
     await idbPut(LESSONS_STORE, lesson)
     await idbClear(LESSONS_STORE)
     expect(await idbGet<LessonProgress>(LESSONS_STORE, lesson.lessonId)).toBeNull()
+  })
+
+  it("gets all records and deletes by key", async () => {
+    await idbPut(MISTAKES_STORE, { id: "m1", uuid: "u1", front: "hola" })
+    expect(await idbGetAll(MISTAKES_STORE)).toHaveLength(1)
+    await idbDelete(MISTAKES_STORE, "m1")
+    expect(await idbGetAll(MISTAKES_STORE)).toEqual([])
   })
 
   it("rejects when db open fails", async () => {

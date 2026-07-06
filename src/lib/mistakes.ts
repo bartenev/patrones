@@ -1,82 +1,84 @@
+import {
+  idbClear,
+  idbDelete,
+  idbGet,
+  idbGetAll,
+  idbPut,
+  MISTAKES_STORE,
+  openPatronesDb
+} from "./idb"
 import { shuffle } from "./patrones"
 import type { DirMode, QueueItem, StoredMistake } from "../types"
 
-export const MISTAKES_STORAGE_KEY = "patrones:mistakes"
 export const MISTAKES_BATCH_SIZE = 10
 
-export type MistakeRef = Pick<QueueItem, "deck" | "front" | "back"> & {
-  dirMode: DirMode
+export type MistakeRef = Pick<QueueItem, "uuid" | "dirMode">
+
+export function mistakeKey(uuid: string, dirMode: DirMode): string {
+  const dir = dirMode === "rev" ? "rev" : "fwd"
+  return `${uuid}\0${dir}`
 }
 
 export function cardKey(item: MistakeRef): string {
-  return `${item.deck}\0${item.front}\0${item.back}\0${item.dirMode}`
+  return mistakeKey(item.uuid!, item.dirMode)
 }
 
-function normalizeMistake(item: StoredMistake): StoredMistake {
+export function canStoreMistake(item: Pick<QueueItem, "uuid">): boolean {
+  return Boolean(item.uuid)
+}
+
+function normalizeDirMode(dirMode: DirMode): DirMode {
+  return dirMode === "rev" ? "rev" : "fwd"
+}
+
+function toQueueItem(item: StoredMistake): QueueItem {
   return {
-    ...item,
-    dirMode: item.dirMode === "rev" ? "rev" : "fwd"
+    uuid: item.uuid,
+    front: item.front,
+    back: item.back,
+    translation: item.translation,
+    note: item.note,
+    deck: item.deck,
+    lessonId: item.lessonId,
+    section: "",
+    mode: item.mode,
+    dirMode: item.dirMode
   }
 }
 
-function readStore(): Map<string, StoredMistake> {
-  if (typeof localStorage === "undefined") return new Map()
-
-  try {
-    const raw = localStorage.getItem(MISTAKES_STORAGE_KEY)
-    if (!raw) return new Map()
-
-    const list = JSON.parse(raw) as StoredMistake[]
-    if (!Array.isArray(list)) return new Map()
-
-    return new Map(list.map((item) => {
-      const normalized = normalizeMistake(item)
-      return [cardKey(normalized), normalized]
-    }))
-  } catch {
-    return new Map()
-  }
+export async function loadMistakes(): Promise<StoredMistake[]> {
+  return idbGetAll<StoredMistake>(MISTAKES_STORE)
 }
 
-function writeStore(store: Map<string, StoredMistake>) {
-  if (typeof localStorage === "undefined") return
-  if (!store.size) {
-    localStorage.removeItem(MISTAKES_STORAGE_KEY)
-    return
-  }
-  localStorage.setItem(MISTAKES_STORAGE_KEY, JSON.stringify([...store.values()]))
+export async function mistakeCount(): Promise<number> {
+  const mistakes = await loadMistakes()
+  return mistakes.length
 }
 
-export function loadMistakes(): StoredMistake[] {
-  return [...readStore().values()]
-}
-
-export function mistakeCount(): number {
-  return readStore().size
-}
-
-export function mistakesBatchCount(total = mistakeCount()): number {
+export function mistakesBatchCount(total: number): number {
   return Math.min(total, MISTAKES_BATCH_SIZE)
 }
 
-export function pickMistakesForSession(mistakes: StoredMistake[] = loadMistakes()): StoredMistake[] {
-  return [...mistakes]
+export async function pickMistakesForSession(
+  mistakes?: StoredMistake[]
+): Promise<StoredMistake[]> {
+  const list = mistakes ?? await loadMistakes()
+  return [...list]
     .sort((a, b) => b.lastMissedAt - a.lastMissedAt)
     .slice(0, MISTAKES_BATCH_SIZE)
 }
 
-export function recordMistake(item: QueueItem, dirMode: DirMode) {
-  const store = readStore()
-  const ref: MistakeRef = {
-    deck: item.deck,
-    front: item.front,
-    back: item.back,
-    dirMode
-  }
-  const key = cardKey(ref)
-  const prev = store.get(key)
+export async function recordMistake(item: QueueItem, dirMode: DirMode): Promise<void> {
+  if (!canStoreMistake(item) || !item.uuid) return
 
-  store.set(key, {
+  const dir = normalizeDirMode(dirMode)
+  const id = mistakeKey(item.uuid, dir)
+  const prev = await idbGet<StoredMistake>(MISTAKES_STORE, id)
+
+  await idbPut<StoredMistake>(MISTAKES_STORE, {
+    id,
+    uuid: item.uuid,
+    lessonId: item.lessonId,
     deck: item.deck,
     front: item.front,
     back: item.back,
@@ -84,34 +86,26 @@ export function recordMistake(item: QueueItem, dirMode: DirMode) {
     note: item.note,
     section: item.section,
     mode: item.mode,
-    dirMode,
+    dirMode: dir,
     missCount: (prev?.missCount ?? 0) + 1,
     lastMissedAt: Date.now()
   })
-
-  writeStore(store)
 }
 
-export function removeMistake(item: QueueItem, dirMode: DirMode) {
-  const store = readStore()
-  if (!store.delete(cardKey({ deck: item.deck, front: item.front, back: item.back, dirMode }))) return
-  writeStore(store)
+export async function removeMistake(item: QueueItem, dirMode: DirMode): Promise<void> {
+  if (!canStoreMistake(item) || !item.uuid) return
+  await idbDelete(MISTAKES_STORE, mistakeKey(item.uuid, normalizeDirMode(dirMode)))
 }
 
-export function clearMistakes() {
-  if (typeof localStorage === "undefined") return
-  localStorage.removeItem(MISTAKES_STORAGE_KEY)
+export async function clearMistakes(): Promise<void> {
+  await idbClear(MISTAKES_STORE)
 }
 
-export function buildMistakesQueue(): QueueItem[] {
-  return shuffle(pickMistakesForSession().map((item) => ({
-    front: item.front,
-    back: item.back,
-    translation: item.translation,
-    note: item.note,
-    deck: item.deck,
-    section: "",
-    mode: item.mode,
-    dirMode: item.dirMode
-  })))
+export async function initMistakesStore(): Promise<void> {
+  await openPatronesDb()
+}
+
+export async function buildMistakesQueue(): Promise<QueueItem[]> {
+  const picked = await pickMistakesForSession()
+  return shuffle(picked.map(toQueueItem))
 }

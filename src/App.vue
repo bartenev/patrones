@@ -215,8 +215,8 @@ function onCardClick() {
   else pauseTimer()
 }
 
-function refreshMistakeCount() {
-  storedMistakeCount.value = getMistakeCount()
+async function refreshMistakeCount() {
+  storedMistakeCount.value = await getMistakeCount()
 }
 
 async function refreshWeakCount() {
@@ -302,7 +302,7 @@ function startCards() {
 async function startCardsAsync() {
   clearTimer()
   queue.value = isMistakesMode.value
-    ? buildMistakesQueue()
+    ? await buildMistakesQueue()
     : isWeakMode.value
       ? await buildWeakQueue(selectedDecks.value, modeFilter.value, dirMode.value)
       : buildQueue(selectedDecks.value, order.value, modeFilter.value)
@@ -335,14 +335,12 @@ function rate(knew: boolean) {
   if (!knew) {
     missed.value++
     missesRequeued.value++
-    recordMistake(cur.value, effectiveDirMode())
-    refreshMistakeCount()
+    void recordMistake(item, dir).then(() => refreshMistakeCount()).catch(() => {})
     if (isMistakesMode.value || requeue.value) {
       queue.value.push({ ...cur.value, section: "" })
     }
   } else if (isMistakesMode.value) {
-    removeMistake(cur.value, effectiveDirMode())
-    refreshMistakeCount()
+    void removeMistake(item, dir).then(() => refreshMistakeCount()).catch(() => {})
   }
   void refreshWeakCount()
   next()
@@ -392,7 +390,8 @@ onMounted(() => {
 
   const { decks: loaded, bad } = loadDecksFromFolder()
   decks.value = loaded
-  refreshMistakeCount()
+  void refreshMistakeCount()
+  void refreshWeakCount()
 
   if (bad.length) {
     loadErr.value = `Не удалось разобрать: ${bad.join(", ")}`

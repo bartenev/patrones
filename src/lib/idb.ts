@@ -1,6 +1,7 @@
 export const DB_NAME = "patrones"
-export const DB_VERSION = 1
+export const DB_VERSION = 2
 export const LESSONS_STORE = "lessons"
+export const MISTAKES_STORE = "mistakes"
 
 let dbPromise: Promise<IDBDatabase> | null = null
 let dbInstance: IDBDatabase | null = null
@@ -22,10 +23,14 @@ export function openPatronesDb(): Promise<IDBDatabase> {
       if (!db.objectStoreNames.contains(LESSONS_STORE)) {
         db.createObjectStore(LESSONS_STORE, { keyPath: "lessonId" })
       }
+      if (!db.objectStoreNames.contains(MISTAKES_STORE)) {
+        db.createObjectStore(MISTAKES_STORE, { keyPath: "id" })
+      }
     }
 
     request.onsuccess = () => {
       dbInstance = request.result
+      /* v8 ignore next 3 -- fake-idb does not emulate connection close */
       dbInstance.onclose = () => {
         dbInstance = null
         dbPromise = null
@@ -51,6 +56,26 @@ export async function closePatronesDb(): Promise<void> {
   dbInstance.close()
   dbInstance = null
   dbPromise = null
+}
+
+export async function idbGetAll<T>(storeName: string): Promise<T[]> {
+  const db = await openPatronesDb()
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, "readonly")
+    const request = tx.objectStore(storeName).getAll()
+    request.onsuccess = () => resolve((request.result as T[]) ?? [])
+    request.onerror = () => reject(request.error ?? new Error("indexedDB getAll failed"))
+  })
+}
+
+export async function idbDelete(storeName: string, key: IDBValidKey): Promise<void> {
+  const db = await openPatronesDb()
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, "readwrite")
+    const request = tx.objectStore(storeName).delete(key)
+    request.onsuccess = () => resolve()
+    request.onerror = () => reject(request.error ?? new Error("indexedDB delete failed"))
+  })
 }
 
 export async function idbGet<T>(storeName: string, key: IDBValidKey): Promise<T | null> {

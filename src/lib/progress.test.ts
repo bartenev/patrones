@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
-import { closePatronesDb, deletePatronesDb, resetPatronesDbCache } from "./idb"
+import { clearMistakes } from "./mistakes"
+import { closePatronesDb, resetPatronesDbCache } from "./idb"
 import {
   canTrackProgress,
   cardWeakness,
@@ -35,14 +36,15 @@ const sample: QueueItem = {
 describe("progress store (indexedDB)", () => {
   beforeEach(async () => {
     resetPatronesDbCache()
-    await deletePatronesDb()
     await initProgressStore()
+    await clearAllProgress()
+    await clearMistakes()
   })
 
   afterEach(async () => {
     await clearAllProgress()
+    await clearMistakes()
     await closePatronesDb()
-    await deletePatronesDb()
     resetPatronesDbCache()
   })
 

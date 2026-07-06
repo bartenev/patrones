@@ -1,8 +1,8 @@
 import { flushPromises, mount, VueWrapper } from "@vue/test-utils"
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 import type { Deck, QueueItem } from "./types"
 import * as patrones from "./lib/patrones"
-import { recordMistake } from "./lib/mistakes"
+import { clearMistakes, initMistakesStore, loadMistakes, recordMistake } from "./lib/mistakes"
 import { clearAllProgress, getLessonProgress, initProgressStore, recordProgress } from "./lib/progress"
 import { closePatronesDb, resetPatronesDbCache } from "./lib/idb"
 
@@ -82,11 +82,17 @@ async function setTimer(wrapper: VueWrapper, seconds: string) {
 }
 
 describe("App", () => {
-  beforeEach(async () => {
-    wrappers = []
+  beforeAll(async () => {
     resetPatronesDbCache()
     await initProgressStore()
+    await initMistakesStore()
+  })
+
+  beforeEach(async () => {
+    vi.useRealTimers()
+    wrappers = []
     await clearAllProgress()
+    await clearMistakes()
     loadDecksFromFolderMock.mockClear()
     loadDecksFromFolderMock.mockImplementation(() => ({
       decks: structuredClone(mockDecks),
@@ -105,11 +111,13 @@ describe("App", () => {
     }))
   })
 
-  afterEach(() => {
+  afterEach(async () => {
+    vi.useRealTimers()
     wrappers.forEach((w) => w.unmount())
     wrappers = []
     vi.restoreAllMocks()
     vi.unstubAllGlobals()
+    await flushPromises()
   })
 
   it("renders setup with loaded units", async () => {
@@ -317,11 +325,10 @@ describe("App", () => {
   })
 
   it("auto flips and advances on timer", async () => {
+    const wrapper = await mountApp()
+    await setTimer(wrapper, "2")
     vi.useFakeTimers()
     try {
-      const wrapper = await mountApp()
-      await setTimer(wrapper, "2")
-      await flushPromises()
       await startDrill(wrapper)
       expect(wrapper.find(".card-timer").exists()).toBe(true)
       expect(wrapper.find(".reveal").exists()).toBe(false)
@@ -334,51 +341,50 @@ describe("App", () => {
       expect(wrapper.text()).toContain("¡Listo!")
     } finally {
       vi.useRealTimers()
+      await flushPromises()
     }
   })
 
   it("clears active timer when quitting drill", async () => {
+    const wrapper = await mountApp()
+    await setTimer(wrapper, "3")
     vi.useFakeTimers()
     const clearSpy = vi.spyOn(global, "clearTimeout")
     try {
-      const wrapper = await mountApp()
-      await setTimer(wrapper, "3")
-      await flushPromises()
       await startDrill(wrapper)
       await wrapper.find(".bar .ghost").trigger("click")
-      await flushPromises()
       expect(clearSpy).toHaveBeenCalled()
     } finally {
       clearSpy.mockRestore()
       vi.useRealTimers()
+      await flushPromises()
     }
   })
 
   it("autospeaks on timer reveal", async () => {
+    const wrapper = await mountApp()
+    await setTimer(wrapper, "1")
+    await openModeTab(wrapper)
+    await wrapper.findAll("label.opt-toggle input")[0].setValue(true)
+    await flushPromises()
     vi.useFakeTimers()
     try {
-      const wrapper = await mountApp()
-      await setTimer(wrapper, "1")
-      await openModeTab(wrapper)
-      await wrapper.findAll("label.opt-toggle input")[0].setValue(true)
-      await flushPromises()
       await startDrill(wrapper)
       await vi.advanceTimersByTimeAsync(1000)
       await flushPromises()
       expect(speechSynthesis.speak).toHaveBeenCalled()
     } finally {
       vi.useRealTimers()
+      await flushPromises()
     }
   })
 
   it("pauses and resumes timer on card click", async () => {
+    const wrapper = await mountApp()
+    await setTimer(wrapper, "2")
     vi.useFakeTimers()
     try {
-      const wrapper = await mountApp()
-      await setTimer(wrapper, "2")
-      await flushPromises()
       await startDrill(wrapper)
-
       const card = wrapper.get(".card")
       expect(card.classes()).not.toContain("paused")
 
@@ -399,17 +405,16 @@ describe("App", () => {
       expect(wrapper.text()).toContain("привет")
     } finally {
       vi.useRealTimers()
+      await flushPromises()
     }
   })
 
   it("resumes answer timer and advances to done", async () => {
+    const wrapper = await mountApp()
+    await setTimer(wrapper, "1")
     vi.useFakeTimers()
     try {
-      const wrapper = await mountApp()
-      await setTimer(wrapper, "1")
-      await flushPromises()
       await startDrill(wrapper)
-
       await vi.advanceTimersByTimeAsync(1000)
       await flushPromises()
       expect(wrapper.text()).toContain("привет")
@@ -427,6 +432,7 @@ describe("App", () => {
       expect(wrapper.text()).toContain("¡Listo!")
     } finally {
       vi.useRealTimers()
+      await flushPromises()
     }
   })
 
@@ -608,25 +614,28 @@ describe("App", () => {
     expect(wrapper.find(".secbar").text()).toContain("Mix")
   })
 
-  it("stores mistake in localStorage on miss", async () => {
+  it("stores mistake in indexedDB on miss", async () => {
     const wrapper = await mountApp()
     await startDrill(wrapper)
     await wrapper.get(".reveal").trigger("click")
     await wrapper.get(".missed").trigger("click")
     await flushPromises()
-    expect(wrapper.text()).toContain("5 — только ошибки (1)")
-    expect(localStorage.getItem("patrones:mistakes")).toContain("hola")
+    await vi.waitUntil(async () => (await loadMistakes()).length === 1)
+    await vi.waitUntil(() => wrapper.text().includes("5 — только ошибки (1)"), { timeout: 3000 })
+    expect((await loadMistakes())[0].front).toBe("hola")
   })
 
   it("runs mistakes-only mode and removes card when knew", async () => {
-    recordMistake({
+    await recordMistake({
       front: "hola",
       back: "привет",
       translation: "",
       note: "",
       deck: "Unit B",
+      lessonId: "unit-b.json",
       section: "",
-      mode: "vocab"
+      mode: "vocab",
+      uuid: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb"
     }, "fwd")
 
     const wrapper = await mountApp()
@@ -640,18 +649,20 @@ describe("App", () => {
     await wrapper.get(".knew").trigger("click")
     await flushPromises()
     expect(wrapper.text()).toContain("¡Listo!")
-    expect(localStorage.getItem("patrones:mistakes")).toBeNull()
+    expect(await loadMistakes()).toEqual([])
   })
 
   it("requeues missed card in mistakes mode until knew", async () => {
-    recordMistake({
+    await recordMistake({
       front: "hola",
       back: "привет",
       translation: "",
       note: "",
       deck: "Unit B",
+      lessonId: "unit-b.json",
       section: "",
-      mode: "vocab"
+      mode: "vocab",
+      uuid: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb"
     }, "fwd")
 
     const wrapper = await mountApp()
@@ -666,7 +677,7 @@ describe("App", () => {
     await wrapper.get(".knew").trigger("click")
     await flushPromises()
     expect(wrapper.text()).toContain("¡Listo!")
-    expect(localStorage.getItem("patrones:mistakes")).toBeNull()
+    expect(await loadMistakes()).toEqual([])
   })
 
   it("stores separate mistakes per direction mode", async () => {
@@ -680,9 +691,13 @@ describe("App", () => {
     await wrapper.get(".reveal").trigger("click")
     await wrapper.get(".missed").trigger("click")
     await flushPromises()
-    expect(wrapper.text()).toContain("5 — только ошибки (2)")
-    const stored = JSON.parse(localStorage.getItem("patrones:mistakes") || "[]")
-    expect(stored.map((item: { dirMode: string }) => item.dirMode).sort()).toEqual(["fwd", "rev"])
+    await vi.waitUntil(async () => (await loadMistakes()).length === 2)
+    await vi.waitUntil(async () => {
+      await flushPromises()
+      return wrapper.text().includes("5 — только ошибки (2)")
+    }, { timeout: 3000 })
+    const stored = await loadMistakes()
+    expect(stored.map((item) => item.dirMode).sort()).toEqual(["fwd", "rev"])
   })
 
   it("toggles block selection inside unit", async () => {
@@ -731,15 +746,41 @@ describe("App", () => {
     expect(wrapper.text()).toContain("¡Listo!")
   })
 
+  it("closes blocks picker when unit is deselected", async () => {
+    loadDecksFromFolderMock.mockImplementationOnce(() => ({
+      decks: [{
+        name: "Blocks",
+        fileName: "blocks.json",
+        on: true,
+        blocks: [{
+          title: "A",
+          mode: "vocab",
+          on: true,
+          cards: [{ front: "a", back: "b", translation: "", note: "" }]
+        }]
+      }],
+      bad: []
+    }))
+    const wrapper = await mountApp()
+    await wrapper.get(".blocks-btn").trigger("click")
+    await flushPromises()
+    expect(document.body.querySelector(".blocks-popover")).toBeTruthy()
+    await wrapper.get(".deck").trigger("click")
+    await flushPromises()
+    expect(document.body.querySelector(".blocks-popover")).toBeFalsy()
+  })
+
   it("replays mistake in saved direction mode", async () => {
-    recordMistake({
+    await recordMistake({
       front: "hola",
       back: "привет",
       translation: "",
       note: "",
       deck: "Unit B",
+      lessonId: "unit-b.json",
       section: "",
-      mode: "vocab"
+      mode: "vocab",
+      uuid: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb"
     }, "rev")
 
     const wrapper = await mountApp()
@@ -760,20 +801,56 @@ describe("App", () => {
 
   it("shows partial mistakes batch label", async () => {
     for (let i = 0; i < 11; i++) {
-      recordMistake({
+      await recordMistake({
         front: `f${i}`,
         back: `b${i}`,
         translation: "",
         note: "",
         deck: `Unit ${i}`,
+        lessonId: `unit-${i}.json`,
         section: "",
-        mode: "vocab"
+        mode: "vocab",
+        uuid: `00000000-0000-4000-8000-${String(i).padStart(12, "0")}`
       }, "fwd")
     }
     const wrapper = await mountApp()
     await setOrder(wrapper, "mistakes")
     await flushPromises()
     expect(wrapper.text()).toContain("Повторить ошибки → 10 из 11 пар")
+  })
+
+  it("shows partial weak batch label", async () => {
+    const cards = []
+    for (let i = 0; i < 11; i++) {
+      const uuid = `00000000-0000-4000-8000-${String(i).padStart(12, "0")}`
+      cards.push({ front: `f${i}`, back: `b${i}`, translation: "", note: "", uuid })
+      const item = {
+        deck: "Weak",
+        lessonId: "weak.json",
+        front: `f${i}`,
+        back: `b${i}`,
+        translation: "",
+        note: "",
+        section: "",
+        mode: "vocab" as const,
+        uuid
+      }
+      await recordProgress(item, "fwd", "missed")
+      await recordProgress(item, "fwd", "missed")
+    }
+    loadDecksFromFolderMock.mockImplementationOnce(() => ({
+      decks: [{
+        name: "Weak",
+        fileName: "weak.json",
+        on: true,
+        blocks: [{ title: "B", mode: "vocab", on: true, cards }]
+      }],
+      bad: []
+    }))
+    const wrapper = await mountApp()
+    await setOrder(wrapper, "weak")
+    await flushPromises()
+    await vi.waitUntil(() => wrapper.text().includes("Сложные → 10 из 11 пар"), { timeout: 3000 })
   })
 
   it("toggles mode filter and shows empty state", async () => {
