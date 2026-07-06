@@ -7,7 +7,7 @@ import {
   selectedDeckCount,
   visibleDecks
 } from "../lib/patrones"
-import type { Block, BackupExportMode, CardMode, Deck, DirMode, LessonMastery, OrderMode, SetupTab, TimerSec } from "../types"
+import type { Block, CardMode, Deck, DirMode, LessonMastery, OrderMode, SetupTab, TimerSec } from "../types"
 
 const modeFilterOptions: { value: CardMode; label: string }[] = [
   { value: "transform", label: "transform" },
@@ -34,23 +34,16 @@ const requeue = defineModel<boolean>("requeue", { required: true })
 const timerSec = defineModel<TimerSec>("timerSec", { required: true })
 const modeFilter = defineModel<CardMode[]>("modeFilter", { required: true })
 const setupTab = defineModel<SetupTab>("setupTab", { required: true })
-const backupExportMode = defineModel<BackupExportMode>("backupExportMode", { required: true })
 
 const emit = defineEmits<{
   start: []
   startMistakes: []
   refreshWeak: []
-  exportBackup: [mode: BackupExportMode]
+  exportBackup: []
 }>()
 
 const blocksPickerDeck = ref<Deck | null>(null)
 const summaryDeck = ref<Deck | null>(null)
-
-const backupActionLabel = computed(() =>
-  backupExportMode.value === "clipboard"
-    ? "Скопировать в буфер"
-    : "Скачать резервную копию"
-)
 
 const filteredDecks = computed(() => visibleDecks(props.decks, modeFilter.value))
 
@@ -432,18 +425,8 @@ onUnmounted(() => {
         <div class="data-block">
           <h3>Данные</h3>
           <p class="data-hint">Прогресс и банк ошибок из IndexedDB</p>
-          <div class="backup-radio" role="radiogroup" aria-label="Способ экспорта">
-            <label class="backup-radio__item">
-              <input v-model="backupExportMode" type="radio" value="download">
-              <span>Скачать файл</span>
-            </label>
-            <label class="backup-radio__item">
-              <input v-model="backupExportMode" type="radio" value="clipboard">
-              <span>Скопировать в буфер</span>
-            </label>
-          </div>
-          <button class="file-btn" type="button" @click="emit('exportBackup', backupExportMode)">
-            {{ backupActionLabel }}
+          <button class="file-btn" type="button" @click="emit('exportBackup')">
+            Экспорт JSON
           </button>
         </div>
       </div>

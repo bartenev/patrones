@@ -54,12 +54,3 @@ export async function downloadPatronesBackup(): Promise<PatronesBackup> {
   downloadJsonFile(backupFileName(backup.exportedAt), serializePatronesBackup(backup))
   return backup
 }
-
-export async function copyPatronesBackupToClipboard(): Promise<PatronesBackup> {
-  const backup = await exportPatronesBackup()
-  if (!navigator.clipboard?.writeText) {
-    throw new Error("clipboard unavailable")
-  }
-  await navigator.clipboard.writeText(serializePatronesBackup(backup))
-  return backup
-}

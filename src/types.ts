@@ -133,8 +133,6 @@ export interface PatronesBackup {
   settings?: PatronesSettings
 }
 
-export type BackupExportMode = "download" | "clipboard"
-
 export type SetupTab = "content" | "mode"
 
 export type LessonMasteryLevel = "none" | "low" | "mid" | "good" | "solid"
@@ -171,6 +169,5 @@ export interface PatronesSettings {
   timerSec: TimerSec
   modeFilter: CardMode[]
   setupTab: SetupTab
-  backupExportMode: BackupExportMode
   decks: Record<string, StoredDeckSelection>
 }

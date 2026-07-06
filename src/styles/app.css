@@ -645,26 +645,6 @@ li.deck .ct {
   font-size: 13px;
 }
 
-.backup-radio {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 0 0 12px;
-}
-
-.backup-radio__item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.backup-radio__item input {
-  margin: 0;
-  accent-color: var(--azulejo);
-}
-
 .data-block .file-btn {
   width: 100%;
 }
@@ -1037,7 +1017,6 @@ kbd {
   input,
   .deck-toggle,
   .order-radio__item,
-  .backup-radio__item,
   .seg button,
   li.deck {
     -webkit-tap-highlight-color: transparent;

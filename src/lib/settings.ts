@@ -1,7 +1,6 @@
 import { idbDelete, idbGet, idbPut, SETTINGS_STORE } from "./idb"
 import { ALL_CARD_MODES } from "../types"
 import type {
-  BackupExportMode,
   CardMode,
   Deck,
   DirMode,
@@ -26,7 +25,6 @@ const ORDER_MODES: OrderMode[] = [
 
 const TIMER_VALUES: TimerSec[] = [0, 1, 2, 3, 4, 5]
 const SETUP_TABS: SetupTab[] = ["content", "mode"]
-const BACKUP_MODES: BackupExportMode[] = ["download", "clipboard"]
 
 export interface PatronesSettingsRefs {
   isDark: { value: boolean }
@@ -37,7 +35,6 @@ export interface PatronesSettingsRefs {
   timerSec: { value: TimerSec }
   modeFilter: { value: CardMode[] }
   setupTab: { value: SetupTab }
-  backupExportMode: { value: BackupExportMode }
 }
 
 let saveTimer: ReturnType<typeof setTimeout> | null = null
@@ -95,9 +92,6 @@ export function normalizePatronesSettings(raw: unknown): PatronesSettings | null
   const setupTab = SETUP_TABS.includes(value.setupTab as SetupTab)
     ? value.setupTab as SetupTab
     : "content"
-  const backupExportMode = BACKUP_MODES.includes(value.backupExportMode as BackupExportMode)
-    ? value.backupExportMode as BackupExportMode
-    : "download"
   const decks = normalizeDecks(value.decks)
   if (!decks) return null
 
@@ -113,7 +107,6 @@ export function normalizePatronesSettings(raw: unknown): PatronesSettings | null
     timerSec: value.timerSec as TimerSec,
     modeFilter,
     setupTab,
-    backupExportMode,
     decks
   }
 }
@@ -149,7 +142,6 @@ export function buildPatronesSettings(
     timerSec: refs.timerSec.value,
     modeFilter: [...refs.modeFilter.value],
     setupTab: refs.setupTab.value,
-    backupExportMode: refs.backupExportMode.value,
     decks: collectDeckSelections(decks)
   }
 }
@@ -163,7 +155,6 @@ export function applyPatronesSettings(settings: PatronesSettings, refs: Patrones
   refs.timerSec.value = settings.timerSec
   refs.modeFilter.value = [...settings.modeFilter]
   refs.setupTab.value = settings.setupTab
-  refs.backupExportMode.value = settings.backupExportMode
 }
 
 export function applyDeckSelections(decks: Deck[], saved: Record<string, StoredDeckSelection>): void {

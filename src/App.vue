@@ -15,7 +15,7 @@ import {
 import { dequeue } from "./lib/queue"
 import { recordProgressSafe, buildWeakQueue, countWeakCards, weakBatchCount } from "./lib/progress"
 import { loadDecksMasteryMap } from "./lib/mastery"
-import { copyPatronesBackupToClipboard, downloadPatronesBackup } from "./lib/backup"
+import { downloadPatronesBackup } from "./lib/backup"
 import {
   applyDeckSelections,
   applyPatronesSettings,
@@ -26,7 +26,6 @@ import {
 import { ALL_CARD_MODES } from "./types"
 import type {
   AppView,
-  BackupExportMode,
   CardMode,
   Deck,
   DirMode,
@@ -55,7 +54,6 @@ const autospeak = ref(false)
 const timerSec = ref<TimerSec>(0)
 const isDark = ref(true)
 const setupTab = ref<SetupTab>("content")
-const backupExportMode = ref<BackupExportMode>("download")
 const settingsHydrated = ref(false)
 const esVoice = ref<SpeechSynthesisVoice | null>(null)
 const timerFill = ref("0%")
@@ -411,8 +409,7 @@ const settingsRefs = {
   autospeak,
   timerSec,
   modeFilter,
-  setupTab,
-  backupExportMode
+  setupTab
 }
 
 function persistSettings() {
@@ -425,9 +422,8 @@ function toggleTheme() {
   document.documentElement.setAttribute("data-theme", isDark.value ? "dark" : "light")
 }
 
-function exportBackup(mode: BackupExportMode) {
-  const action = mode === "clipboard" ? copyPatronesBackupToClipboard : downloadPatronesBackup
-  void action().catch(() => {})
+function exportBackup() {
+  void downloadPatronesBackup().catch(() => {})
 }
 
 function onKeydown(e: KeyboardEvent) {
@@ -481,7 +477,7 @@ onMounted(async () => {
 })
 
 watch(
-  [isDark, order, dirMode, requeue, autospeak, timerSec, modeFilter, setupTab, backupExportMode, decks],
+  [isDark, order, dirMode, requeue, autospeak, timerSec, modeFilter, setupTab, decks],
   () => {
     persistSettings()
   },
@@ -521,7 +517,6 @@ onUnmounted(() => {
       v-model:timer-sec="timerSec"
       v-model:mode-filter="modeFilter"
       v-model:setup-tab="setupTab"
-      v-model:backup-export-mode="backupExportMode"
       :decks="decks"
       :deck-mastery="deckMastery"
       :load-err="loadErr"
