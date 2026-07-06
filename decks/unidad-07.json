@@ -17,7 +17,7 @@
       "title": "Один из класса / группы → un/una",
       "mode": "cloze",
       "cards": [
-        { "front": "Un hijo de Andrés es médico. (Andrés tiene tres hijos)", "back": "Un", "note": "один из многих → un", "translation": "Один из сыновей Андреса — врач.", "uuid": "98e275fe-5eaa-4ae3-9e10-c0da6cf2a055" },
+        { "front": "___ hijo de Andrés es médico. (Andrés tiene tres hijos)", "back": "Un", "note": "один из многих → un", "translation": "Один из сыновей Андреса — врач.", "uuid": "98e275fe-5eaa-4ae3-9e10-c0da6cf2a055" },
         { "front": "Tucumán es ___ ciudad de Argentina.", "back": "una", "note": "одна из многих → una", "translation": "Тукуман — (один из) городов Аргентины.", "uuid": "10e609c6-53e9-44f1-a9ef-e7ab39c6e2d1" },
         { "front": "Chihuahua es ___ ciudad de México.", "back": "una", "note": "одна из многих → una", "translation": "Чиуауа — город Мексики.", "uuid": "6648d38d-e8ef-4ac1-97ad-5f9f9ae648fa" },
         { "front": "He visto ___ película de terror.", "back": "una", "note": "одна из класса → una", "translation": "Я посмотрел фильм ужасов.", "uuid": "29b8da0b-80da-4f19-b4dc-232b6c40ba05" },
@@ -58,7 +58,7 @@
       "title": "Единственное / конкретное в ситуации → el/la",
       "mode": "cloze",
       "cards": [
-        { "front": "La hija de Rosa es escritora. (Rosa tiene una hija)", "back": "La", "note": "единственная → la", "translation": "Дочь Розы — писательница.", "uuid": "c01832cf-c6a3-47c5-8c1e-199475e8bab1" },
+        { "front": "___ hija de Rosa es escritora. (Rosa tiene una hija)", "back": "La", "note": "единственная → la", "translation": "Дочь Розы — писательница.", "uuid": "c01832cf-c6a3-47c5-8c1e-199475e8bab1" },
         { "front": "Buenos Aires es ___ capital de Argentina.", "back": "la", "note": "единственная → la", "translation": "Буэнос-Айрес — столица Аргентины.", "uuid": "4f25a3f2-afb8-4d7b-9b37-254b26766ee6" },
         { "front": "¿Quién es ___ primer ministro?", "back": "el", "note": "единственный → el", "translation": "Кто премьер-министр?", "uuid": "ea754d89-4f3b-46a6-b97f-9f2e3bbc5e6d" },
         { "front": "___ novia de Arturo es brasileña.", "back": "La", "note": "единственная → la", "translation": "Девушка Артуро — бразильянка.", "uuid": "66bbb554-5f6a-4896-b599-bcea6819a586" },
